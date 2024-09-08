@@ -9,6 +9,6 @@ class SensorData extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['data_file_id', 'timestamp', 'V1', 'I1', 'P1', 'Q1', 'E1', 'temperature'];
+    protected $fillable = ['timestamp', 'temperature', 'humidity'];
     protected $dates = ['timestamp'];
 }

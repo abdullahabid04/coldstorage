@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             UsersTableSeeder::class,
-            FactoryTableSeeder::class,
+            StoreSeeder::class,
+            StoreUserSeeder::class,
             DeviceTableSeeder::class,
-            DataFileSeeder::class,
             SensorDataSeeder::class,
         ]);
     }

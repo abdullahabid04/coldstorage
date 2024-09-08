@@ -2,26 +2,27 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Device;
+use App\Models\Store;
+use Faker\Factory as Faker;
 
 class DeviceTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $now = Carbon::now();
+        $faker = Faker::create();
+        $stores = Store::all();
 
-        DB::table('devices')->insert([
-            [
-                'serial_number' => 'MC000001',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-        ]);
+        // Loop over each store and assign devices
+        foreach ($stores as $store) {
+            for ($i = 1; $i <= 3; $i++) {
+                Device::create([
+                    'serial_number' => 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT),
+                    'description' => $faker->sentence,
+                    'store_id' => $store->id,
+                ]);
+            }
+        }
     }
 }

@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,28 +16,20 @@ class UsersTableSeeder extends Seeder
     {
         $now = Carbon::now();
 
+        // Insert the two specific users
         DB::table('users')->insert([
-            [
-                'name' => 'Muhammad Tariq',
-                'email' => 'saaim01@gmail.com',
-                'password' => '$2y$12$L2KOuUpth.QzPslprcBoRu0nVbcNJIAbruP4h7BmhGiAFTpxmr5KK',
-                'status' => true,
-                'role_id' => 1,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'name' => 'Abid Javaid',
-                'email' => 'abid@iub.edu.pk',
-                'password' => '$2y$12$L2KOuUpth.QzPslprcBoRu0nVbcNJIAbruP4h7BmhGiAFTpxmr5KK',
-                'status' => true,
-                'role_id' => 1,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
             [
                 'name' => 'Abdullah Abid',
                 'email' => 'abdrps2004@gmail.com',
+                'password' => bcrypt('password'),
+                'status' => true,
+                'role_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Hanzla Habib',
+                'email' => 'sayhi.hanzla@gmail.com',
                 'password' => '$2y$12$L2KOuUpth.QzPslprcBoRu0nVbcNJIAbruP4h7BmhGiAFTpxmr5KK',
                 'status' => true,
                 'role_id' => 1,
@@ -45,5 +37,23 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
         ]);
+
+        // Use Faker to generate additional 6 users
+        $faker = Faker::create();
+
+        // Role IDs 2, 3, 4 - 2 users per role
+        $roles = [2, 2, 3, 3, 4, 4];
+
+        foreach ($roles as $roleId) {
+            DB::table('users')->insert([
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'password' => bcrypt('password'), // Or use any secure default password
+                'status' => true,
+                'role_id' => $roleId,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 }
