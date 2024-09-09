@@ -25,25 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/data/upload', [DataFileController::class, 'upload'])->name('upload');
-Route::post('/data/edit', [DataFileController::class, 'edit'])->name('edit');
-Route::post('/data/replace', [DataFileController::class, 'replace'])->name('replace');
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/sites', [SiteController::class, 'fetch']);
 
 Route::post('/factory-users', [FactoryUserController::class, 'store'])->name('api.factory-users.store');
 
-
-Route::prefix('file-ota')->group(function () {
-    Route::get('/', [BinFileController::class, 'index']);
-    Route::post('/', [BinFileController::class, 'upload']);
-    Route::get('/{id}', [BinFileController::class, 'download']);
-    Route::put('/{id}', [BinFileController::class, 'update']);
-    Route::delete('/{id}', [BinFileController::class, 'destroy']);
-    Route::post('/replace', [BinFileController::class, 'replace']);
-});
-
 Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']);
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
 Route::get('sensor-data/{entityType}/{entityId}/', [SensorDataController::class, 'fetch']);
 Route::get('sensor-data/{entityType}/{entityId}/energy', [SensorDataController::class, 'fetchEnergyData']);
+
+Route::post('/sensor-data/store', [SensorDataController::class, 'storeSensorData']);
+Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity']);
+Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
