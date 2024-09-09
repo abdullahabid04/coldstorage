@@ -31,11 +31,10 @@ class HomeController extends Controller
         if (Auth::user()) {
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
+            } else if (Auth::user()->role->id == 4) {
+              return view('dashboard.client');
             } else {
-                $userID = Auth::id();
-                $factories = $this->factoryService->load($request, $userID);
-                $timeframeOptions = getTimeframeOption();
-                return view('dashboard.client', compact('factories', 'timeframeOptions'));
+                return view('dashboard.client');
             }
         } else {
             redirect()->route('login');
