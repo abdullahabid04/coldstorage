@@ -29,13 +29,17 @@ class AuthController extends Controller
         // Attempt to log the user in
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $token = $user->createToken('API Token')->accessToken;
 
+            // Use plainTextToken to get the token string
+            $token = $user->createToken('API Token')->plainTextToken;
+
+            // Return the response, but exclude the devices from the user object
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
                 'token' => $token,
-                'user' => $user,
+                'user' => $user->makeHidden('devices'), // Hide the 'devices' relation in the user object
+                'devices' => $user->devices->pluck('id'), // Still return the device IDs
             ]);
         }
 
