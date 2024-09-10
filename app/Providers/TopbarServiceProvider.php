@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Factory;
+use App\Models\Store;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades;
 use Illuminate\View\View;
@@ -22,9 +22,8 @@ class TopbarServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Facades\View::composer('layouts.partial.topbar', function (View $view)
-        {
-//            $view->with('stores', Factory::with('sites')->get());
+        Facades\View::composer('layouts.partial.topbar', function (View $view) {
+            $view->with('stores', Store::with('devices')->get());
         });
     }
 }

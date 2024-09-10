@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Device;
 use App\Models\SensorData;
 use App\Services\SensorDataService;
 use Carbon\Carbon;
@@ -195,5 +196,15 @@ class SensorDataController extends Controller
             'success' => true,
             'message' => 'Sensor data has been stored successfully.',
         ], 201);
+    }
+
+    public function fetchData(int $deviceId, bool $jsonResponse = true, bool $latest = true, string $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc')
+    {
+        return app(SensorDataService::class)->fetchData($deviceId, $jsonResponse, $latest, $startDate, $orderByCol, $orderByDirection);
+    }
+
+    public function fetchAvgData(int $deviceId, bool $jsonResponse = true, string|null $startDate = null)
+    {
+        return app(SensorDataService::class)->fetchAvgData($deviceId, $jsonResponse, $startDate);
     }
 }

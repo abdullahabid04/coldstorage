@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Services\SensorDataService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
 {
+    protected SensorDataService $sensorDataService;
+
+    public function __construct(SensorDataService $sensorDataService)
+    {
+        $this->sensorDataService = $sensorDataService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -40,7 +49,6 @@ class DeviceController extends Controller
         $device->save();
 
         return redirect()->route('devices.index')->with('success', 'Device created successfully.');
-
     }
 
     /**
@@ -48,7 +56,21 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        //
+        if (in_array(Auth::user()->role->id, [1, 2])) {
+            return view('admin.devices.show', compact('device'));
+        }
+
+        $chartData = $this->sensorDataService->fetchData($device->id, false, false, '1d', orderByDirection: 'asc');
+
+        $avgData = [
+            '1d' => $this->sensorDataService->fetchAvgData($device->id, false, '1d'),
+            '1w' => $this->sensorDataService->fetchAvgData($device->id, false, '1w'),
+            '1m' => $this->sensorDataService->fetchAvgData($device->id, false, '1m'),
+            '1y' => $this->sensorDataService->fetchAvgData($device->id, false, '1y'),
+            'all' => $this->sensorDataService->fetchAvgData($device->id, false),
+        ];
+
+        return view('client.devices.show', compact('device', 'chartData', 'avgData'));
     }
 
     /**
@@ -82,6 +104,5 @@ class DeviceController extends Controller
         $device->delete();
 
         return redirect()->route('devices.index')->with('success', 'Device deleted successfully.');
-
     }
 }

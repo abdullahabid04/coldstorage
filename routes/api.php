@@ -40,3 +40,4 @@ Route::get('sensor-data/{entityType}/{entityId}/energy', [SensorDataController::
 Route::post('/sensor-data/store', [SensorDataController::class, 'storeSensorData']);
 Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity']);
 Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
+Route::get('/sensor-data/{deviceId}', [SensorDataController::class, 'fetchData']);
