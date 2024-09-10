@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Factory;
+use App\Models\Device;
 use App\Models\Store;
 use App\Models\User;
-use App\Services\FactoryService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -18,8 +16,9 @@ class StoreController extends Controller
     {
         $stores = Store::all();
         $users = User::all();
+        $devices = Device::all();
 
-        return view('admin.stores.index', compact('stores', 'users'));
+        return view('admin.stores.index', compact('stores', 'users', 'devices'));
     }
 
 
@@ -59,7 +58,7 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Factory $factory)
+    public function edit(Store $store)
     {
         return view('admin.stores.edit', compact('factory'));
     }
@@ -67,7 +66,7 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Factory $factory)
+    public function update(Request $request, Store $store)
     {
         $this->validate(request(), [
             'title' => 'required|string',
@@ -76,14 +75,14 @@ class StoreController extends Controller
             'email' => 'required|email',
         ]);
 
-        $factory->title = $request->input('title');
-        $factory->address = $request->input('address');
-        $factory->owner_name = $request->input('owner_name');
-        $factory->owner_cnic = $request->input('owner_cnic');
-        $factory->email = $request->input('email');
-        $factory->contact_no = $request->input('contact_no');
-        $factory->fax = $request->input('fax');
-        $factory->save();
+        $store->title = $request->input('title');
+        $store->address = $request->input('address');
+        $store->owner_name = $request->input('owner_name');
+        $store->owner_cnic = $request->input('owner_cnic');
+        $store->email = $request->input('email');
+        $store->contact_no = $request->input('contact_no');
+        $store->fax = $request->input('fax');
+        $store->save();
 
         return redirect(route('stores.index'))->with('message', 'Factory registration updated successfully.');
     }
@@ -91,28 +90,10 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Factory $factory)
+    public function destroy(Store $store)
     {
-        $factory->delete();
+        $store->delete();
         return redirect()->route('stores.index')->with('message', 'Factory deleted successfully.');
 
-    }
-
-    public function fetch(Request $request)
-    {
-        if ($request->input('id')) {
-            $data = Factory::where('id', $request->input('id'))
-                ->with(['sites'])
-                ->first();
-
-            if ($data) return response()->json($data, 200);
-            else return response()->json(['message' => 'Factory is not registered in the system.'], 404);
-        } else {
-            $data = Factory::with(['sites'])
-                ->get();
-
-            if ($data) return response()->json($data, 200);
-            else return response()->json(['message' => 'No stores registered in the system.'], 404);
-        }
     }
 }

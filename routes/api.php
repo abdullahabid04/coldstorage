@@ -6,6 +6,7 @@ use App\Http\Controllers\FactoryUserController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreUserController;
+use App\Http\Controllers\StoreDeviceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::get('/sites', [SiteController::class, 'fetch']);
 
 Route::post('/factory-users', [FactoryUserController::class, 'store'])->name('api.factory-users.store');
 Route::post('/store-users', [StoreUserController::class, 'store'])->name('api.store-users.store');
+Route::post('store-devices', [StoreDeviceController::class, 'store'])->name('api.store-devices.store');
 
 Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']);
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
