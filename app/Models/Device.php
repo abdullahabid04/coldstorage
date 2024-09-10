@@ -21,6 +21,12 @@ class Device extends Model
         return $this->belongsTo(Store::class); // Inverse of one-to-many relationship
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'device_user')
+            ->withTimestamps();
+    }
+
     public function getSerial(): string
     {
         do {

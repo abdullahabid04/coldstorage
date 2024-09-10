@@ -3,23 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Factory;
-use App\Models\Store;
 use App\Models\User;
 use App\Services\FactoryService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-class StoreController extends Controller
+class FactoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $stores = Store::all();
+        $factories = Factory::all();
         $users = User::all();
 
-        return view('admin.stores.index', compact('stores', 'users'));
+        return view('admin.stores.index', compact('factories', 'users'));
     }
 
 
@@ -43,15 +42,15 @@ class StoreController extends Controller
             'email' => 'required|email',
         ]);
 
-        $store = new Store();
-        $store->title = $request->input('title');
-        $store->address = $request->input('address');
-        $store->owner_name = $request->input('owner_name');
-        $store->owner_cnic = $request->input('owner_cnic');
-        $store->email = $request->input('email');
-        $store->contact_no = $request->input('contact_no');
-        $store->fax = $request->input('fax');
-        $store->save();
+        $factory = new Factory();
+        $factory->title = $request->input('title');
+        $factory->address = $request->input('address');
+        $factory->owner_name = $request->input('owner_name');
+        $factory->owner_cnic = $request->input('owner_cnic');
+        $factory->email = $request->input('email');
+        $factory->contact_no = $request->input('contact_no');
+        $factory->fax = $request->input('fax');
+        $factory->save();
 
         return redirect(route('stores.index'))->with('message', 'Factory registration updated successfully.');
     }
@@ -114,5 +113,9 @@ class StoreController extends Controller
             if ($data) return response()->json($data, 200);
             else return response()->json(['message' => 'No stores registered in the system.'], 404);
         }
+    }
+
+    public function fetchData(Request $request, int $siteId, string $type, bool $json = true, $precisionVal = 2) {
+        return app(FactoryService::class)->fetchData($request, $siteId, $type, $json, $precisionVal);
     }
 }
