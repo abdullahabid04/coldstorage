@@ -25,16 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/factories', [FactoryController::class, 'fetch']);
-Route::get('/sites', [SiteController::class, 'fetch']);
-
-Route::post('/factory-users', [FactoryUserController::class, 'store'])->name('api.factory-users.store');
-
-Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']);
-Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
-Route::get('sensor-data/{entityType}/{entityId}/', [SensorDataController::class, 'fetch']);
-Route::get('sensor-data/{entityType}/{entityId}/energy', [SensorDataController::class, 'fetchEnergyData']);
-
 Route::post('/sensor-data/store', [SensorDataController::class, 'storeSensorData']);
 Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity']);
 Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
+Route::get('/sensor-data/{deviceId}', [SensorDataController::class, 'fetchData']);

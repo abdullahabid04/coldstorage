@@ -29,4 +29,9 @@ class Device extends Model
 
         return $serial;
     }
+
+    public function sensorData()
+    {
+        return $this->hasMany(SensorData::class);
+    }
 }

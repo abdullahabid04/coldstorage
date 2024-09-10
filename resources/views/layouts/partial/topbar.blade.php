@@ -149,9 +149,9 @@
                     <a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-l ">
                             @php
-                                $src = url('assets/img/users/user1.png');
-                                if(Auth::user()->photo_path)
-                                    $src = url(Auth::user()->photo_path);
+                            $src = url('assets/img/users/user1.png');
+                            if(Auth::user()->photo_path)
+                            $src = url(Auth::user()->photo_path);
                             @endphp
                             <img class="rounded-circle " src="{{ $src }}" alt="" />
                         </div>
@@ -208,28 +208,28 @@
                     <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <span class="uil fs-8 me-2 uil-cube"></span>Localities
                     </a>
-{{--                    <ul class="dropdown-menu navbar-dropdown-caret">--}}
-{{--                        @foreach($factories as $row)--}}
-{{--                        <li class="dropdown">--}}
-{{--                            <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">--}}
-{{--                                <div class="dropdown-item-wrapper">--}}
-{{--                                    <span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span>--}}
-{{--                                    <span><span class="me-2 uil" data-feather="trello"></span>{{ $row->title }}</span>--}}
-{{--                                </div>--}}
-{{--                            </a>--}}
-{{--                            --}}{{-- Site Links --}}
-{{--                            <ul class="dropdown-menu">--}}
-{{--                                @foreach($row->sites as $site)--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="{{ route('sites.show', $site->id) }}">--}}
-{{--                                            <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>{{ $site->title }}</div>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
+                    <ul class="dropdown-menu navbar-dropdown-caret">
+                        @foreach($stores as $row)
+                        <li class="dropdown">
+                            <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                <div class="dropdown-item-wrapper">
+                                    <span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span>
+                                    <span><span class="me-2 uil" data-feather="trello"></span>{{ $row->title }}</span>
+                                </div>
+                            </a>
+                            {{-- Device Links --}}
+                            <ul class="dropdown-menu">
+                                @foreach($row->devices as $device)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('devices.show', $device->id) }}">
+                                        <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>D-{{ $device->id }}</div>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="nav-item lh-1">
                     <a class="nav-link" href="{{ route('reports') }}" role="button">
@@ -240,37 +240,36 @@
         </div>
     </div>
 </nav>
-{{--<script>--}}
-{{--    var navbarTopShape = window.config.config.phoenixNavbarTopShape;--}}
-{{--    var navbarPosition = window.config.config.phoenixNavbarPosition;--}}
-{{--    var body = document.querySelector('body');--}}
-{{--    var navbarDefault = document.querySelector('#navbarDefault');--}}
-{{--    var dualNav = document.querySelector('#dualNav');--}}
+<script>
+    var navbarTopShape = window.config.config.phoenixNavbarTopShape;
+    var navbarPosition = window.config.config.phoenixNavbarPosition;
+    var body = document.querySelector('body');
+    var navbarDefault = document.querySelector('#navbarDefault');
+    var dualNav = document.querySelector('#dualNav');
 
-{{--    var documentElement = document.documentElement;--}}
-{{--    var navbarVertical = document.querySelector('.navbar-vertical');--}}
+    var documentElement = document.documentElement;
+    var navbarVertical = document.querySelector('.navbar-vertical');
 
-{{--    if (navbarPosition === 'dual-nav') {--}}
-{{--        navbarDefault?.remove();--}}
-{{--        navbarVertical?.remove();--}}
-{{--        dualNav.removeAttribute('style');--}}
-{{--        document.documentElement.setAttribute('data-navigation-type', 'dual');--}}
-{{--    }--}}
-{{--    else {--}}
-{{--        dualNav?.remove();--}}
-{{--        navbarDefault.removeAttribute('style');--}}
-{{--        navbarVertical.removeAttribute('style');--}}
-{{--    }--}}
+    if (navbarPosition === 'dual-nav') {
+        navbarDefault?.remove();
+        navbarVertical?.remove();
+        dualNav.removeAttribute('style');
+        document.documentElement.setAttribute('data-navigation-type', 'dual');
+    } else {
+        dualNav?.remove();
+        navbarDefault.removeAttribute('style');
+        navbarVertical.removeAttribute('style');
+    }
 
-{{--    var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;--}}
-{{--    var navbarTop = document.querySelector('.navbar-top');--}}
-{{--    if (navbarTopStyle === 'darker') {--}}
-{{--        navbarTop.setAttribute('data-navbar-appearance', 'darker');--}}
-{{--    }--}}
+    var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+    var navbarTop = document.querySelector('.navbar-top');
+    if (navbarTopStyle === 'darker') {
+        navbarTop.setAttribute('data-navbar-appearance', 'darker');
+    }
 
-{{--    var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;--}}
-{{--    var navbarVertical = document.querySelector('.navbar-vertical');--}}
-{{--    if (navbarVerticalStyle === 'darker') {--}}
-{{--        navbarVertical.setAttribute('data-navbar-appearance', 'darker');--}}
-{{--    }--}}
-{{--</script>--}}
+    var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+    var navbarVertical = document.querySelector('.navbar-vertical');
+    if (navbarVerticalStyle === 'darker') {
+        navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+    }
+</script>
