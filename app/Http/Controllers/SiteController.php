@@ -46,7 +46,7 @@ class SiteController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'factory_id' => 'required|exists:factories,id',
+            'factory_id' => 'required|exists:stores,id',
         ]);
 
         Site::create($request->all());
@@ -90,7 +90,7 @@ class SiteController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'factory_id' => 'required|exists:factories,id',
+            'factory_id' => 'required|exists:stores,id',
         ]);
 
         $site->update($request->all());

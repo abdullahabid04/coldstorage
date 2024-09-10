@@ -209,7 +209,7 @@
                         <span class="uil fs-8 me-2 uil-cube"></span>Localities
                     </a>
 {{--                    <ul class="dropdown-menu navbar-dropdown-caret">--}}
-{{--                        @foreach($factories as $row)--}}
+{{--                        @foreach($stores as $row)--}}
 {{--                        <li class="dropdown">--}}
 {{--                            <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">--}}
 {{--                                <div class="dropdown-item-wrapper">--}}

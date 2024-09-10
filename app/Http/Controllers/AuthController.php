@@ -26,26 +26,36 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Attempt to log the user in
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
+        // Validate login credentials
+        $credentials = $request->only('email', 'password');
 
-            // Use plainTextToken to get the token string
-            $token = $user->createToken('API Token')->plainTextToken;
-
-            // Return the response, but exclude the devices from the user object
+        if (!Auth::attempt($credentials)) {
             return response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'token' => $token,
-                'user' => $user->makeHidden('devices'), // Hide the 'devices' relation in the user object
-                'devices' => $user->devices->pluck('id'), // Still return the device IDs
-            ]);
+                'success' => false,
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
+        // Retrieve the authenticated user
+        $user = Auth::user();
+
+        // Check if the user is a client (e.g., role_id = 3 for clients)
+        if ($user->role_id != 3) { // '3' is the role ID for 'client'
+            return response()->json([
+                'success' => false,
+                'message' => 'Only clients can log in via API'
+            ], 403); // Forbidden
+        }
+
+        // Create the token for the user
+        $token = $user->createToken('API Token')->plainTextToken;
+
         return response()->json([
-            'success' => false,
-            'message' => 'Unauthorized',
-        ], 401);
+            'success' => true,
+            'message' => 'Login successful',
+            'token' => $token,
+            'user' => $user->makeHidden(['devices']),
+            'devices' => $user->devices->pluck('id')
+        ], 200);
     }
 }

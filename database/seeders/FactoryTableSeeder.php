@@ -16,7 +16,7 @@ class FactoryTableSeeder extends Seeder
     {
         $now = Carbon::now();
 
-        DB::table('factories')->insert([
+        DB::table('stores')->insert([
             [
                 'title' => 'Factory 1',
                 'address' => 'The Islamia University of Bahawalpur, Pakistan',

@@ -15,7 +15,8 @@
         </p>
     </div>
 
-    <div id="factories" data-list='{"valueNames":["title","owner_name","email","contact_no"],"page":10,"pagination":true}'>
+    <div id="factories"
+         data-list='{"valueNames":["title","owner_name","email","contact_no"],"page":10,"pagination":true}'>
         <div class="row align-items-center justify-content-between g-3 mb-4">
             <div class="col col-auto">
                 <div class="search-box">
@@ -29,7 +30,7 @@
 
             <div class="col-auto">
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-primary" href="{{ route('factories.create') }}">
+                    <a class="btn btn-primary" href="{{ route('stores.create') }}">
                         <span class="fas fa-plus me-2"></span>
                         Add Factory
                     </a>
@@ -45,7 +46,8 @@
                         <th class="sort align-middle" scope="col" data-sort="title" style="width:15%; min-width:200px;">
                             FACTORY DETAILS
                         </th>
-                        <th class="sort align-middle" scope="col" data-sort="owner_name" style="width:15%; min-width:200px;">
+                        <th class="sort align-middle" scope="col" data-sort="owner_name"
+                            style="width:15%; min-width:200px;">
                             OWNER DETAILS
                         </th>
                         <th class="sort align-middle pe-3" scope="col" data-sort="email"
@@ -61,7 +63,7 @@
                     </tr>
                     </thead>
                     <tbody class="list" id="users-table-body">
-                    @foreach($factories as $row)
+                    @foreach($stores as $row)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="align-middle ps-3">
                                 <a class="d-flex align-items-center text-body text-hover-1000 ps-0" href="#">
@@ -103,10 +105,11 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end py-2" style="">
-                                        <a class="dropdown-item" href="{{ route('factories.edit', $row->id) }}">
+                                        <a class="dropdown-item" href="{{ route('stores.edit', $row->id) }}">
                                             Edit
                                         </a>
-                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#linkUserModal" data-factory-id="{{ $row->id }}">
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#linkUserModal" data-store-id="{{ $row->id }}">
                                             Link User
                                         </a>
                                         <div class="dropdown-divider"></div>
@@ -158,7 +161,7 @@
                 <div class="modal-body">
                     <form id="linkUserForm">
                         @csrf
-                        <input type="hidden" name="factory_id" id="factory_id">
+                        <input type="hidden" name="store_id" id="store_id">
                         <div class="mb-3">
                             <label for="user_id" class="form-label">Select User</label>
                             <select class="form-select" id="user_id" name="user_id" required>
@@ -182,120 +185,17 @@
         </div>
     </div>
 
-
 @endsection
 
 @push('scripts')
     <script>
-        $(function () {
-            var table = $('#table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('factories.index') }}",
-                columns: [
-                    {data: 'file_name', name: 'file_name'},
-                    {data: 'device', name: 'device'},
-                    {data: 'component', name: 'component'},
-                    {data: 'site', name: 'site'},
-                    {data: 'factory', name: 'factory'},
-                    {data: 'uploaded_at', name: 'uploaded_at'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ],
-                createdRow: function (row, data, dataIndex) {
-                    $('td', row).eq(0).addClass('text-center');
-                    $('td', row).eq(7).addClass('text-center');
-                    $('td', row).eq(8).addClass('text-center');
-                },
-            });
-        });
-
-        function deleteFile(ctrl, id) {
-            if (confirm('Are you sure to delete this file?')) {
-                fetch(`{{ url('data') }}/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert(data.message);
-                        $(ctrl).closest('tr').hide().remove();
-                    });
-            }
-        }
-
-        $("#factory_id").on("change", function () {
-            var id = $(this).val();
-            $("#site_id").empty();
-            fetch(`{{ url('api/factories?id=') }}${id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response is not OK');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    $("#site_id").append(`<option value=''>Select Site</option>`);
-                    data.sites.forEach((item, index) => {
-                        $("#site_id").append(`<option value='${item.id}'>${item.title}</option>`);
-                    });
-                })
-                .catch(error => {
-                    alert('There was a problem with the fetch operation:' + error);
-                });
-        });
-
-        $("#site_id").on("change", function () {
-            var id = $(this).val();
-            $("#component_id").empty();
-            fetch(`{{ url('api/sites?id=') }}${id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response is not OK');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    $("#component_id").append(`<option value=''>Not Applicable</option>`);
-                    data.components.forEach((item, index) => {
-                        $("#component_id").append(`<option value='${item.id}'>${item.title}</option>`);
-                    });
-                })
-                .catch(error => {
-                    alert('There was a problem with the fetch operation:' + error);
-                });
-        });
-
-        function OpenReplaceModal(id) {
-            $("#record-id").val(id);
-            $(".bd-replace-modal-lg").modal('show');
-        }
-
-        const form2 = document.querySelector('#replace-form');
-        form2.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(form2);
-            fetch(`{{ url('api/data/replace') }}`, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    location.reload();
-                });
-        });
-
         document.addEventListener('DOMContentLoaded', function () {
             var linkUserModal = document.getElementById('linkUserModal');
             if (linkUserModal) {
                 linkUserModal.addEventListener('show.bs.modal', function (event) {
                     var button = event.relatedTarget; // Button that triggered the modal
-                    var factoryId = button.getAttribute('data-factory-id'); // Extract info from data-* attributes
-                    var modalBodyInput = linkUserModal.querySelector('#factory_id');
+                    var factoryId = button.getAttribute('data-store-id'); // Extract info from data-* attributes
+                    var modalBodyInput = linkUserModal.querySelector('#store_id');
                     console.log("Factory ID set in modal:", factoryId); // Debugging line
                     if (modalBodyInput) {
                         modalBodyInput.value = factoryId; // Set the factory ID in the hidden input field
@@ -304,13 +204,13 @@
 
                 var linkUserForm = document.getElementById('linkUserForm');
                 if (linkUserForm) {
-                    linkUserForm.addEventListener('submit', function(e) {
+                    linkUserForm.addEventListener('submit', function (e) {
                         e.preventDefault(); // Prevent the default form submission
 
                         let formData = new FormData(this);
                         console.log("Form Data:", Array.from(formData.entries())); // Debugging line
 
-                        fetch("{{ route('api.factory-users.store') }}", {
+                        fetch("{{ route('api.store-users.store') }}", {
                             method: 'POST',
                             body: formData,
                             headers: {
@@ -342,39 +242,6 @@
             } else {
                 console.error('Modal element #linkUserModal not found.');
             }
-        });
-
-        linkUserForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-
-            let formData = new FormData(this);
-            console.log("Form Data:", Array.from(formData.entries())); // Debugging line
-
-            fetch("{{ route('api.factory-users.store') }}", {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value,
-                    'Accept': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // handle the response
-                    if (data.success) {
-                        // Close the modal and refresh the page or show a success message
-                        alert('User linked successfully!');
-                        location.reload(); // Reload the page to reflect changes
-                    } else {
-                        // Show error message
-                        alert('Error linking user: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    // Handle error
-                    console.error('Error:', error);
-                    alert('An error occurred while linking the user.');
-                });
         });
     </script>
 @endpush

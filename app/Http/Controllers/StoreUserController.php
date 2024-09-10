@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\FactoryUser;
+use App\Models\StoreUser;
 use Illuminate\Http\Request;
 
-class FactoryUserController extends Controller
+class StoreUserController extends Controller
 {
     public function store(Request $request)
     {
-//        $request->validate([
-//            'factory_id' => 'required|exists:stores,id',
-//            'user_id' => 'required|exists:users,id',
-//            'access_level' => 'required|in:owner,employee',
-//        ]);
+        $request->validate([
+            'store_id' => 'required|exists:stores,id',
+            'user_id' => 'required|exists:users,id',
+            'access_level' => 'required|in:owner,employee',
+        ]);
 
-        FactoryUser::create([
-            'factory_id' => $request->factory_id,
+        StoreUser::create([
+            'store_id' => $request->store_id,
             'user_id' => $request->user_id,
             'access_level' => $request->access_level,
         ]);

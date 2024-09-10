@@ -4,12 +4,12 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/factories') }}">Factories</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/stores') }}">Factories</a></li>
             <li class="breadcrumb-item active">Edit Factory</li>
         </ol>
     </nav>
 
-    <form class="mb-9" method="POST" action="{{ route('factories.update', $factory->id) }}">
+    <form class="mb-9" method="POST" action="{{ route('stores.update', $factory->id) }}">
         @csrf
         @method('PUT')
         <div class="row g-3 flex-between-end mb-5">
