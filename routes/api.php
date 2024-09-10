@@ -1,14 +1,12 @@
 <?php
 
-use App\Http\Controllers\DataFileController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FactoryController;
 use App\Http\Controllers\FactoryUserController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BinFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +22,8 @@ use App\Http\Controllers\BinFileController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/sites', [SiteController::class, 'fetch']);
