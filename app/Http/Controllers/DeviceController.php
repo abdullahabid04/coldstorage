@@ -70,7 +70,7 @@ class DeviceController extends Controller
             'all' => $this->sensorDataService->fetchAvgData($device->id, false),
         ];
 
-        return view('client.devices.show', compact('device', 'chartData', 'avgData'));
+        return view('store_client.devices.show', compact('device', 'chartData', 'avgData'));
     }
 
     /**

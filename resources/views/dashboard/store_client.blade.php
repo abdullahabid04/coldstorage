@@ -1,6 +1,7 @@
-@extends('layouts.powereye')
+@extends('layouts.client')
 
 @section('content')
+
 <div class="pb-5">
     @foreach ($stores as $store)
     <div class="row">
@@ -17,7 +18,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h5 class="mb-1">
-                                        D-{{ $device->id }}
+                                        <a href="{{ route('devices.show', $device->id) }}" class="text-decoration-none text-dark">D-{{ $device->id }}</a>
                                     </h5>
                                 </div>
 
