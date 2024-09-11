@@ -20,7 +20,6 @@ class DeviceTableSeeder extends Seeder
                 Device::create([
                     'serial_number' => 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT),
                     'description' => $faker->sentence,
-                    'store_id' => $store->id,
                 ]);
             }
         }

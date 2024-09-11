@@ -8,11 +8,22 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StoreOwnerClientController;
+use App\Http\Controllers\StoreOwnerDeviceController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('client')->group(function () {
+    Route::get('/create', [StoreOwnerClientController::class, 'create'])->name('store-clients.create');
+    Route::post('/', [StoreOwnerClientController::class, 'store'])->name('store-clients.store');
+    Route::get('/', [StoreOwnerClientController::class, 'index'])->name('store-clients.index');
+
+    Route::get('/devices', [StoreOwnerDeviceController::class, 'index'])->name('devices.index');
 });
 
 Auth::routes();

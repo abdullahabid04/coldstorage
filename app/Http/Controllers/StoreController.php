@@ -60,7 +60,7 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        return view('admin.stores.edit', compact('factory'));
+        return view('admin.stores.edit', compact('store'));
     }
 
     /**

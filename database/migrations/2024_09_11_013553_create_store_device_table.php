@@ -4,17 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('store_device', function (Blueprint $table) {
             $table->id();
-            $table->string('serial_number')->unique();
-            $table->text('description')->nullable();
-            $table->softDeletes();
+            $table->foreignId('store_id')->constrained('stores')->onDelete('cascade');
+            $table->foreignId('device_id')->constrained('devices')->onDelete('cascade');
+            $table->unique('device_id');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('store_device');
     }
 };

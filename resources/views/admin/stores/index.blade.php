@@ -207,7 +207,7 @@
                             <label for="floaTingLabelMultipleSelect">Devices</label>
                             <select class="form-select" id="floaTingLabelMultipleSelect" name="device_ids[]" multiple data-choices data-options='{"removeItemButton": true, "placeholder": true}'>
                                 @foreach($devices as $row)
-                                    <option value="{{ $row->serial_number }}">{{ $row->serial_number }}</option>
+                                    <option value="{{ $row->id }}">{{ $row->serial_number }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -24,6 +24,7 @@ class Store extends Model
 
     public function devices()
     {
-        return $this->hasMany(Device::class); // One-to-many relationship
+        return $this->belongsToMany(Device::class, 'store_device')
+            ->withTimestamps();
     }
 }

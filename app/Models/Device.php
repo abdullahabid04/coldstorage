@@ -18,7 +18,7 @@ class Device extends Model
 
     public function store()
     {
-        return $this->belongsTo(Store::class); // Inverse of one-to-many relationship
+        return $this->belongsTo(Store::class, 'store_device');
     }
 
     public function users()

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Store;
 use App\Models\Device;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class StoreDeviceController extends Controller
@@ -25,8 +26,15 @@ class StoreDeviceController extends Controller
 
         $store = Store::find($request->store_id);
 
-        // Attach devices to the store
-        $store->devices()->sync($request->device_ids); // Syncing to update existing and add new devices
+        // Attach the selected devices to the store, without detaching from others here
+        foreach ($request->device_ids as $deviceId) {
+            // First check if the device is already assigned to another store
+            $existingAssignment = DB::table('store_device')->where('device_id', $deviceId)->first();
+
+            if (!$existingAssignment) {
+                $store->devices()->attach($deviceId);
+            }
+        }
 
         return response()->json(['success' => true, 'message' => 'Devices linked successfully!']);
     }
