@@ -84,6 +84,7 @@
         </div>
         <div class="col-12">
           <div class="btn-group" role="group" aria-label="Timeframes">
+            <button type="button" class="btn btn-outline-primary" data-timeframe="1h">Last 1 Hour</button>
             <button type="button" class="btn btn-outline-primary" data-timeframe="1d">Last 1 Day</button>
             <button type="button" class="btn btn-outline-primary" data-timeframe="1w">Last 1 Week</button>
             <button type="button" class="btn btn-outline-primary" data-timeframe="1m">Last 1 Month</button>

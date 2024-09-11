@@ -31,12 +31,23 @@ class HomeController extends Controller
     public function index(Request $request): Renderable
     {
         if (Auth::user()) {
+            $userId = Auth::id();
+
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
-            } else if (Auth::user()->role->id == 4) {
-                return view('dashboard.client');
-            } else {
+            } else if (Auth::user()->role->id == 3) {
                 $stores = Store::with('devices')->get();
+                $stores = auth()->user()->stores()->get();
+
+                foreach ($stores as $store) {
+                    foreach ($store->devices as $device) {
+                        $device->latestRecord = $this->sensorDataService->fetchData($device->id, false);
+                    }
+                }
+
+                return view('dashboard.store_client', compact('stores'));
+            } else if (Auth::user()->role->id == 4) {
+                $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
                     foreach ($store->devices as $device) {

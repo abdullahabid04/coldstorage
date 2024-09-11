@@ -3,26 +3,17 @@
 use Carbon\Carbon;
 
 if (!function_exists('mapTimeframe')) {
-    function mapTimeframe(string $startDate)
+    function mapTimeframe(string $startDate): Carbon|string|null
     {
         if ($startDate && $startDate !== 'all') {
-            switch ($startDate) {
-                case '1d':
-                    $startDate = Carbon::now()->subDay();
-                    break;
-                case '1w':
-                    $startDate = Carbon::now()->subWeek();
-                    break;
-                case '1m':
-                    $startDate = Carbon::now()->subMonth();
-                    break;
-                case '1y':
-                    $startDate = Carbon::now()->subYear();
-                    break;
-                default:
-                    $startDate = null;
-                    break;
-            }
+            $startDate = match ($startDate) {
+                '1h' => Carbon::now()->subHours(1),
+                '1d' => Carbon::now()->subDay(),
+                '1w' => Carbon::now()->subWeek(),
+                '1m' => Carbon::now()->subMonth(),
+                '1y' => Carbon::now()->subYear(),
+                default => null,
+            };
         }
         return $startDate;
     }
