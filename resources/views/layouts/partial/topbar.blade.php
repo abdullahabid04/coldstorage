@@ -219,10 +219,10 @@
                             </a>
                             {{-- Device Links --}}
                             <ul class="dropdown-menu">
-                                @foreach($row->devices as $device)
+                                @foreach($row->areas as $area)
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('devices.show', $device->id) }}">
-                                        <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>D-{{ $device->id }}</div>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>{{ $area->title }}</div>
                                     </a>
                                 </li>
                                 @endforeach

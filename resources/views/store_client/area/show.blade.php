@@ -3,10 +3,10 @@
 @section('content')
 <div class="pb-5">
   <div class="row g-4">
-    <div class="col-12 col-xxl-8">
+    <div class="col-12 col-xxl-12">
       <div class="mb-8">
-        <h2 class="mb-2">D-{{ $device->id }}</h2>
-        <h5 class="text-body-tertiary fw-semibold">{{ $device->description }}</h5>
+        <h2 class="mb-2">{{ $area->title }}</h2>
+{{--        <h5 class="text-body-tertiary fw-semibold">{{ $device->description }}</h5>--}}
       </div>
       <div class="row align-items-center g-4">
         <div class="col-12 col-md-auto">
@@ -92,7 +92,14 @@
           </div>
         </div>
       </div>
-      <div id="deviceChart" style="min-height:400px;width:100%"></div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div id="tempChart" style="height: 400px; width: 100%;"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div id="humidChart" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
     </div>
   </div>
 </div>
@@ -100,67 +107,101 @@
 @endsection
 
 @push('scripts')
-<script>
-  var device = @json($device);
-  var chartData = @json($chartData);
+    <script>
+        var area = @json($area);
+        var device = area.device[0];
+        var chartData = @json($chartData);
 
-  var timestamps = chartData.map(item => item.timestamp);
-  var temperatures = chartData.map(item => item.temperature);
-  var humidity = chartData.map(item => item.humidity);
+        var timestamps = chartData.map(item => item.timestamp);
+        var temperatures = chartData.map(item => item.temperature);
+        var humidity = chartData.map(item => item.humidity);
 
-  var options = {
-    xAxis: {
-      type: 'category',
-      data: timestamps
-    },
-    yAxis: {
-      type: 'value'
-    },
-    legend: {
-      data: ['Temperature (°C)', 'Humidity (%)']
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross'
-      }
-    },
-    series: [{
-        name: 'Temperature (°C)',
-        type: 'line',
-        data: temperatures,
-        animation: true
-      },
-      {
-        name: 'Humidity (%)',
-        type: 'line',
-        data: humidity,
-        animation: true
-      }
-    ]
-  };
+        var tempOptions = {
+            xAxis: {
+                type: 'category',
+                data: timestamps,
+                // axisLabel: { rotate: 45 } // Rotate labels for better readability
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Temperature (°C)'
+            },
+            grid: {
+                top: '10%',
+                bottom: '15%',
+                left: '10%',
+                right: '10%'
+            },
+            legend: { data: ['Temperature'] },
+            tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+            series: [{
+                name: 'Temperature',
+                type: 'line',
+                data: temperatures,
+                animation: true
+            }],
+        }
 
-  var chart = echarts.init(document.getElementById('deviceChart'));
-  chart.setOption(options);
+        var humidOptions = {
+            xAxis: {
+                type: 'category',
+                data: timestamps,
+                // axisLabel: { rotate: 45 } // Rotate labels for better readability
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Humidity (%)'
+            },
+            grid: {
+                top: '10%',
+                bottom: '15%',
+                left: '10%',
+                right: '10%'
+            },
+            legend: { data: ['Humidity'] },
+            tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+            series: [{
+                name: 'Humidity',
+                type: 'line',
+                data: humidity,
+                animation: true,
+                itemStyle: {
+                    color: '#90EE90'
+                },
+            }],
+        }
 
-  // Handle button clicks
-  document.querySelectorAll('button[data-timeframe]').forEach(button => {
-    button.addEventListener('click', function() {
-      var timeframe = this.getAttribute('data-timeframe');
-      fetch(`/api/sensor-data/${device.id}?startDate=${timeframe}&orderByDirection=asc&latest=`)
-        .then(response => response.json())
-        .then(data => {
-          timestamps = data.map(item => item.timestamp);
-          temperatures = data.map(item => item.temperature);
-          humidity = data.map(item => item.humidity);
+        var tChart = echarts.init(document.getElementById('tempChart'));
+        tChart.setOption(tempOptions);
 
-          options.xAxis.data = timestamps;
-          options.series[0].data = temperatures;
-          options.series[1].data = humidity;
+        var hChart = echarts.init(document.getElementById('humidChart'));
+        hChart.setOption(humidOptions);
 
-          chart.setOption(options);
+        // Handle button clicks
+        document.querySelectorAll('button[data-timeframe]').forEach(button => {
+            button.addEventListener('click', function() {
+                var timeframe = this.getAttribute('data-timeframe');
+                fetch(`/api/sensor-data/${device.id}?startDate=${timeframe}&orderByDirection=asc&latest=`)
+                    .then(response => response.json())
+                    .then(data => {
+                        timestamps = data.map(item => item.timestamp);
+                        temperatures = data.map(item => item.temperature);
+                        humidity = data.map(item => item.humidity);
+
+                        tempOptions.xAxis.data = humidOptions.xAxis.data = timestamps;
+                        tempOptions.series[0].data = temperatures;
+                        humidOptions.series[0].data = humidity;
+
+                        tChart.setOption(tempOptions);
+                        hChart.setOption(humidOptions);
+                    });
+            });
         });
-    });
-  });
-</script>
+
+        // Resize charts on window resize
+        window.addEventListener('resize', function () {
+            tChart.resize();
+            hChart.resize();
+        });
+    </script>
 @endpush

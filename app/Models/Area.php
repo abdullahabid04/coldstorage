@@ -35,6 +35,7 @@ class Area extends Model
     public function device()
     {
         return $this->belongsToMany(Device::class, 'area_device')->withTimestamps();
+//        return $this->belongsTo(Device::class, 'area_device');
     }
 
     /**
