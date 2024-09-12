@@ -22,9 +22,8 @@ class Store extends Model
             ->withTimestamps();
     }
 
-    public function devices()
+    public function areas()
     {
-        return $this->belongsToMany(Device::class, 'store_device')
-            ->withTimestamps();
+        return $this->hasMany(Area::class);
     }
 }

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('access_level', ['owner', 'employee'])->default('employee');
+            $table->enum('access_level', ['owner', 'client'])->default('owner');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

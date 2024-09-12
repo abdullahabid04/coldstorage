@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AreaDeviceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FactoryController;
 use App\Http\Controllers\FactoryUserController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreUserController;
@@ -28,11 +31,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/factories', [FactoryController::class, 'fetch']);
-Route::get('/sites', [SiteController::class, 'fetch']);
+Route::get('/areas', [SiteController::class, 'fetch']);
 
 Route::post('/factory-users', [FactoryUserController::class, 'store'])->name('api.factory-users.store');
 Route::post('/store-users', [StoreUserController::class, 'store'])->name('api.store-users.store');
-Route::post('store-devices', [StoreDeviceController::class, 'store'])->name('api.store-devices.store');
+Route::post('store-devices', [AreaDeviceController::class, 'store'])->name('api.store-devices.store');
 
 Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']);
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
@@ -43,3 +46,7 @@ Route::post('/sensor-data/store', [SensorDataController::class, 'storeSensorData
 Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity']);
 Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
 Route::get('/sensor-data/{deviceId}', [SensorDataController::class, 'fetchData']);
+
+Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
+Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
+Route::post('/menus/update_order', [MenuController::class, 'updateOrder']);

@@ -21,7 +21,7 @@ class FactoryService
     {
         $factories = Factory::whereHas('users', function ($query) use ($userID) {
             $query->where('user_id', $userID);
-        })->with('sites.data_file.data')->get();
+        })->with('areas.data_file.data')->get();
 
         foreach ($factories as $factory) {
             $factoryTotalPower = $this->fetchData($request, $factory->id, 'power', false);
@@ -68,7 +68,7 @@ class FactoryService
 
         try {
             $factory = Factory::with([
-                'sites.data_file.data' => function ($query) use ($columns) {
+                'areas.data_file.data' => function ($query) use ($columns) {
                     $query->select(array_merge($columns, ['data_file_id']));
                 }
             ])->find($factoryId);

@@ -56,8 +56,7 @@ class User extends Authenticatable
 
     public function devices()
     {
-        return $this->belongsToMany(Device::class, 'device_user')
-            ->withTimestamps();
+        return $this->belongsToMany(Device::class, 'device_user')->withTimestamps();
     }
 
     public function stores()

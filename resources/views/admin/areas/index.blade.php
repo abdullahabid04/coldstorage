@@ -4,12 +4,12 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item active">Sites</li>
+            <li class="breadcrumb-item active">Areas</li>
         </ol>
     </nav>
 
     <div class="mb-5">
-        <h2 class="text-bold text-body-emphasis">Sites</h2>
+        <h2 class="text-bold text-body-emphasis">Areas</h2>
         <p class="text-body-tertiary lead">
             Manage sites in factories.
         </p>
@@ -29,9 +29,9 @@
 
             <div class="col-auto">
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-primary" href="{{ route('sites.create') }}">
+                    <a class="btn btn-primary" href="{{ route('areas.create') }}">
                         <span class="fas fa-plus me-2"></span>
-                        Add Site
+                        Add Area
                     </a>
                 </div>
             </div>
@@ -42,13 +42,15 @@
                     <thead>
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="title" style="width:20%; min-width:200px;">
-                            SITE TITLE
+                            AREA TITLE
                         </th>
-                        <th class="sort align-middle" scope="col" data-sort="factory" style="width:20%; min-width:200px;">
-                            FACTORY NAME
+                        <th class="sort align-middle" scope="col" data-sort="factory"
+                            style="width:20%; min-width:200px;">
+                            STORE NAME
                         </th>
-                        <th class="sort align-middle pe-3" scope="col" data-sort="address" style="width:20%; min-width:200px;">
-                            FACTORY ADDRESS
+                        <th class="sort align-middle pe-3" scope="col" data-sort="address"
+                            style="width:20%; min-width:200px;">
+                            STORE ADDRESS
                         </th>
                         <th class="sort align-middle text-end" scope="col" style="width:21%; min-width:200px;">
                             ACTIONS
@@ -56,18 +58,18 @@
                     </tr>
                     </thead>
                     <tbody class="list" id="sites-table-body">
-                    @foreach($sites as $site)
+                    @foreach($areas as $area)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="customer align-middle white-space-nowrap">
                                 <a class="d-flex align-items-center text-body text-hover-1000 ps-2" href="#">
-                                    <h6 class="mb-0 ms-3 fw-semibold">{{ $site->title }}</h6>
+                                    <h6 class="mb-0 ms-3 fw-semibold">{{ $area->title }}</h6>
                                 </a>
                             </td>
                             <td class="factory align-middle white-space-nowrap">
-                                {{ $site->factory->title }}
+                                {{ $area->store->title }}
                             </td>
                             <td class="email align-middle white-space-nowrap">
-                                {{ $site->factory->address }}
+                                {{ $area->store->address }}
                             </td>
                             <td class="actions align-middle text-end white-space-nowrap text-body-tertiary">
                                 <div class="btn-reveal-trigger position-static">
@@ -84,12 +86,17 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end py-2">
-                                        <a class="dropdown-item" href="{{ route('sites.edit', $site) }}">
+                                        <a class="dropdown-item" href="{{ route('areas.edit', $area) }}">
                                             Edit
                                         </a>
+
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#linkDeviceModal" data-area-id="{{ $area->id }}">
+                                            Link Devices
+                                        </a>
+
                                         <div class="dropdown-divider"></div>
-                                        <form action="{{ route('sites.destroy', $site) }}" method="POST"
-                                              style="display:inline;">
+
+                                        <form action="{{ route('areas.destroy', $area) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button class="dropdown-item text-danger" type="submit">Remove</button>
@@ -127,4 +134,83 @@
             </div>
         </div>
     </div>
+
+    <!-- Link Device Modal -->
+    <div class="modal fade" id="linkDeviceModal" tabindex="-1" aria-labelledby="linkDeviceModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="linkDeviceModalLabel">Link Devices to Store</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="linkDeviceForm">
+                        @csrf
+                        <input type="hidden" name="area_id" id="area_id">
+
+                        <div class="form-floating form-floating-advance-select">
+                            <label for="floaTingLabelSelect">Device</label>
+                            <select class="form-select" id="floaTingLabelSelect" name="device_id" data-choices data-options='{"placeholder": true}'>
+                                <option value="">Select a device</option>
+                                @foreach($devices as $row)
+                                    <option value="{{ $row->id }}">{{ $row->serial_number }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Link Devices</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var linkDeviceModal = document.getElementById('linkDeviceModal');
+            if (linkDeviceModal) {
+                linkDeviceModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget;
+                    var areaId = button.getAttribute('data-area-id');
+                    var modalBodyInput = linkDeviceModal.querySelector('#area_id');
+                    if (modalBodyInput) {
+                        modalBodyInput.value = areaId;
+                    }
+                });
+
+                var linkDeviceForm = document.getElementById('linkDeviceForm');
+                if (linkDeviceForm) {
+                    linkDeviceForm.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        let formData = new FormData(this);
+
+                        fetch("{{ route('api.store-devices.store') }}", {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Devices linked successfully!');
+                                    location.reload();
+                                } else {
+                                    alert('Error linking devices: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('An error occurred while linking the devices.');
+                            });
+                    });
+                }
+            }
+        });
+    </script>
+@endpush

@@ -16,17 +16,6 @@ class Device extends Model
 
     protected $fillable = ['serial_number', 'description', 'store_id'];
 
-    public function store()
-    {
-        return $this->belongsTo(Store::class, 'store_device');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'device_user')
-            ->withTimestamps();
-    }
-
     public function getSerial(): string
     {
         do {
@@ -36,8 +25,24 @@ class Device extends Model
         return $serial;
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'device_user')->withTimestamps();
+    }
+
+    /**
+     * A device is assigned to one area (one-to-one via pivot table).
+     */
+    public function area()
+    {
+        return $this->belongsToMany(Area::class, 'area_device')->withTimestamps();
+    }
+
+    /**
+     * A device can have many sensor data entries through areas.
+     */
     public function sensorData()
     {
-        return $this->hasMany(SensorData::class);
+        return $this->hasManyThrough(SensorData::class, Area::class, 'id', 'area_id');
     }
 }

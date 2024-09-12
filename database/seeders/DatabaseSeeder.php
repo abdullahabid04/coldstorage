@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             UsersTableSeeder::class,
+            MenuTableSeeder::class,
             StoreSeeder::class,
+            AreasTableSeeder::class,
             StoreUserSeeder::class,
             DeviceTableSeeder::class,
             SensorDataSeeder::class,

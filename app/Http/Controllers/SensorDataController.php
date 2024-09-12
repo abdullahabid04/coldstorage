@@ -164,7 +164,7 @@ class SensorDataController extends Controller
     {
         // Define validation rules
         $validator = Validator::make($request->all(), [
-            'device_id' => 'required|integer',
+            'serial_number' => 'required|string',
             'data' => 'required|array',
             'data.*.timestamp' => 'required|date',
             'data.*.temperature' => 'required|numeric',
@@ -179,13 +179,38 @@ class SensorDataController extends Controller
             ], 400);
         }
 
+        // Get the validated data
         $validatedData = $validator->validated();
-        $deviceId = $validatedData['device_id'];
+        $serialNumber = $validatedData['serial_number'];
         $sensorData = $validatedData['data'];
 
+        // Find the device using serial_number
+        $device = Device::where('serial_number', $serialNumber)->first();
+
+        // If the device is not found, return an error
+        if (!$device) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Device not found with the provided serial number.'
+            ], 404);
+        }
+
+        // Find the related area through the device (assuming device is linked to one area)
+        $area = $device->area()->first();
+
+        // If no area is associated with the device, return an error
+        if (!$area) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No area found associated with the device.'
+            ], 404);
+        }
+
+        // Loop through the sensor data and store it
         foreach ($sensorData as $dataEntry) {
             SensorData::create([
-                'device_id' => $deviceId,
+                'device_id' => $device->id,
+                'area_id' => $area->id,
                 'timestamp' => $dataEntry['timestamp'],
                 'temperature' => $dataEntry['temperature'],
                 'humidity' => $dataEntry['humidity'],

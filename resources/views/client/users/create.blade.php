@@ -9,8 +9,9 @@
         </ol>
     </nav>
 
-    <form class="mb-9" method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="POST" action="{{ route('client.store-clients.store') }}" enctype="multipart/form-data">
         @csrf
+        @method('POST')
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
                 <h2 class="mb-2">Add a user</h2>

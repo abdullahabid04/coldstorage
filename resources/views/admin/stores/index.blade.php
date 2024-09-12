@@ -112,10 +112,6 @@
                                            data-bs-target="#linkUserModal" data-store-id="{{ $row->id }}">
                                             Link User
                                         </a>
-                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                           data-bs-target="#linkDeviceModal" data-store-id="{{ $row->id }}">
-                                            Link Devices
-                                        </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger" href="#!">
                                             Remove
@@ -189,36 +185,6 @@
         </div>
     </div>
 
-    <!-- Link Device Modal -->
-    <div class="modal fade" id="linkDeviceModal" tabindex="-1" aria-labelledby="linkDeviceModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="linkDeviceModalLabel">Link Devices to Store</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="linkDeviceForm">
-                        @csrf
-                        <input type="hidden" name="store_id" id="store_id">
-
-                        <div class="form-floating form-floating-advance-select">
-                            <label for="floaTingLabelMultipleSelect">Devices</label>
-                            <select class="form-select" id="floaTingLabelMultipleSelect" name="device_ids[]" multiple data-choices data-options='{"removeItemButton": true, "placeholder": true}'>
-                                @foreach($devices as $row)
-                                    <option value="{{ $row->id }}">{{ $row->serial_number }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Link Devices</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endsection
 
 @push('scripts')
@@ -275,48 +241,6 @@
                 }
             } else {
                 console.error('Modal element #linkUserModal not found.');
-            }
-
-            var linkDeviceModal = document.getElementById('linkDeviceModal');
-            if (linkDeviceModal) {
-                linkDeviceModal.addEventListener('show.bs.modal', function (event) {
-                    var button = event.relatedTarget;
-                    var storeId = button.getAttribute('data-store-id');
-                    var modalBodyInput = linkDeviceModal.querySelector('#store_id');
-                    if (modalBodyInput) {
-                        modalBodyInput.value = storeId;
-                    }
-                });
-
-                var linkDeviceForm = document.getElementById('linkDeviceForm');
-                if (linkDeviceForm) {
-                    linkDeviceForm.addEventListener('submit', function (e) {
-                        e.preventDefault();
-                        let formData = new FormData(this);
-
-                        fetch("{{ route('api.store-devices.store') }}", {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
-                            }
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Devices linked successfully!');
-                                    location.reload();
-                                } else {
-                                    alert('Error linking devices: ' + data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while linking the devices.');
-                            });
-                    });
-                }
             }
         });
     </script>

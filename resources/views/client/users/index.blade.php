@@ -54,7 +54,7 @@
                 </tr>
                 </thead>
                 <tbody class="list" id="users-table-body">
-                @foreach($users as $row)
+                @foreach($clients as $row)
                     <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                         <td class="user align-middle white-space-nowrap">
                             @php

@@ -16,8 +16,9 @@ class SensorDataSeeder extends Seeder
 
         // Assign multiple sensor data entries for each device
         foreach ($devices as $device) {
-            for ($i = 0; $i < 5; $i++) { // 5 sensor data entries per device
+            for ($i = 0; $i < 100; $i++) { // 5 sensor data entries per device
                 SensorData::create([
+                    'area_id' => 1,
                     'device_id' => $device->id,
                     'timestamp' => $faker->dateTimeThisMonth(), // Random timestamp within the current month
                     'temperature' => rand(20, 35), // Random temperature value

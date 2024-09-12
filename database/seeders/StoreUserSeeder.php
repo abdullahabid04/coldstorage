@@ -22,7 +22,7 @@ class StoreUserSeeder extends Seeder
                 StoreUser::create([
                     'store_id' => $store->id,
                     'user_id' => $user->id,
-                    'access_level' => $faker->randomElement(['owner', 'employee']), // Random access level
+                    'access_level' => $faker->randomElement(['owner', 'client']), // Random access level
                 ]);
             }
         }

@@ -16,30 +16,36 @@ class StoreOwnerClientController extends Controller
         $store = auth()->user()->stores()->first();
 
         if (!$store) {
-            return redirect()->route('store-owner.clients.index')->with('error', 'No store associated with this user.');
+            return redirect()->route('client.users.index')->with('error', 'No store associated with this user.');
         }
 
         // Fetch all clients associated with this store
         $clients = User::whereHas('stores', function ($query) use ($store) {
-            $query->where('id', $store->id);
-        })->where('role_id', 4) // Assuming role_id 5 is for clients
+            $query->where('store_user.store_id', $store->id); // Specify table alias for store_id
+        })->where('role_id', 4) // Assuming role_id 4 is for clients
         ->get();
 
-        return view('store_owner.clients.index', compact('clients'));
+        return view('client.users.index', compact('clients'));
     }
+
 
     // Show the form to create a new client
     public function create()
     {
         // Fetch the store of the logged-in store owner
-        $store = Store::whereHas('users', function ($query) {
-            $query->where('id', auth()->id());  // Match the logged-in user
-        })->first();
+        $store = auth()->user()->stores()->first();
 
-        // Fetch devices assigned to this store
-        $devices = $store->devices()->get();
+        if (!$store) {
+            return redirect()->route('store-owner.clients.index')->with('error', 'No store associated with this user.');
+        }
 
-        return view('client.store-clients.create', compact('devices'));
+        // Fetch all clients associated with this store
+        $clients = User::whereHas('stores', function ($query) use ($store) {
+            $query->where('store_user.store_id', $store->id); // Specify table alias for store_id
+        })->where('role_id', 4)
+            ->get();
+
+        return view('store_owner.clients.index', compact('clients'));
     }
 
     // Store the newly created client

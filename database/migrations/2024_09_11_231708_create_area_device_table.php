@@ -10,14 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sensor_data', function (Blueprint $table) {
+        Schema::create('area_device', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('device_id');
-            $table->timestamp('timestamp');
-            $table->double('temperature')->default(0);
-            $table->double('humidity')->default(0);
             $table->timestamps();
+
+            // Foreign key constraints
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
+
+            $table->unique(['area_id', 'device_id']);
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('sensor_data');
+        Schema::dropIfExists('area_device');
     }
 };

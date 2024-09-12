@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FactoryUser;
 use App\Models\StoreUser;
 use Illuminate\Http\Request;
 
