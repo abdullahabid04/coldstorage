@@ -51,8 +51,9 @@ class HomeController extends Controller
                 $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
-                    foreach ($store->devices as $device) {
-                        $device->latestRecord = $this->sensorDataService->fetchData($device->id, false);
+                    foreach ($store->areas as $area) {
+                        $device = $area->device->first->id;
+                        $area->latestRecord = $this->sensorDataService->fetchData($device->id, false);
                     }
                 }
 
