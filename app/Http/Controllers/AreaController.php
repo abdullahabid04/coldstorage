@@ -57,20 +57,27 @@ class AreaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Area $area)
+    public function show(Area $area)
     {
         if (in_array(Auth::user()->role->id, [1, 2])) {
-            return view('admin.areas.show', compact('area'));
+            return view('admin.area.show', compact('area'));
         }
+//        dd($area);
+        if ($area->device !== null) {
+            $device = $area->device->first();
+        } else return redirect()->back();
 
-        $type = 'energy';
+        $chartData = $this->sensorDataService->fetchData($device->id, false, false, '1d', orderByDirection: 'asc');
 
-        $area->energy = $this->fetchData($request, $area->id, $type, 'all', false);
-        $area->e8h = $this->fetchData($request, $area->id, $type, '8h', false);
-        $area->e1w = $this->fetchData($request, $area->id, $type, '1w', false);
-        $area->e1m = $this->fetchData($request, $area->id, $type, '1m', false);
+        $avgData = [
+            '1d' => $this->sensorDataService->fetchAvgData($device->id, false, '1d'),
+            '1w' => $this->sensorDataService->fetchAvgData($device->id, false, '1w'),
+            '1m' => $this->sensorDataService->fetchAvgData($device->id, false, '1m'),
+            '1y' => $this->sensorDataService->fetchAvgData($device->id, false, '1y'),
+            'all' => $this->sensorDataService->fetchAvgData($device->id, false),
+        ];
 
-        return view('client.areas.show', compact('area'));
+        return view('store_client.area.show', compact('area', 'chartData', 'avgData'));
     }
 
     /**

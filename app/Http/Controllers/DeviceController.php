@@ -59,18 +59,6 @@ class DeviceController extends Controller
         if (in_array(Auth::user()->role->id, [1, 2])) {
             return view('admin.devices.show', compact('device'));
         }
-
-        $chartData = $this->sensorDataService->fetchData($device->id, false, false, '1d', orderByDirection: 'asc');
-
-        $avgData = [
-            '1d' => $this->sensorDataService->fetchAvgData($device->id, false, '1d'),
-            '1w' => $this->sensorDataService->fetchAvgData($device->id, false, '1w'),
-            '1m' => $this->sensorDataService->fetchAvgData($device->id, false, '1m'),
-            '1y' => $this->sensorDataService->fetchAvgData($device->id, false, '1y'),
-            'all' => $this->sensorDataService->fetchAvgData($device->id, false),
-        ];
-
-        return view('store_client.devices.show', compact('device', 'chartData', 'avgData'));
     }
 
     /**

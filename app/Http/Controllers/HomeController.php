@@ -36,12 +36,13 @@ class HomeController extends Controller
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
             } else if (Auth::user()->role->id == 3) {
-                $stores = Store::with('devices')->get();
+//                $stores = Store::with('areas.device')->get();
                 $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
-                    foreach ($store->devices as $device) {
-                        $device->latestRecord = $this->sensorDataService->fetchData($device->id, false);
+                    foreach ($store->areas as $area) {
+                        $device = $area->device->first->id;
+                        $area->latestRecord = $this->sensorDataService->fetchData($device->id, false);
                     }
                 }
 

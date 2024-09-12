@@ -68,8 +68,8 @@ class SensorDataService
         $avgHumidity = $query->avg('humidity');
 
         $avgData = [
-            'temperature' => $avgTemperature ?? 0,
-            'humidity' => $avgHumidity ?? 0,
+            'temperature' => round($avgTemperature) ?? 0,
+            'humidity' => round($avgHumidity) ?? 0,
         ];
 
         return $jsonResponse ? response()->json($avgData) : $avgData;
