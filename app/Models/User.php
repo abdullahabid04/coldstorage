@@ -58,6 +58,7 @@ class User extends Authenticatable
     {
         if (in_array($accessLevel, ['owner', 'client'])) {
             return $this->belongsToMany(Store::class, 'store_user')
+                ->withPivot('access_level')
                 ->withTimestamps()
                 ->wherePivot('access_level', $accessLevel);
         }
@@ -65,7 +66,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Store::class, 'store_user')
             ->withTimestamps();
     }
-
 
 
     public function devices()

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     protected SensorDataService $sensorDataService;
+
     /**
      * Create a new controller instance.
      *
@@ -30,6 +31,7 @@ class HomeController extends Controller
      */
     public function index(Request $request): Renderable
     {
+
         if (Auth::user()) {
             $userId = Auth::id();
 
@@ -37,7 +39,10 @@ class HomeController extends Controller
                 return view('dashboard.admin');
             } else if (Auth::user()->role->id == 3) {
 //                $stores = Store::with('areas.device')->get();
-                $stores = auth()->user()->stores('client')->get();
+//                $stores = auth()->user()->stores('client')->with('areas.device')->get(); // Make sure you eager load areas and devices to avoid N+1 query issues
+                $stores = auth()->user()->stores()->get();
+
+//                dd($userId, Auth::user()->role->id, $stores);
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
@@ -48,7 +53,8 @@ class HomeController extends Controller
 
                 return view('dashboard.store_client', compact('stores'));
             } else if (Auth::user()->role->id == 4) {
-                $stores = auth()->user()->stores('owner')->get();
+//                $stores = auth()->user()->stores('owner')->get();
+                $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
