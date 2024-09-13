@@ -58,8 +58,10 @@
             var devices = store.areas;
 
             devices.forEach(async function(device) {
-                var temperatureChart = initChart(`gauge-temperature-${device.id}`, gaugeChartOption(device.latestRecord.temperature, 'Temperature', 'Temperature', 0, 50, '°C'));
-                var humidityChart = initChart(`gauge-humidity-${device.id}`, gaugeChartOption(device.latestRecord.humidity, 'Humidity', 'Humidity', 0, 100, '%'));
+                var device_id = device.id;
+                console.log(device_id);
+                var temperatureChart = initChart(`gauge-temperature-${device_id}`, gaugeChartOption(device.latestRecord.temperature, 'Temperature', 'Temperature', 0, 50, '°C'));
+                var humidityChart = initChart(`gauge-humidity-${device_id}`, gaugeChartOption(device.latestRecord.humidity, 'Humidity', 'Humidity', 0, 100, '%'));
             });
         });
     });
