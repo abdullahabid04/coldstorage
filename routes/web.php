@@ -29,6 +29,11 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('/menus', MenuController::class);
+    Route::put('/menus/status/{menu}', [MenuController::class, 'statusToggle'])->name('menus.toggle');
+    Route::resource('/roles', RoleController::class);
+    Route::post('/roles/role_menu_attachment', [RoleController::class, 'roleMenuAttachment'])->name('roles.role_menu_attachment');
+    Route::post('/roles/role_menu_detachment', [RoleController::class, 'roleMenuDetachment'])->name('roles.role_menu_detachment');
 
     Route::resource('/users', UserController::class)->except(['show']);
 
@@ -38,13 +43,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/devices', DeviceController::class);
     Route::resource('/stores', StoreController::class);
     Route::resource('/areas', AreaController::class);
-
-    Route::resource('/roles', RoleController::class);
-    Route::post('/roles/role_menu_attachment', [RoleController::class, 'roleMenuAttachment'])->name('roles.role_menu_attachment');
-    Route::post('/roles/role_menu_detachment', [RoleController::class, 'roleMenuDetachment'])->name('roles.role_menu_detachment');
-
-    Route::resource('/menus', MenuController::class);
-    Route::put('/menus/{menu}', [MenuController::class, 'statusToggle'])->name('menus.toggle');
 
     Route::get('/reports', function () {
         return view('reports.index');

@@ -35,7 +35,7 @@ Route::get('/areas', [SiteController::class, 'fetch']);
 
 Route::post('/factory-users', [FactoryUserController::class, 'store'])->name('api.factory-users.store');
 Route::post('/store-users', [StoreUserController::class, 'store'])->name('api.store-users.store');
-Route::post('store-devices', [AreaDeviceController::class, 'store'])->name('api.store-devices.store');
+Route::post('/store-devices', [AreaDeviceController::class, 'store'])->name('api.store-devices.store');
 
 Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']);
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
