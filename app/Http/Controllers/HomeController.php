@@ -37,7 +37,7 @@ class HomeController extends Controller
                 return view('dashboard.admin');
             } else if (Auth::user()->role->id == 3) {
 //                $stores = Store::with('areas.device')->get();
-                $stores = auth()->user()->stores()->get();
+                $stores = auth()->user()->stores('client')->get();
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
@@ -48,7 +48,7 @@ class HomeController extends Controller
 
                 return view('dashboard.store_client', compact('stores'));
             } else if (Auth::user()->role->id == 4) {
-                $stores = auth()->user()->stores()->get();
+                $stores = auth()->user()->stores('owner')->get();
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
