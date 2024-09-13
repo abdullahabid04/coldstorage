@@ -6,8 +6,10 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -18,7 +20,7 @@ class UserController extends Controller
     */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(50);
         return view('admin.users.index', compact('users'));
     }
 
@@ -41,7 +43,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
-            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
         ]);
 
         if ($validator->fails()) {
@@ -82,15 +84,25 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $validator = Validator::make($request->all(), [
+        $validating_array = [
             'name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
-            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-        ]);
+            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
+        ];
+
+        if($request->input('changePasswordCheck') != null)
+        {
+            $validating_array['password'] = ['required', 'string', 'min:8', 'confirmed'];
+        }
+
+        $validator = Validator::make($request->all(), $validating_array);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        if ($user->photo_path && Storage::disk('public')->exists($user->photo_path)) {
+            Storage::disk('public')->delete($user->photo_path);
         }
 
         $photoPath = null;
@@ -101,7 +113,10 @@ class UserController extends Controller
         }
 
         $user->name = $request->name;
-        $user->password = Hash::make($request->password);
+        if($request->input('changePasswordCheck') != null)
+            $user->password = Hash::make($request->password);
+        $user->cnic_no = $request->cnic_no;
+        $user->contact_no = $request->contact_no;
         $user->photo_path = $photoPath;
         $user->status = $request->status;
         $user->role_id = $request->role_id;
@@ -121,22 +136,14 @@ class UserController extends Controller
 
     public function statusToggle(User $user)
     {
-        if($user->status)
-        {
-            $user->status = false;
-            $user->save();
-        }
-        else
-        {
-            $user->status = true;
-            $user->save();
-        }
+        $user->status = !$user->status;
+        $user->save();
 
         return redirect('/users');
     }
 
     public function profile(User $user)
     {
-
+        return $user;
     }
 }
