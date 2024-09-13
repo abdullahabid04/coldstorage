@@ -59,7 +59,7 @@
             <div class="col-sm-10 col-md-8 col-lg-5 col-xxl-4">
                 <a class="d-flex flex-center text-decoration-none mb-4" href="{{ route('login') }}">
                     <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block">
-                        <img src="{{ asset('assets/img/icons/logo.png') }}" alt="{{ config('app.name', 'Care') }}" width="58" />
+                        <img src="{{ asset('assets/img/icons/sentron.png') }}" alt="{{ config('app.name') }}" height="70" />
                     </div>
                 </a>
                 @yield('content')
