@@ -19,6 +19,15 @@ class UsersTableSeeder extends Seeder
         // Insert the two specific users
         DB::table('users')->insert([
             [
+                'name' => 'Muhammad Tariq',
+                'email' => 'saaim01@gmail.com',
+                'password' => bcrypt('password'),
+                'status' => true,
+                'role_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
                 'name' => 'Abdullah Abid',
                 'email' => 'abdrps2004@gmail.com',
                 'password' => bcrypt('password'),

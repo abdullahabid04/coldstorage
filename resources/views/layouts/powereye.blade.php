@@ -3,8 +3,6 @@
 <main class="main" id="top">
     @include('layouts.partial.sidebar')
     @include('layouts.partial.navbar')
-
-
     <div class="content">
         @yield('content')
         @include('layouts.partial.footer')
@@ -47,8 +45,6 @@
 <script src="{{ asset('assets/vendors/echarts/echarts.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.js') }}"></script>
 <script src="../assets/js/projectmanagement-dashboard.js"></script>
-<script src="{{ asset('assets/js/utils.js') }}"></script>
-<script src="{{ asset('assets/js/charts.js') }}"></script>
 
 @if(Session::has('message'))
     <script>

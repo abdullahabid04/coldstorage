@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/users', UserController::class)->except(['show']);
 
     Route::put('/users/status/{user}', [UserController::class, 'statusToggle'])->name('users.status');
-    Route::put('/users/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
+    Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
 
     Route::resource('/devices', DeviceController::class);
     Route::resource('/stores', StoreController::class);

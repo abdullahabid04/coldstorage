@@ -53,14 +53,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-
-    public function devices()
-    {
-        return $this->belongsToMany(Device::class, 'device_user')->withTimestamps();
-    }
-
-    public function stores()
-    {
-        return $this->belongsToMany(Store::class, 'store_user', 'user_id', 'store_id');
-    }
 }
