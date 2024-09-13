@@ -40,7 +40,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Check if the user is a client (e.g., role_id = 3 for clients)
-        if ($user->role_id != 3) { // '3' is the role ID for 'client'
+        if ($user->role_id != 4) { // '3' is the role ID for 'client'
             return response()->json([
                 'success' => false,
                 'message' => 'Only clients can log in via API'
@@ -55,7 +55,7 @@ class AuthController extends Controller
             'message' => 'Login successful',
             'token' => $token,
             'user' => $user->makeHidden(['devices']),
-            'devices' => $user->devices()->pluck('id')
+            'devices' => $user->devices()->pluck('devices.id')
         ], 200);
     }
 }
