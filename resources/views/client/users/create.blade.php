@@ -9,7 +9,7 @@
         </ol>
     </nav>
 
-    <form class="mb-9" method="POST" action="{{ route('client.store-clients.store') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="POST" action="{{ route('store-clients.store') }}" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="row g-3 flex-between-end mb-5">
@@ -20,7 +20,7 @@
                 </h5>
             </div>
             <div class="col-auto">
-                <a href="{{ route('users.index') }}" class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0">Discard</a>
+                <a href="{{ route('store-clients.index') }}" class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0">Discard</a>
                 <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add user</button>
             </div>
         </div>
@@ -74,8 +74,8 @@
                     <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password"
                            value="{{ old('password_confirmation') }}" required>
                 </div>
-
             </div>
+
             <div class="col-12 col-xl-4">
                 <div class="row g-2">
                     <div class="col-12 col-xl-12">

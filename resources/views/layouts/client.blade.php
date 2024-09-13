@@ -26,6 +26,7 @@
 <script src="{{ asset('assets/vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js') }}"></script>
 <script src="{{ asset('assets/js/phoenix.js') }}"></script>
 <script src="{{ asset('assets/vendors/echarts/echarts.min.js') }}"></script>
+<script src="{{ asset('assets/js/charts.js') }}"></script>
 <script src="{{ asset('assets/js/ecommerce-dashboard.js') }}"></script>
 
 <!-- Stacking JavaScript -->
