@@ -37,23 +37,7 @@ class HomeController extends Controller
 
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
-            } else if (Auth::user()->role->id == 3) {
-//                $stores = Store::with('areas.device')->get();
-//                $stores = auth()->user()->stores('client')->with('areas.device')->get(); // Make sure you eager load areas and devices to avoid N+1 query issues
-                $stores = auth()->user()->stores()->get();
-
-//                dd($userId, Auth::user()->role->id, $stores);
-
-                foreach ($stores as $store) {
-                    foreach ($store->areas as $area) {
-                        $device = $area->device->first->id;
-                        $area->latestRecord = $this->sensorDataService->fetchData($device->id, false);
-                    }
-                }
-
-                return view('dashboard.store_client', compact('stores'));
-            } else if (Auth::user()->role->id == 4) {
-//                $stores = auth()->user()->stores('owner')->get();
+            } else{
                 $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
@@ -63,7 +47,11 @@ class HomeController extends Controller
                     }
                 }
 
-                return view('dashboard.client', compact('stores'));
+                if (Auth::user()->role->id === 3) {
+                    return view('dashboard.store_client', compact('stores'));
+                } else if (Auth::user()->role->id === 4) {
+                    return view('dashboard.client', compact('stores'));
+                }
             }
         } else {
             return redirect()->route('login');

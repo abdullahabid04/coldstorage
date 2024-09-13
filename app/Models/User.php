@@ -54,19 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function stores($accessLevel = null)
+    public function stores()
     {
-        if (in_array($accessLevel, ['owner', 'client'])) {
-            return $this->belongsToMany(Store::class, 'store_user')
-                ->withPivot('access_level')
-                ->withTimestamps()
-                ->wherePivot('access_level', $accessLevel);
-        }
-
         return $this->belongsToMany(Store::class, 'store_user')
             ->withTimestamps();
     }
-
 
     public function devices()
     {
