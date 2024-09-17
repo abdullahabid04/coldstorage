@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class Role extends Model
 {
     use HasFactory;
-    Use Loggable;
+    use Loggable;
 
     protected $fillable = [
         'title',
     ];
 
     protected $user;
+
     public function __construct()
     {
         $this->user = Auth::user();
@@ -32,24 +33,24 @@ class Role extends Model
         $ids = $this->menus()->where('status', true)->pluck('menus.id')->toArray();
         return $this->menus()
             ->whereNull('parent_id')
-            ->with('submenus', function($query) use($ids) {
+            ->with('submenus', function ($query) use ($ids) {
                 $query->whereIn('id', $ids);
             })->orderBy('display_order')
             ->get();
     }
 
-    public function isAdmin() : bool
+    public function isAdmin(): bool
     {
-        return $this->user->role_id == 1;
+        return in_array($this->user->role_id, [1, 2]);
     }
 
-    public function isClient() : bool
-    {
-        return $this->user->role_id == 2;
-    }
-
-    public function isEmployee() : bool
+    public function isClient(): bool
     {
         return $this->user->role_id == 3;
+    }
+
+    public function isStoreClient(): bool
+    {
+        return $this->user->role_id == 4;
     }
 }

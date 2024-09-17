@@ -25,11 +25,6 @@ class Device extends Model
         return $serial;
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'device_user')->withTimestamps();
-    }
-
     /**
      * A device is assigned to one area (one-to-one via pivot table).
      */

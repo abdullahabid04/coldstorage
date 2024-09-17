@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Device;
-use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -76,8 +76,13 @@ class StoreOwnerClientController extends Controller
             'role_id' => 4, // Assign client role (fixed)
         ]);
 
-        // Sync selected devices to the newly created client
-        $client->devices()->sync($request->device_ids);
+        // Fetch the areas using the provided device IDs (based on area-device relation)
+        $areaIds = Area::whereHas('device', function ($query) use ($request) {
+            $query->whereIn('devices.id', $request->device_ids);
+        })->pluck('areas.id')->toArray();
+
+        // Sync selected areas to the newly created client
+        $client->areas()->sync($areaIds);
 
         // Fetch the current store for the store owner
         $store = auth()->user()->stores()->first();

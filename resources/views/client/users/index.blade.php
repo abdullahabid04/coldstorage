@@ -88,16 +88,12 @@
                             </td>
                             <td class="role align-middle white-space-nowrap text-body">
                                 @php
-                                    $devices_ = $row->devices()->get();
+                                    // Fetch the areas associated with the user
+                                    $areas = $row->areas;
                                 @endphp
 
-                                @foreach($devices_ as $device)
-                                    @php
-                                        $area = $device->area->first();
-                                    @endphp
-
+                                @foreach($areas as $area)
                                     {{ $area->title }}
-
                                     <br>
                                 @endforeach
                             </td>

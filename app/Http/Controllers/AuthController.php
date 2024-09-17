@@ -55,7 +55,6 @@ class AuthController extends Controller
             'message' => 'Login successful',
             'token' => $token,
             'user' => $user->makeHidden(['devices']),
-            'devices' => $user->devices()->pluck('devices.id')
         ], 200);
     }
 }

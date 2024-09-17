@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ClientDataController;
 use App\Http\Controllers\AreaDeviceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FactoryController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreUserController;
-use App\Http\Controllers\StoreDeviceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +29,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/stores', [ClientDataController::class, 'getStores']);
+    Route::get('/store-areas/{storeId}', [ClientDataController::class, 'getAreasInStore']);
+    Route::get('/area-devices/{areaId}', [ClientDataController::class, 'getDevicesInArea']);
+});
 
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/areas', [SiteController::class, 'fetch']);

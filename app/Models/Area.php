@@ -35,7 +35,14 @@ class Area extends Model
     public function device()
     {
         return $this->belongsToMany(Device::class, 'area_device')->withTimestamps();
-//        return $this->belongsTo(Device::class, 'area_device');
+    }
+
+    /**
+     * An area has a many-to-may relationship with a user (via a pivot table).
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'area_user')->withTimestamps();
     }
 
     /**

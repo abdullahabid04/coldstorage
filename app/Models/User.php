@@ -60,8 +60,8 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    public function devices()
+    public function areas()
     {
-        return $this->belongsToMany(Device::class, 'device_user')->withTimestamps();
+        return $this->belongsToMany(Area::class, 'area_user')->withTimestamps();
     }
 }

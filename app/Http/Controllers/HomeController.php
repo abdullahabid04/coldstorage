@@ -31,13 +31,12 @@ class HomeController extends Controller
      */
     public function index(Request $request): Renderable
     {
-
         if (Auth::user()) {
             $userId = Auth::id();
 
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
-            } else{
+            } else {
                 $stores = auth()->user()->stores()->get();
 
                 foreach ($stores as $store) {
@@ -48,13 +47,13 @@ class HomeController extends Controller
                 }
 
                 if (Auth::user()->role->id === 3) {
-                    return view('dashboard.store_client', compact('stores'));
-                } else if (Auth::user()->role->id === 4) {
                     return view('dashboard.client', compact('stores'));
+                } else if (Auth::user()->role->id === 4) {
+                    return view('dashboard.store_client', compact('stores'));
                 }
             }
-        } else {
-            return redirect()->route('login');
         }
+
+        return redirect()->route('login');
     }
 }
