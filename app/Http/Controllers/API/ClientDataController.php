@@ -45,7 +45,8 @@ class ClientDataController extends Controller
         $user = $request->user();
 
         // Fetch devices mapped to the specific area through area-device relationship
-        $devices = $user->areas()->where('areas.id', $areaId)->with('device')->get();
+        $devices = $user->areas()->where('areas.id', $areaId)
+            ->with('device')->get()->pluck('device');
 
         return response()->json([
             'success' => true,
