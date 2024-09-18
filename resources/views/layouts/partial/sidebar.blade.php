@@ -47,7 +47,7 @@
                                     <ul class="nav parent collapse {{ ($subMenuSelected) ? 'show' : '' }}" data-bs-parent="#navbarVerticalCollapse" id="nv-{{ $menu->id }}">
                                         <li class="collapsed-nav-item-title d-none">{{ $menu->title }}</li>
                                         @foreach($menu->submenus as $item)
-                                            @if($menu->route === [] || $menu->route === "")
+                                            @if($item->route === [] || $item->route === "")
                                                 <li class="nav-item"></li>
                                             @else
                                                 <li class="nav-item">
