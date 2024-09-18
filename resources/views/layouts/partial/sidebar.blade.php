@@ -6,7 +6,8 @@
 
                 <li class="nav-item">
                     <div class="nav-item-wrapper">
-                        <a class="nav-link label-1 {{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}" role="button" data-bs-toggle="Dashboard" aria-expanded="false">
+                        <a class="nav-link label-1 {{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}"
+                           role="button" data-bs-toggle="Dashboard" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
                                     <span data-feather="pie-chart"></span>
@@ -22,42 +23,44 @@
                 <hr class="navbar-vertical-line">
 
                 @foreach($menus as $menu)
-                    @if($menu->route == 'home') @continue; @endif
+                    @if($menu->route == 'home')
+                        @continue;
+                    @endif
                     @if(count($menu->submenus))
                         @php
                             $subMenuSelected = false;
-                            if ($menu->route === [] || $menu->route === "") {return;}
                             $subMenuSelected = Arr::first($menu->submenus, function ($item, $key) {
                                                     return Route::is($item->route);
                                                 });
                         @endphp
                         <li class="nav-item">
                             <div class="nav-item-wrapper">
-                                <a class="nav-link dropdown-indicator label-1 {{ ($subMenuSelected) ? '' : 'collapsed' }}" href="#nv-{{ $menu->id }}" role="button"
-                                   data-bs-toggle="collapse" aria-expanded="{{ ($subMenuSelected) ? 'true' : 'false' }}" aria-controls="nv-{{ $menu->id }}">
+                                <a class="nav-link dropdown-indicator label-1 {{ ($subMenuSelected) ? '' : 'collapsed' }}"
+                                   href="#nv-{{ $menu->id }}" role="button"
+                                   data-bs-toggle="collapse" aria-expanded="{{ ($subMenuSelected) ? 'true' : 'false' }}"
+                                   aria-controls="nv-{{ $menu->id }}">
                                     <div class="d-flex align-items-center">
                                         <div class="dropdown-indicator-icon-wrapper">
                                             <span class="fas fa-caret-right dropdown-indicator-icon"></span>
                                         </div>
-                                        <span class="nav-link-icon"><span data-feather="{{ $menu->icon }}"></span></span>
+                                        <span class="nav-link-icon"><span
+                                                data-feather="{{ $menu->icon }}"></span></span>
                                         <span class="nav-link-text">{{ $menu->title }}</span>
                                     </div>
                                 </a>
                                 <div class="parent-wrapper label-1">
-                                    <ul class="nav parent collapse {{ ($subMenuSelected) ? 'show' : '' }}" data-bs-parent="#navbarVerticalCollapse" id="nv-{{ $menu->id }}">
+                                    <ul class="nav parent collapse {{ ($subMenuSelected) ? 'show' : '' }}"
+                                        data-bs-parent="#navbarVerticalCollapse" id="nv-{{ $menu->id }}">
                                         <li class="collapsed-nav-item-title d-none">{{ $menu->title }}</li>
                                         @foreach($menu->submenus as $item)
-                                            @if($item->route === [] || $item->route === "")
-                                                <li class="nav-item"></li>
-                                            @else
-                                                <li class="nav-item">
-{{--                                                    <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}" href="{{ route($item->route) }}">--}}
-{{--                                                        <div class="d-flex align-items-center">--}}
-{{--                                                            <span class="nav-link-text">{{ $item->title }}</span>--}}
-{{--                                                        </div>--}}
-{{--                                                    </a>--}}
-                                                </li>
-                                            @endif
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}"
+                                                   href="{{ route($item->route) }}">
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="nav-link-text">{{ $item->title }}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -66,18 +69,20 @@
                     @else
                         <li class="nav-item">
                             @if(!is_null($menu->route))
-                            <div class="nav-item-wrapper">
-                                <a class="nav-link label-1 {{ Route::is($menu->route) ? 'active' : '' }}" href="{{ route($menu->route) }}" role="button" data-bs-toggle="" aria-expanded="false">
-                                    <div class="d-flex align-items-center">
+                                <div class="nav-item-wrapper">
+                                    <a class="nav-link label-1 {{ Route::is($menu->route) ? 'active' : '' }}"
+                                       href="{{ route($menu->route) }}" role="button" data-bs-toggle=""
+                                       aria-expanded="false">
+                                        <div class="d-flex align-items-center">
                                         <span class="nav-link-icon">
                                             <span data-feather="{{ $menu->icon }}"></span>
                                         </span>
-                                        <span class="nav-link-text-wrapper">
+                                            <span class="nav-link-text-wrapper">
                                             <span class="nav-link-text">{{ $menu->title }}</span>
                                         </span>
-                                    </div>
-                                </a>
-                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             @endif
                         </li>
                     @endif
@@ -87,7 +92,8 @@
     </div>
 
     <div class="navbar-vertical-footer">
-        <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center">
+        <button
+            class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center">
             <span class="uil uil-left-arrow-to-left fs-8"></span>
             <span class="uil uil-arrow-from-right fs-8"></span>
             <span class="navbar-vertical-footer-text ms-2">Collapsed View</span>
