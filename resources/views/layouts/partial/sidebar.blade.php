@@ -51,11 +51,11 @@
                                                 <li class="nav-item"></li>
                                             @else
                                                 <li class="nav-item">
-                                                    <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}" href="{{ route($item->route) }}">
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="nav-link-text">{{ $item->title }}</span>
-                                                        </div>
-                                                    </a>
+{{--                                                    <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}" href="{{ route($item->route) }}">--}}
+{{--                                                        <div class="d-flex align-items-center">--}}
+{{--                                                            <span class="nav-link-text">{{ $item->title }}</span>--}}
+{{--                                                        </div>--}}
+{{--                                                    </a>--}}
                                                 </li>
                                             @endif
                                         @endforeach
