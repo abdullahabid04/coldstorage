@@ -26,6 +26,7 @@
                     @if(count($menu->submenus))
                         @php
                             $subMenuSelected = false;
+                            if ($menu->route === [] || $menu->route === "") {return;}
                             $subMenuSelected = Arr::first($menu->submenus, function ($item, $key) {
                                                     return Route::is($item->route);
                                                 });
