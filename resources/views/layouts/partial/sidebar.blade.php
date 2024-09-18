@@ -47,13 +47,17 @@
                                     <ul class="nav parent collapse {{ ($subMenuSelected) ? 'show' : '' }}" data-bs-parent="#navbarVerticalCollapse" id="nv-{{ $menu->id }}">
                                         <li class="collapsed-nav-item-title d-none">{{ $menu->title }}</li>
                                         @foreach($menu->submenus as $item)
-                                        <li class="nav-item">
-                                            <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}" href="{{ route($item->route) }}">
-                                                <div class="d-flex align-items-center">
-                                                    <span class="nav-link-text">{{ $item->title }}</span>
-                                                </div>
-                                            </a>
-                                        </li>
+                                            @if($menu->route === [] || $menu->route === "")
+                                                <li class="nav-item"></li>
+                                            @else
+                                                <li class="nav-item">
+                                                    <a class="nav-link {{ Route::is($item->route) ? 'active' : '' }}" href="{{ route($item->route) }}">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="nav-link-text">{{ $item->title }}</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 </div>
