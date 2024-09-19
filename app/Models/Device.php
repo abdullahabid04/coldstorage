@@ -16,13 +16,31 @@ class Device extends Model
 
     protected $fillable = ['serial_number', 'description', 'store_id'];
 
+//    public function getSerial(): string
+//    {
+//        do {
+//            $serial = 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+//        } while (Device::where('serial_number', $serial)->exists());
+//
+//        return $serial;
+//    }
+
     public function getSerial(): string
     {
-        do {
-            $serial = 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
-        } while (Device::where('serial_number', $serial)->exists());
+        // Get the last inserted serial number
+        $lastSerial = Device::withTrashed()->orderBy('serial_number', 'desc')->value('serial_number');
 
-        return $serial;
+        if ($lastSerial) {
+            // Extract the numeric part from the last serial number and increment it
+            $lastNumber = (int)substr($lastSerial, 2); // Remove 'SN' prefix and convert to an integer
+            $newNumber = $lastNumber + 1;
+        } else {
+            // If no serial exists, start from 1
+            $newNumber = 1;
+        }
+
+        // Format the new serial number with the required 'SN' prefix and 6 digits
+        return 'SN' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
     }
 
     /**
