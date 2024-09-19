@@ -204,10 +204,32 @@
                         <span class="uil fs-8 me-2 uil-chart-pie"></span>Home
                     </a>
                 </li>
-                <li class="nav-item lh-1">
-                    <a class="nav-link" href="{{ url('client/complaints') }}" role="button">
-                        <span class="uil fs-8 me-2 uil-chart-pie"></span>Complaints
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <span class="uil fs-8 me-2 uil-cube"></span>Stores
                     </a>
+                    <ul class="dropdown-menu navbar-dropdown-caret">
+                        @foreach($stores as $row)
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span>
+                                        <span><span class="me-2 uil" data-feather="trello"></span>{{ $row->title }}</span>
+                                    </div>
+                                </a>
+                                {{-- Device Links --}}
+                                <ul class="dropdown-menu">
+                                    @foreach($row->areas as $area)
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('areas.show', $area->id) }}">
+                                                <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>{{ $area->title }}</div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="nav-item lh-1">
                     <a class="nav-link" href="{{ route('reports') }}" role="button">

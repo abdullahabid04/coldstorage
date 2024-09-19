@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -49,18 +51,18 @@ class User extends Authenticatable
         'deleted_at' => 'datetime'
     ];
 
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function stores()
+    public function stores(): BelongsToMany
     {
         return $this->belongsToMany(Store::class, 'store_user')
             ->withTimestamps();
     }
 
-    public function areas()
+    public function areas(): BelongsToMany
     {
         return $this->belongsToMany(Area::class, 'area_user')->withTimestamps();
     }
