@@ -41,19 +41,19 @@ class StoreOwnerClientController extends Controller
     // Show the form to create a new client
     public function create()
     {
-        // Fetch the store of the logged-in store owner
-        $store = auth()->user()->stores()->first();
+        // Fetch all stores associated with the logged-in store owner
+        $stores = auth()->user()->stores()->get();
 
-        if (!$store) {
-            return redirect()->route('store-owner.clients.index')->with('error', 'No store associated with this user.');
+        if ($stores->isEmpty()) {
+            return redirect()->route('store-owner.clients.index')->with('error', 'No stores associated with this user.');
         }
 
-        // Fetch all devices in areas of this store
-        $devices = Device::whereHas('area.store', function ($query) use ($store) {
-            $query->where('store_id', $store->id);
+        // Fetch all devices in areas of the user's multiple stores
+        $devices = Device::whereHas('area.store', function ($query) use ($stores) {
+            $query->whereIn('store_id', $stores->pluck('id')->toArray()); // Use whereIn for multiple store IDs
         })->get();
 
-        return view('client.users.create', compact('devices'));
+        return view('client.users.create', compact('devices', 'stores'));
     }
 
     // Store the newly created client
@@ -84,10 +84,13 @@ class StoreOwnerClientController extends Controller
         // Sync selected areas to the newly created client
         $client->areas()->sync($areaIds);
 
-        // Fetch the current store for the store owner
-        $store = auth()->user()->stores()->first();
+        // Fetch the current stores for the store owner
+        $stores = auth()->user()->stores()->get();
 
-        $store->users()->attach($client->id, ['access_level' => 'client']);
+        // Attach the client to all the stores
+        foreach ($stores as $store) {
+            $store->users()->attach($client->id, ['access_level' => 'client']);
+        }
 
         return redirect()->route('store-clients.index')->with('success', 'Client created and devices assigned successfully.');
     }
