@@ -49,9 +49,9 @@ class HomeController extends Controller
                 }
 
                 if (Auth::user()->role->id === 3) {
-                    return view('dashboard.store_client', compact('stores'));
-                } else if (Auth::user()->role->id === 4) {
                     return view('dashboard.client', compact('stores'));
+                } else if (Auth::user()->role->id === 4) {
+                    return view('dashboard.store_client', compact('stores'));
                 }
             }
         }
