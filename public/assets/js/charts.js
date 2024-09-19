@@ -13,7 +13,7 @@ const updateChart = (chart, option) => {
 
 const setTitle = (option, title) => {
     if (title) {
-        option.title = { text: title };
+        option.title = {text: title};
     }
 };
 
@@ -29,11 +29,11 @@ const lineChartOption = (
         xAxis: {
             type: "category",
             data: xData,
-            axisLabel: { formatter: (value) => value },
+            axisLabel: {formatter: (value) => value},
         },
         yAxis: {
             type: "value",
-            axisLabel: { formatter: (value) => value },
+            axisLabel: {formatter: (value) => value},
         },
         legend: {
             show: true,
@@ -53,11 +53,11 @@ const lineChartOption = (
         })),
         tooltip: showTooltip
             ? {
-                  trigger: "axis",
-                  axisPointer: {
-                      type: "cross",
-                  },
-              }
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                },
+            }
             : null,
     };
 
@@ -77,11 +77,11 @@ const barChartOption = (
         xAxis: {
             type: "category",
             data: xData,
-            axisLabel: { formatter: (value) => value },
+            axisLabel: {formatter: (value) => value},
         },
         yAxis: {
             type: "value",
-            axisLabel: { formatter: (value) => value },
+            axisLabel: {formatter: (value) => value},
         },
         legend: {
             show: true,
@@ -102,11 +102,11 @@ const barChartOption = (
         })),
         tooltip: showTooltip
             ? {
-                  trigger: "axis",
-                  axisPointer: {
-                      type: "shadow",
-                  },
-              }
+                trigger: "axis",
+                axisPointer: {
+                    type: "shadow",
+                },
+            }
             : null,
     };
 
@@ -158,7 +158,7 @@ const doughnutChartOption = (name, seriesData, title = null) => {
     };
 
     if (title) {
-        option.title = { text: title };
+        option.title = {text: title};
     }
     return option;
 };
@@ -248,7 +248,7 @@ const gaugeChartOption = (
                     color: "#333",
                     offsetCenter: [0, "85%"],
                 },
-                data: [{ value, name }],
+                data: [{value, name}],
                 animationDuration: 1000,
                 animationEasing: "bounceOut",
             },
@@ -256,7 +256,7 @@ const gaugeChartOption = (
     };
 
     if (title) {
-        option.title = { text: title };
+        option.title = {text: title};
     }
     return option;
 };
@@ -268,3 +268,115 @@ const resizeChart = () => {
 };
 
 window.addEventListener("resize", resizeChart);
+
+const gaugeOpt = (lightColor, darkColor, value, unit) => {
+    return {
+        series: [
+            {
+                type: 'gauge',
+                center: ['50%', '60%'],
+                startAngle: 200,
+                endAngle: -20,
+                min: 0,
+                max: 60,
+                splitNumber: 12,
+                itemStyle: {
+                    color: lightColor
+                },
+                progress: {
+                    show: true,
+                    width: 30
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 30
+                    }
+                },
+                axisTick: {
+                    distance: -45,
+                    splitNumber: 5,
+                    lineStyle: {
+                        width: 2,
+                        color: '#999'
+                    }
+                },
+                splitLine: {
+                    distance: -52,
+                    length: 14,
+                    lineStyle: {
+                        width: 3,
+                        color: '#999'
+                    }
+                },
+                axisLabel: {
+                    distance: -5,
+                    color: '#999',
+                    fontSize: 12
+                },
+                anchor: {
+                    show: false
+                },
+                title: {
+                    show: false
+                },
+                detail: {
+                    valueAnimation: true,
+                    width: '60%',
+                    lineHeight: 40,
+                    borderRadius: 8,
+                    offsetCenter: [0, '-15%'],
+                    fontSize: 20,
+                    fontWeight: 'bolder',
+                    formatter: `{value} ${unit}`,
+                    color: '#999'
+                },
+                data: [
+                    {
+                        value
+                    }
+                ]
+            },
+            {
+                type: 'gauge',
+                center: ['50%', '60%'],
+                startAngle: 200,
+                endAngle: -20,
+                min: 0,
+                max: 60,
+                itemStyle: {
+                    color: darkColor
+                },
+                progress: {
+                    show: true,
+                    width: 8
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false
+                },
+                detail: {
+                    show: false
+                },
+                data: [
+                    {
+                        value
+                    }
+                ]
+            }
+        ]
+    };
+}
