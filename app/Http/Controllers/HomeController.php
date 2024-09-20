@@ -37,7 +37,16 @@ class HomeController extends Controller
             if (in_array(Auth::user()->role->id, [1, 2])) {
                 return view('dashboard.admin');
             } else {
-                $stores = auth()->user()->stores()->get();
+
+                if (Auth::user()->role->id === 3) {
+                    $stores = auth()->user()->stores()->with(['areas' => function($query) {
+                        $query->whereHas('users', function ($query) {
+                            $query->where('user_id', auth()->id());
+                        });
+                    }])->get();
+                } else {
+                    $stores = auth()->user()->stores()->get();
+                }
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
