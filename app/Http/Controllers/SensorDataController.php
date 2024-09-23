@@ -166,7 +166,6 @@ class SensorDataController extends Controller
         $validator = Validator::make($request->all(), [
             'serial_number' => 'required|string',
             'data' => 'required|array',
-            'data.*.timestamp' => 'required|date',
             'data.*.temperature' => 'required|numeric',
             'data.*.humidity' => 'required|numeric',
         ]);
@@ -211,7 +210,7 @@ class SensorDataController extends Controller
             SensorData::create([
                 'device_id' => $device->id,
                 'area_id' => $area->id,
-                'timestamp' => $dataEntry['timestamp'],
+                'timestamp' => now(),
                 'temperature' => $dataEntry['temperature'],
                 'humidity' => $dataEntry['humidity'],
             ]);
