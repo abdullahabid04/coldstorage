@@ -55,6 +55,8 @@ class HomeController extends Controller
                     }
                 }
 
+                dd($stores);
+
                 if (Auth::user()->role->id === 3) {
                     return view('dashboard.client', compact('stores'));
                 } else if (Auth::user()->role->id === 4) {
