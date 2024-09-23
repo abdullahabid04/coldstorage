@@ -18,7 +18,8 @@
             <div class="col col-auto">
                 <div class="search-box">
                     <form class="position-relative">
-                        <input class="form-control search-input search" type="search" placeholder="Search roles" aria-label="Search"/>
+                        <input class="form-control search-input search" type="search" placeholder="Search roles"
+                               aria-label="Search"/>
                         <span class="fas fa-search search-box-icon"></span>
                     </form>
                 </div>
@@ -39,8 +40,12 @@
                 <table class="table table-sm fs-9 mb-0">
                     <thead>
                     <tr>
-                        <th class="sort align-middle" scope="col" data-sort="title" style="width:15%; min-width:150px;">Title</th>
-                        <th class="sort align-middle" scope="col" data-sort="route" style="width:75%; min-width:200px;">Menus Attached</th>
+                        <th class="sort align-middle" scope="col" data-sort="title" style="width:15%; min-width:150px;">
+                            Title
+                        </th>
+                        <th class="sort align-middle" scope="col" data-sort="route" style="width:75%; min-width:200px;">
+                            Menus Attached
+                        </th>
                         <th class="sort align-middle text-end" scope="col" style="width:10%;">Action</th>
                     </tr>
                     </thead>
@@ -59,16 +64,23 @@
                             </td>
                             <td class="align-middle text-end white-space-nowrap text-body-tertiary">
                                 <div class="btn-reveal-trigger position-static">
-                                    <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg class="svg-inline--fa fa-ellipsis fs-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                            <path fill="currentColor" d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
+                                    <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10"
+                                            type="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <svg class="svg-inline--fa fa-ellipsis fs-10" aria-hidden="true"
+                                             focusable="false" data-prefix="fas" data-icon="ellipsis" role="img"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                            <path fill="currentColor"
+                                                  d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end py-2">
-                                        <a class="dropdown-item" href="{{ route('menus.edit', $role->id) }}">Edit</a>
+                                        <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}">Edit</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)" data-id="{{ $role->id }}" data-bs-toggle="modal" data-bs-target="#menuAttachmentModal">Attach Manus</a>
-                                        <a class="dropdown-item" href="javascript:void(0)" data-id="{{ $role->id }}" data-bs-toggle="modal" data-bs-target="#menuDetachmentModal">Detach Manus</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" data-id="{{ $role->id }}"
+                                           data-bs-toggle="modal" data-bs-target="#menuAttachmentModal">Attach Manus</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" data-id="{{ $role->id }}"
+                                           data-bs-toggle="modal" data-bs-target="#menuDetachmentModal">Detach Manus</a>
                                     </div>
                                 </div>
                             </td>
@@ -78,7 +90,8 @@
                 </table>
             </div>
 
-            <div class="modal fade" id="menuAttachmentModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="menuAttachmentModal" tabindex="-1" data-bs-backdrop="static"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header justify-content-between">
@@ -99,14 +112,16 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="modal fade" id="menuDetachmentModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="menuDetachmentModal" tabindex="-1" data-bs-backdrop="static"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header justify-content-between">
@@ -127,7 +142,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -137,8 +153,10 @@
             <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
                 <div class="col-auto d-flex">
                     <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p>
-                    <a class="fw-semibold" href="#!" data-list-view="*">View all <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
-                    <a class="fw-semibold d-none" href="#!" data-list-view="less">View Less <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                    <a class="fw-semibold" href="#!" data-list-view="*">View all <span class="fas fa-angle-right ms-1"
+                                                                                       data-fa-transform="down-1"></span></a>
+                    <a class="fw-semibold d-none" href="#!" data-list-view="less">View Less <span
+                                class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
                 </div>
                 <div class="col-auto d-flex">
                     <button class="page-link" data-list-pagination="prev">
@@ -165,7 +183,7 @@
             // Body of modal
             var menu_list = $(this).find('.menu-list');
 
-            $.get(`{{ url('/api/roles/attach_menus/${id}') }}`, function(response) {
+            $.get(`{{ url('/api/roles/attach_menus/${id}') }}`, function (response) {
                 $(menu_list).html(response.list);
             });
         });
