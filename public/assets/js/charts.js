@@ -380,3 +380,5 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
         ]
     };
 }
+
+window.guageOpt = guageOpt;
