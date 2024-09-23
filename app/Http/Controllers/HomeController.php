@@ -7,6 +7,7 @@ use App\Services\SensorDataService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -39,7 +40,7 @@ class HomeController extends Controller
             } else {
 
                 if (Auth::user()->role->id === 4) {
-                    $stores = auth()->user()->stores()->with(['areas' => function($query) {
+                    $stores = auth()->user()->stores()->with(['areas' => function ($query) {
                         $query->whereHas('users', function ($query) {
                             $query->where('user_id', auth()->id());
                         });
@@ -54,8 +55,6 @@ class HomeController extends Controller
                         if ($device) $area->latestRecord = $this->sensorDataService->fetchData($device->id, false);
                     }
                 }
-
-                dd($stores);
 
                 if (Auth::user()->role->id === 3) {
                     return view('dashboard.client', compact('stores'));
