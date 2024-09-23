@@ -64,6 +64,8 @@
             devices.forEach(async function(device) {
                 var device_id = device.id;
 
+                console.log(device.latestRecord.temperature);
+
                 var temperatureChart = initChart(`gauge-temperature-${device_id}`, gaugeOpt('#FF6F6B', '#FF401F', device.latestRecord.temperature, '°C'));
                 var humidityChart = initChart(`gauge-humidity-${device_id}`, gaugeOpt('#66A3FF', '#3D7FFF', device.latestRecord.humidity, '%'));
 
