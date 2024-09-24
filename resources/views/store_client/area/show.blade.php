@@ -149,20 +149,20 @@
         var temperature = chartData.map(item => item.temperature);
         var humidity = chartData.map(item => item.humidity);
 
-        var tChart = echarts.init(document.getElementById('tempChart'));
+        var tChart = initChart('tempChart');
         tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
 
-        var hChart = echarts.init(document.getElementById('humidChart'));
+        var hChart = initChart('humidChart');
         hChart.setOption(lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 
         document.querySelectorAll('button[data-timeframe]').forEach(button => {
             button.addEventListener('click', function () {
                 var timeframe = this.getAttribute('data-timeframe');
                 currentTimeframe = timeframe;
-                createLineChartsWithSensorData(device.id, timeframe);
+                createLineChartsWithSensorData(area.id, device.id, timeframe, tChart, hChart);
             });
         });
 
-        setInterval(async () => createLineChartsWithSensorData(device.id, currentTimeframe), 10000);
+        setInterval(async () => createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 10000);
     </script>
 @endpush

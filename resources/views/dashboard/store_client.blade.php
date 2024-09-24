@@ -63,9 +63,14 @@
             document.addEventListener('DOMContentLoaded', async function () {
 
             stores.forEach(store => {
-                store.areas.forEach(area => {
-                    var temperatureChart = initChart(`gauge-temperature-${area.id}`, gaugeOpt('#FF6F6B', '#FF401F', area.latestRecord.temperature, '°C'));
-                    var humidityChart = initChart(`gauge-humidity-${area.id}`, gaugeOpt('#66A3FF', '#3D7FFF', area.latestRecord.humidity, '%'));
+                store.areas.forEach(async area => {
+                    var tChart = initChart(`gauge-temperature-${area.id}`);
+                    var hChart = initChart(`gauge-humidity-${area.id}`);
+                    await createGaugeChartsWithSensorData(area, tChart, hChart);
+
+                    setInterval(async () => {
+                        await createGaugeChartsWithSensorData(area, tChart, hChart);
+                    }, 10000);
                 })
             });
         });

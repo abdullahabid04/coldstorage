@@ -22,7 +22,7 @@ class SensorDataService
      * @param string $orderByDirection
      * @return Collection|SensorData|JsonResponse
      */
-    public function fetchData(int $deviceId, bool $jsonResponse = true, bool $latest = true, $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc'): Collection|SensorData|JsonResponse
+    public function fetchData(int $areaId, int $deviceId, bool $jsonResponse = true, bool $latest = true, $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc'): Collection|SensorData|JsonResponse
     {
         $latest = request()->get('latest', $latest);
         $orderByCol = request()->get('orderByCol', $orderByCol);
@@ -32,6 +32,7 @@ class SensorDataService
         $endDate = Carbon::now();
 
         $query = SensorData::where('device_id', $deviceId)
+            ->where('area_id', $areaId)
             ->when($startDate, fn($query) => $query->whereBetween('timestamp', [$startDate, $endDate]))
             ->orderBy($orderByCol, $orderByDirection);
 
@@ -68,9 +69,11 @@ class SensorDataService
      * @param mixed $startDate
      * @return array|JsonResponse
      */
-    public function fetchAvgData(int $deviceId, bool $jsonResponse = true, string|null $startDate = null): array|JsonResponse
+    public function fetchAvgData(int $areaId, int $deviceId, bool $jsonResponse = true, string|null $startDate = null): array|JsonResponse
     {
-        $query = SensorData::where('device_id', $deviceId);
+        $query = SensorData::where('device_id', $deviceId)->where('area_id', $areaId);
+
+        $startDate = request()->get('startDate', $startDate);
 
         if ($startDate) {
             $endDate = Carbon::now();

@@ -52,7 +52,7 @@ class HomeController extends Controller
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {
                         $device = $area->device->first->id;
-                        if ($device) $area->latestRecord = $this->sensorDataService->fetchData($device->id, false);
+                        if ($device) $area->latestRecord = $this->sensorDataService->fetchData($area->id, $device->id, false);
                     }
                 }
 

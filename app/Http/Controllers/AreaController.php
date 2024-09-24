@@ -62,19 +62,19 @@ class AreaController extends Controller
         if (in_array(Auth::user()->role->id, [1, 2])) {
             return view('admin.area.show', compact('area'));
         }
-//        dd($area);
+
         if ($area->device !== null) {
             $device = $area->device->first();
         } else return redirect()->back();
 
-        $chartData = $this->sensorDataService->fetchData($device->id, false, false, '1d', orderByDirection: 'asc');
+        $chartData = $this->sensorDataService->fetchData($area->id, $device->id, false, false, '1d', orderByDirection: 'asc');
 
         $avgData = [
-            '1d' => $this->sensorDataService->fetchAvgData($device->id, false, '1d'),
-            '1w' => $this->sensorDataService->fetchAvgData($device->id, false, '1w'),
-            '1m' => $this->sensorDataService->fetchAvgData($device->id, false, '1m'),
-            '1y' => $this->sensorDataService->fetchAvgData($device->id, false, '1y'),
-            'all' => $this->sensorDataService->fetchAvgData($device->id, false),
+            '1d' => $this->sensorDataService->fetchAvgData($area->id, $device->id, false, '1d'),
+            '1w' => $this->sensorDataService->fetchAvgData($area->id, $device->id, false, '1w'),
+            '1m' => $this->sensorDataService->fetchAvgData($area->id, $device->id, false, '1m'),
+            '1y' => $this->sensorDataService->fetchAvgData($area->id, $device->id, false, '1y'),
+            'all' => $this->sensorDataService->fetchAvgData($area->id, $device->id, false),
         ];
 
         return view('store_client.area.show', compact('area', 'chartData', 'avgData'));

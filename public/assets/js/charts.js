@@ -1,8 +1,7 @@
 const charts = [];
 
-const initChart = (chartId, option) => {
+const initChart = (chartId) => {
     const chart = echarts.init(document.getElementById(chartId));
-    chart.setOption(option);
     charts.push(chart);
     return chart;
 };
@@ -167,8 +166,8 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
     };
 }
 
-async function createLineChartsWithSensorData(deviceId, timeframe){
-    const data = await getSensorData(`${deviceId}?startDate=${timeframe}&orderByDirection=asc&latest=`)
+async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart){
+    const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&latest=`)
 
     timestamps = data.map(item => {
         return formatTimestamp(item.timestamp, timeframe)
@@ -178,4 +177,12 @@ async function createLineChartsWithSensorData(deviceId, timeframe){
 
     updateChart(tChart, lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
     updateChart(hChart, lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
+}
+
+async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe = "all"){
+    const device = area.device[0];
+    const data = await getSensorData(`${area.id}/${device.id}?startDate=${timeframe}&latest=true`);
+
+    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C'));
+    updateChart(hChart, gaugeOpt('#66A3FF', '#3D7FFF', data.humidity, '%'));
 }
