@@ -35,13 +35,27 @@ class SensorDataService
             ->when($startDate, fn($query) => $query->whereBetween('timestamp', [$startDate, $endDate]))
             ->orderBy($orderByCol, $orderByDirection);
 
+        $precision = request()->get('precision', 0);
+
         if ($latest) {
             $sensorData = $query->first();
+            if ($sensorData) {
+                $sensorData->humidity = round($sensorData->humidity, $precision, PHP_ROUND_HALF_DOWN);
+                $sensorData->temperature = round($sensorData->temperature, $precision, PHP_ROUND_HALF_DOWN);
+            }
         } else {
-            $sensorData = $query->get();
+            $sensorData = $query->get()->map(function ($item) use ($precision) {
+                if (isset($item->temperature)) {
+                    $item->temperature = round($item->temperature, $precision, PHP_ROUND_HALF_DOWN);
+                }
+                if (isset($item->humidity)) {
+                    $item->humidity = round($item->humidity, $precision, PHP_ROUND_HALF_DOWN);
+                }
+                return $item;
+            });
         }
 
-        $sensorData = $latest ? $query->first() : $query->get();
+
 
         return $jsonResponse ? response()->json($sensorData) : $sensorData;
     }

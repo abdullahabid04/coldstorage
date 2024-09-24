@@ -19,7 +19,7 @@
                     <div class="col-12">
                         <div class="row store">
                             @foreach ($store->areas as $area)
-                                <div class="col-6">
+                                <div class="col-6 mb-3">
                                     <div class="card h-100 border">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -59,21 +59,15 @@
 
 @push('scripts')
     <script>
-        var stores = @json($stores);
-        document.addEventListener('DOMContentLoaded', async function () {
+            var stores = @json($stores);
+            document.addEventListener('DOMContentLoaded', async function () {
+
             stores.forEach(store => {
-                var devices = store.areas;
-
-                devices.forEach(async function (device) {
-                    var device_id = device.id;
-
-                    console.log(device.latestRecord.temperature);
-
-                    var temperatureChart = initChart(`gauge-temperature-${device_id}`, gaugeOpt('#FF6F6B', '#FF401F', parseFloat(device.latestRecord.temperature).toFixed(2), '°C'));
-                    var humidityChart = initChart(`gauge-humidity-${device_id}`, gaugeOpt('#66A3FF', '#3D7FFF', parseFloat(device.latestRecord.humidity).toFixed(2), '%'));
-                });
+                store.areas.forEach(area => {
+                    var temperatureChart = initChart(`gauge-temperature-${area.id}`, gaugeOpt('#FF6F6B', '#FF401F', area.latestRecord.temperature, '°C'));
+                    var humidityChart = initChart(`gauge-humidity-${area.id}`, gaugeOpt('#66A3FF', '#3D7FFF', area.latestRecord.humidity, '%'));
+                })
             });
         });
-
     </script>
 @endpush

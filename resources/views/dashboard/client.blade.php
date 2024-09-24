@@ -19,7 +19,7 @@
                     <div class="col-12">
                         <div class="row">
                             @foreach ($store->areas as $area)
-                                <div class="col-6">
+                                <div class="col-6 mb-3">
                                     <div class="card h-100 border">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
