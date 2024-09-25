@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ClientDataController;
 use App\Http\Controllers\AreaDeviceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\FactoryController;
 use App\Http\Controllers\FactoryUserController;
 use App\Http\Controllers\MenuController;
@@ -41,6 +42,28 @@ Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity
 Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
 Route::get('/sensor-data/{deviceId}', [SensorDataController::class, 'fetchData']);
 
+Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
+Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
+Route::post('/menus/update_order', [MenuController::class, 'updateOrder']);
+
+// Device Status Routes
+Route::put('/devices/{device_id}/status/set', [DeviceController::class, 'setDeviceStatus']);
+Route::get('/devices/{device_id}/status/get', [DeviceController::class, 'getDeviceStatus']);
+
+// Device Time Delay Routes
+Route::put('/devices/{device_id}/delay/set', [DeviceController::class, 'setTimeDelay']);
+Route::get('/devices/{device_id}/delay/get', [DeviceController::class, 'getTimeDelay']);
+
+// Wi-Fi Status Routes
+Route::put('/devices/{device_id}/wifi/set-credentials', [DeviceController::class, 'setWifiCredentials']);
+Route::get('/devices/{device_id}/wifi/get-credentials', [DeviceController::class, 'getWifiCredentials']);
+Route::put('/devices/{device_id}/wifi/set-state', [DeviceController::class, 'setWifiState']);
+Route::get('/devices/{device_id}/wifi/get-state', [DeviceController::class, 'getWifiState']);
+
+// Device Event Routes
+Route::put('/devices/{device_id}/events/update', [DeviceController::class, 'updateDeviceEvent']);
+Route::get('/devices/{device_id}/events/get', [DeviceController::class, 'getDeviceEvents']);
+
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/areas', [SiteController::class, 'fetch']);
 
@@ -52,7 +75,3 @@ Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
 Route::get('sensor-data/{entityType}/{entityId}/', [SensorDataController::class, 'fetch']);
 Route::get('sensor-data/{entityType}/{entityId}/energy', [SensorDataController::class, 'fetchEnergyData']);
-
-Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
-Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
-Route::post('/menus/update_order', [MenuController::class, 'updateOrder']);
