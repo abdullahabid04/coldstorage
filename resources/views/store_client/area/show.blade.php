@@ -144,101 +144,25 @@
         var timestamps = chartData.map(item => {
             return formatTimestamp(item.timestamp, '1d')
         });
-        console.log(timestamps)
-        var temperatures = chartData.map(item => item.temperature);
+        var currentTimeframe = '1d';
+
+        var temperature = chartData.map(item => item.temperature);
         var humidity = chartData.map(item => item.humidity);
 
-        var tempOptions = {
-            xAxis: {
-                type: 'category',
-                data: timestamps,
-                // axisLabel: { rotate: 45 } // Rotate labels for better readability
-            },
-            yAxis: {
-                type: 'value',
-                name: 'Temperature (°C)'
-            },
-            grid: {
-                top: '10%',
-                bottom: '15%',
-                left: '10%',
-                right: '10%'
-            },
-            legend: {data: ['Temperature']},
-            tooltip: {trigger: 'axis', axisPointer: {type: 'cross'}},
-            series: [{
-                name: 'Temperature',
-                type: 'line',
-                data: temperatures,
-                animation: true,
-                itemStyle: {
-                    color: '#FF401F'
-                }
-            }],
-        }
+        var tChart = initChart('tempChart');
+        tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
 
-        var humidOptions = {
-            xAxis: {
-                type: 'category',
-                data: timestamps,
-                // axisLabel: { rotate: 45 } // Rotate labels for better readability
-            },
-            yAxis: {
-                type: 'value',
-                name: 'Humidity (%)'
-            },
-            grid: {
-                top: '10%',
-                bottom: '15%',
-                left: '10%',
-                right: '10%'
-            },
-            legend: {data: ['Humidity']},
-            tooltip: {trigger: 'axis', axisPointer: {type: 'cross'}},
-            series: [{
-                name: 'Humidity',
-                type: 'line',
-                data: humidity,
-                animation: true,
-                itemStyle: {
-                    color: '#3D7FFF'
-                },
-            }],
-        }
+        var hChart = initChart('humidChart');
+        hChart.setOption(lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 
-        var tChart = echarts.init(document.getElementById('tempChart'));
-        tChart.setOption(tempOptions);
-
-        var hChart = echarts.init(document.getElementById('humidChart'));
-        hChart.setOption(humidOptions);
-
-        // Handle button clicks
         document.querySelectorAll('button[data-timeframe]').forEach(button => {
             button.addEventListener('click', function () {
                 var timeframe = this.getAttribute('data-timeframe');
-                fetch(`/api/sensor-data/${device.id}?startDate=${timeframe}&orderByDirection=asc&latest=`)
-                    .then(response => response.json())
-                    .then(data => {
-                        timestamps = data.map(item => {
-                            return formatTimestamp(item.timestamp, timeframe)
-                        });
-                        temperatures = data.map(item => item.temperature);
-                        humidity = data.map(item => item.humidity);
-
-                        tempOptions.xAxis.data = humidOptions.xAxis.data = timestamps;
-                        tempOptions.series[0].data = temperatures;
-                        humidOptions.series[0].data = humidity;
-
-                        tChart.setOption(tempOptions);
-                        hChart.setOption(humidOptions);
-                    });
+                currentTimeframe = timeframe;
+                createLineChartsWithSensorData(area.id, device.id, timeframe, tChart, hChart);
             });
         });
 
-        // Resize charts on window resize
-        window.addEventListener('resize', function () {
-            tChart.resize();
-            hChart.resize();
-        });
+        setInterval(async () => createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 10000);
     </script>
 @endpush

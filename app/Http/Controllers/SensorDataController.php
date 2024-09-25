@@ -222,13 +222,13 @@ class SensorDataController extends Controller
         ], 201);
     }
 
-    public function fetchData(int $deviceId, bool $jsonResponse = true, bool $latest = true, string $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc')
+    public function fetchData(int $areaId, int $deviceId, bool $jsonResponse = true, bool $latest = true, string $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc')
     {
-        return app(SensorDataService::class)->fetchData($deviceId, $jsonResponse, $latest, $startDate, $orderByCol, $orderByDirection);
+        return app(SensorDataService::class)->fetchData($areaId, $deviceId, $jsonResponse, $latest, $startDate, $orderByCol, $orderByDirection);
     }
 
-    public function fetchAvgData(int $deviceId, bool $jsonResponse = true, string|null $startDate = null)
+    public function fetchAvgData(int $areaId, int $deviceId, bool $jsonResponse = true, string|null $startDate = null)
     {
-        return app(SensorDataService::class)->fetchAvgData($deviceId, $jsonResponse, $startDate);
+        return app(SensorDataService::class)->fetchAvgData($areaId, $deviceId, $jsonResponse, $startDate);
     }
 }

@@ -1,264 +1,19 @@
 const charts = [];
 
-const initChart = (chartId, option) => {
+const initChart = (chartId) => {
     const chart = echarts.init(document.getElementById(chartId));
-    chart.setOption(option);
     charts.push(chart);
     return chart;
 };
 
-const updateChart = (chart, option) => {
-    chart.setOption(option);
+const updateChart = (chart, options) => {
+    chart.setOption(options, true)
 };
 
 const setTitle = (option, title) => {
     if (title) {
         option.title = {text: title};
     }
-};
-
-const lineChartOption = (
-    xData,
-    series,
-    title = null,
-    gridOptions = {},
-    showTooltip = true,
-    showDataLabels = false
-) => {
-    const option = {
-        xAxis: {
-            type: "category",
-            data: xData,
-            axisLabel: {formatter: (value) => value},
-        },
-        yAxis: {
-            type: "value",
-            axisLabel: {formatter: (value) => value},
-        },
-        legend: {
-            show: true,
-        },
-        grid: {
-            left: gridOptions.left || "3%",
-            right: gridOptions.right || "4%",
-            bottom: gridOptions.bottom || "3%",
-            containLabel: true,
-        },
-        series: series.map((s) => ({
-            ...s,
-            label: {
-                show: showDataLabels,
-                position: "top",
-            },
-        })),
-        tooltip: showTooltip
-            ? {
-                trigger: "axis",
-                axisPointer: {
-                    type: "cross",
-                },
-            }
-            : null,
-    };
-
-    setTitle(option, title);
-    return option;
-};
-
-const barChartOption = (
-    xData,
-    series,
-    title = null,
-    gridOptions = {},
-    showTooltip = true,
-    showDataLabels = false
-) => {
-    const option = {
-        xAxis: {
-            type: "category",
-            data: xData,
-            axisLabel: {formatter: (value) => value},
-        },
-        yAxis: {
-            type: "value",
-            axisLabel: {formatter: (value) => value},
-        },
-        legend: {
-            show: true,
-        },
-        grid: {
-            left: gridOptions.left || "3%",
-            right: gridOptions.right || "4%",
-            bottom: gridOptions.bottom || "3%",
-            containLabel: true,
-        },
-        series: series.map((s) => ({
-            ...s,
-            type: "bar",
-            label: {
-                show: showDataLabels,
-                position: "top",
-            },
-        })),
-        tooltip: showTooltip
-            ? {
-                trigger: "axis",
-                axisPointer: {
-                    type: "shadow",
-                },
-            }
-            : null,
-    };
-
-    setTitle(option, title);
-    return option;
-};
-
-const doughnutChartOption = (name, seriesData, title = null) => {
-    const option = {
-        tooltip: {
-            trigger: "item",
-            formatter: function (params) {
-                return `
-                    <div style="font-weight: bold;">Energy Distribution</div>
-                    ${params.name}: <strong>${params.value}</strong> kWh (${params.percent}%)
-                `;
-            },
-        },
-        legend: {
-            show: false,
-            top: "5%",
-            left: "center",
-        },
-        series: [
-            {
-                name,
-                type: "pie",
-                radius: ["40%", "70%"],
-                avoidLabelOverlap: false,
-                label: {
-                    show: true,
-                    position: "outside",
-                    formatter: "{b}",
-                    alignTo: "labelLine",
-                    padding: [0, 5],
-                },
-                labelLine: {
-                    show: true,
-                    length: 15,
-                    length2: 10,
-                    smooth: true,
-                },
-                emphasis: {
-                    show: false,
-                },
-                data: seriesData,
-            },
-        ],
-    };
-
-    if (title) {
-        option.title = {text: title};
-    }
-    return option;
-};
-
-const gaugeChartOption = (
-    value,
-    name,
-    seriesName,
-    min = 0,
-    max = 1,
-    unit = "",
-    title = null
-) => {
-    const formatter = unit;
-    const option = {
-        tooltip: {
-            formatter: function (params) {
-                return `<strong>${params.seriesName}</strong><br/>${params.name}: ${params.value} ${unit}`;
-            },
-        },
-        series: [
-            {
-                name: seriesName,
-                type: "gauge",
-                radius: "90%",
-                startAngle: 180,
-                endAngle: 0,
-                splitNumber: 4,
-                min,
-                max,
-                axisLine: {
-                    lineStyle: {
-                        width: 15,
-                        color: [
-                            [0.25, "#4caf50"],
-                            [0.75, "#ffeb3b"],
-                            [1, "#f44336"],
-                        ],
-                    },
-                },
-                pointer: {
-                    width: 5,
-                    length: "80%",
-                    itemStyle: {
-                        color: "#555",
-                        shadowBlur: 3,
-                    },
-                },
-                axisTick: {
-                    distance: -15,
-                    length: 5,
-                    lineStyle: {
-                        color: "#fff",
-                        width: 1,
-                    },
-                },
-                splitLine: {
-                    distance: -15,
-                    length: 8,
-                    lineStyle: {
-                        color: "transparent",
-                        width: 2,
-                    },
-                },
-                axisLabel: {
-                    color: "#333",
-                    fontSize: 10,
-                    distance: -30,
-                    formatter: function (value) {
-                        // Only show labels for intermediate values, not min and max
-                        if (value === min || value === max) {
-                            return "";
-                        }
-                        return Math.round(value);
-                    },
-                },
-                title: {
-                    offsetCenter: [0, "65%"],
-                    fontSize: 12,
-                    color: "#333",
-                    show: false,
-                },
-                detail: {
-                    fontSize: 14,
-                    fontWeight: "bold",
-                    formatter: `{value}${formatter}`,
-                    color: "#333",
-                    offsetCenter: [0, "85%"],
-                },
-                data: [{value, name}],
-                animationDuration: 1000,
-                animationEasing: "bounceOut",
-            },
-        ],
-    };
-
-    if (title) {
-        option.title = {text: title};
-    }
-    return option;
 };
 
 const resizeChart = () => {
@@ -268,6 +23,36 @@ const resizeChart = () => {
 };
 
 window.addEventListener("resize", resizeChart);
+
+const lineOpt = (xData, name, data, color = "#00f") => {
+    return {
+        xAxis: {
+            type: 'category',
+            data: xData,
+        },
+        yAxis: {
+            type: 'value',
+            name,
+        },
+        grid: {
+            top: '10%',
+            bottom: '15%',
+            left: '10%',
+            right: '10%'
+        },
+        legend: {data: [name]},
+        tooltip: {trigger: 'axis', axisPointer: {type: 'cross'}},
+        series: [{
+            name,
+            type: 'line',
+            data,
+            animation: true,
+            itemStyle: {
+                color
+            }
+        }],
+    }
+}
 
 const gaugeOpt = (lightColor, darkColor, value, unit) => {
     return {
@@ -379,4 +164,25 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
             }
         ]
     };
+}
+
+async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart){
+    const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&latest=`)
+
+    timestamps = data.map(item => {
+        return formatTimestamp(item.timestamp, timeframe)
+    });
+    temperature = data.map(item => item.temperature);
+    humidity = data.map(item => item.humidity);
+
+    updateChart(tChart, lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
+    updateChart(hChart, lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
+}
+
+async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe = "all"){
+    const device = area.device[0];
+    const data = await getSensorData(`${area.id}/${device.id}?startDate=${timeframe}&latest=true`);
+
+    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C'));
+    updateChart(hChart, gaugeOpt('#66A3FF', '#3D7FFF', data.humidity, '%'));
 }

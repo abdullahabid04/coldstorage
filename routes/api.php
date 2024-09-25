@@ -40,7 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/sensor-data/store', [SensorDataController::class, 'storeSensorData']);
 Route::get('/sensor-data/humidity', [SensorDataController::class, 'fetchHumidity']);
 Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTemperature']);
-Route::get('/sensor-data/{deviceId}', [SensorDataController::class, 'fetchData']);
+Route::get('/sensor-data/{areaId}/{deviceId}', [SensorDataController::class, 'fetchData']);
+Route::get('/sensor-data/{areaId}/{deviceId}/avg', [SensorDataController::class, 'fetchData']);
 
 Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
 Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
