@@ -54,7 +54,7 @@ const lineOpt = (xData, name, data, color = "#00f") => {
     }
 }
 
-const gaugeOpt = (lightColor, darkColor, value, unit) => {
+const gaugeOpt = (lightColor, darkColor, value, unit, min = 0, max = 100, splitNumber = 4) => {
     return {
         series: [
             {
@@ -62,9 +62,9 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
                 center: ['50%', '60%'],
                 startAngle: 200,
                 endAngle: -20,
-                min: 0,
-                max: 60,
-                splitNumber: 12,
+                min,
+                max,
+                splitNumber: splitNumber, // Adjusting split number
                 itemStyle: {
                     color: lightColor
                 },
@@ -82,7 +82,7 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
                 },
                 axisTick: {
                     distance: -45,
-                    splitNumber: 5,
+                    splitNumber: 4, // Set to 4 for 25-unit intervals
                     lineStyle: {
                         width: 2,
                         color: '#999'
@@ -99,7 +99,10 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
                 axisLabel: {
                     distance: -5,
                     color: '#999',
-                    fontSize: 12
+                    fontSize: 12,
+                    formatter: (value) => {
+                        return Math.round(value); // This ensures correct formatting of ticks
+                    }
                 },
                 anchor: {
                     show: false
@@ -129,8 +132,8 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
                 center: ['50%', '60%'],
                 startAngle: 200,
                 endAngle: -20,
-                min: 0,
-                max: 60,
+                min,
+                max,
                 itemStyle: {
                     color: darkColor
                 },
@@ -164,10 +167,21 @@ const gaugeOpt = (lightColor, darkColor, value, unit) => {
             }
         ]
     };
+};
+
+
+
+
+const getTemperatureMinMax = (temperature, percentage= .7)  => {
+    let tempPercentage = temperature * percentage;
+    let min = temperature - tempPercentage, max =  temperature + tempPercentage;
+    return [min, max];
 }
 
-async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart){
+async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart) {
     const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&latest=`)
+
+    if (!data) return;
 
     timestamps = data.map(item => {
         return formatTimestamp(item.timestamp, timeframe)
@@ -179,10 +193,19 @@ async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChar
     updateChart(hChart, lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 }
 
-async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe = "all"){
+async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe = "all") {
     const device = area.device[0];
+
+    if (!device) return;
+
     const data = await getSensorData(`${area.id}/${device.id}?startDate=${timeframe}&latest=true`);
 
-    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C'));
+    if (!data) return;
+
+    const tMinMax = getTemperatureMinMax(data.temperature);
+    const min = tMinMax[0];
+    const max = tMinMax[1];
+
+    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C', min, max));
     updateChart(hChart, gaugeOpt('#66A3FF', '#3D7FFF', data.humidity, '%'));
 }

@@ -90,21 +90,24 @@
                 <hr class="bg-body-secondary mb-6 mt-4"/>
 
 
-                <div class="d-flex align-items-center justify-content-between mb-4 g-3">
-                    <div>
-                        <h3>Device Environmental Data</h3>
-                        <p class="text-body-tertiary lh-sm mb-0">Temperature and Humidity over different time frames</p>
+                <div class="mb-4 row g-3 d-md-flex align-items-md-center justify-content-md-center">
+                    <div class="col-12">
+                        <h3 class="text-nowrap">Device Environmental Data</h3>
+                        <p class="text-truncate text-body-tertiary lh-sm mb-0">
+                            Temperature and Humidity over different time frames
+                        </p>
                     </div>
-                    <div>
-                        <div class="btn-group" role="group" aria-label="Timeframes">
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1h">1 Hour</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1d">1 Day</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1w">1 Week</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1m">1 Month</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="all">All Time</button>
+                    <div class="col-12">
+                        <div class="btn-group w-100" role="group" aria-label="Timeframes">
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap" data-timeframe="1h">1 Hour</button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap" data-timeframe="1d">1 Day</button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap" data-timeframe="1w">1 Week</button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap" data-timeframe="1m">1 Month</button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap" data-timeframe="all">All Time</button>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="row">
                     <div class="col-12 col-md-6">
