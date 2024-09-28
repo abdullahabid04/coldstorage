@@ -32,13 +32,14 @@ const lineOpt = (xData, name, data, color = "#00f") => {
         },
         yAxis: {
             type: 'value',
-            name,
+            name: '',
+            axisLabel: { show: false }
         },
         grid: {
-            top: '10%',
+            top: '15%',
             bottom: '15%',
             left: '10%',
-            right: '10%'
+            right: '10%',
         },
         legend: {data: [name]},
         tooltip: {trigger: 'axis', axisPointer: {type: 'cross'}},
@@ -179,7 +180,7 @@ const getTemperatureMinMax = (temperature, percentage= .7)  => {
 }
 
 async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart) {
-    const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&latest=`)
+    const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&orderByCol=timestamp&latest=`)
 
     if (!data) return;
 

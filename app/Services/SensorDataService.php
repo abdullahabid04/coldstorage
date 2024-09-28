@@ -24,10 +24,10 @@ class SensorDataService
      */
     public function fetchData(int $areaId, int $deviceId, bool $jsonResponse = true, bool $latest = true, $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc'): Collection|SensorData|JsonResponse
     {
-        $latest = filter_var(request()->get('latest', $latest), FILTER_VALIDATE_BOOLEAN);
-        $orderByCol = in_array(request()->get('orderByCol', $orderByCol), ['timestamp']) ? 'timestamp' : $orderByCol;
-        $orderByDirection = request()->get('orderByDirection', $orderByDirection) === 'desc' ? 'desc' : 'asc';
-        $startDate = in_array(request()->get('startDate', $startDate), ['1h', '1d', '1w', '1m', '1y', 'all']);
+        $latest = request()->get('latest', $latest);
+        $orderByCol = request()->get('orderByCol', $orderByCol);
+        $orderByDirection = request()->get('orderByDirection', $orderByDirection);
+        $startDate = request()->get('startDate', $startDate);
         $startDate = mapTimeframe($startDate);
         $endDate = Carbon::now();
 
@@ -36,7 +36,7 @@ class SensorDataService
             ->when($startDate, fn($query) => $query->whereBetween('timestamp', [$startDate, $endDate]))
             ->orderBy($orderByCol, $orderByDirection);
 
-        $precision = filter_var(request()->get('precision', 0), FILTER_VALIDATE_INT);
+        $precision = request()->get('precision', 0);
 
         if ($latest) {
             $sensorData = $query->first();
