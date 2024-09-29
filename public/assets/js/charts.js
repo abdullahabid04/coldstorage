@@ -33,7 +33,7 @@ const lineOpt = (xData, name, data, color = "#00f") => {
         yAxis: {
             type: 'value',
             name: '',
-            axisLabel: { show: false }
+            axisLabel: { show: true }
         },
         grid: {
             top: '15%',
@@ -98,11 +98,11 @@ const gaugeOpt = (lightColor, darkColor, value, unit, min = 0, max = 100, splitN
                     }
                 },
                 axisLabel: {
-                    distance: -5,
+                    distance: 3,
                     color: '#999',
-                    fontSize: 12,
+                    fontSize: 992 >= window.innerWidth <= 1024 ? 10 : 12,
                     formatter: (value) => {
-                        return Math.round(value); // This ensures correct formatting of ticks
+                        return Math.round(value);
                     }
                 },
                 anchor: {
@@ -117,10 +117,10 @@ const gaugeOpt = (lightColor, darkColor, value, unit, min = 0, max = 100, splitN
                     lineHeight: 40,
                     borderRadius: 8,
                     offsetCenter: [0, '-15%'],
-                    fontSize: 20,
+                    fontSize: 992 >= window.innerWidth <= 1024 ? 16 : 20,
                     fontWeight: 'bolder',
                     formatter: `{value} ${unit}`,
-                    color: '#999'
+                    color: '#999',
                 },
                 data: [
                     {

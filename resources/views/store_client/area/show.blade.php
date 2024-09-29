@@ -97,7 +97,7 @@
                             Temperature and Humidity over different time frames
                         </p>
                     </div>
-                    <div class="col-12 mt-2 col-md-auto">
+                    <div class="col-12 mt-2 col-md-auto mr-auto">
                         <div class="btn-group w-100" role="group" aria-label="Timeframes">
                             <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
                                     data-timeframe="1h">1 Hour
