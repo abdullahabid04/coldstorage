@@ -185,9 +185,6 @@ async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChar
     updateChart(hChart, lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 }
 
-let lastTemp = null;
-let tMinMax = null;
-
 async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe = "all") {
     const device = area.device[0];
 
@@ -195,17 +192,8 @@ async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe =
 
     const data = await getSensorData(`${area.id}/${device.id}?startDate=${timeframe}&latest=true`);
 
-    if (lastTemp === null) lastTemp = data.temperature;
-
-    if (tMinMax === null) tMinMax = getMinMaxRange(data.temperature);
-
-    if (lastTemp !== data.temperature) tMinMax = getMinMaxRange(data.temperature);
-
     if (!data) return;
 
-    const min = tMinMax[0];
-    const max = tMinMax[1];
-
-    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C', min, max));
+    updateChart(tChart, gaugeOpt('#FF6F6B', '#FF401F', data.temperature, '°C', -10, 60));
     updateChart(hChart, gaugeOpt('#66A3FF', '#3D7FFF', data.humidity, '%'));
 }
