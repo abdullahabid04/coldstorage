@@ -170,15 +170,6 @@ const gaugeOpt = (lightColor, darkColor, value, unit, min = 0, max = 100, splitN
     };
 };
 
-
-
-
-const getTemperatureMinMax = (temperature, percentage= .7)  => {
-    let tempPercentage = temperature * percentage;
-    let min = temperature - tempPercentage, max =  temperature + tempPercentage;
-    return [min, max];
-}
-
 async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart) {
     const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&orderByCol=timestamp&latest=`)
 
@@ -203,7 +194,7 @@ async function createGaugeChartsWithSensorData(area, tChart, hChart, timeframe =
 
     if (!data) return;
 
-    const tMinMax = getTemperatureMinMax(data.temperature);
+    const tMinMax = getMinMaxRange(data.temperature);
     const min = tMinMax[0];
     const max = tMinMax[1];
 
