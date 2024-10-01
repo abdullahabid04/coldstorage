@@ -24,7 +24,7 @@ const resizeChart = () => {
 
 window.addEventListener("resize", resizeChart);
 
-const lineOpt = (xData, name, data, color = "#00f") => {
+const lineOpt = (xData, name, data, color = "#00f", min = 0, max = 100) => {
     return {
         xAxis: {
             type: 'category',
@@ -33,7 +33,8 @@ const lineOpt = (xData, name, data, color = "#00f") => {
         yAxis: {
             type: 'value',
             name: '',
-            axisLabel: { show: true }
+            axisLabel: { show: true },
+            min, max
         },
         grid: {
             top: '15%',
@@ -170,7 +171,7 @@ const gaugeOpt = (lightColor, darkColor, value, unit, min = 0, max = 100, splitN
     };
 };
 
-async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart) {
+async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChart, hChart, min = -10, max = 60) {
     const data = await getSensorData(`${areaId}/${deviceId}?startDate=${timeframe}&orderByDirection=asc&orderByCol=timestamp&latest=`)
 
     if (!data) return;
@@ -181,7 +182,7 @@ async function createLineChartsWithSensorData(areaId, deviceId, timeframe, tChar
     temperature = data.map(item => item.temperature);
     humidity = data.map(item => item.humidity);
 
-    updateChart(tChart, lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
+    updateChart(tChart, lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f", min, max));
     updateChart(hChart, lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 }
 

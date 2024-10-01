@@ -178,8 +178,10 @@
         var temperature = chartData.map(item => item.temperature);
         var humidity = chartData.map(item => item.humidity);
 
+        const MIN = -10, MAX = 60;
+
         var tChart = initChart('tempChart');
-        tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
+        tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f", MIN, MAX));
 
         var hChart = initChart('humidChart');
         hChart.setOption(lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
