@@ -56,6 +56,8 @@
     <link href="{{ asset('assets/vendors/leaflet/leaflet.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/leaflet.markercluster/MarkerCluster.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/leaflet.markercluster/MarkerCluster.Default.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/choices/choices.min.css') }}" rel="stylesheet">
 
     <!-- Stacking CSS -->
     @stack("css")

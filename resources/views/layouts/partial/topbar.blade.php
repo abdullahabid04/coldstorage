@@ -366,7 +366,7 @@
                     </ul>
                 </li>
                 <li class="nav-item lh-1">
-                    <a class="nav-link" href="{{ route('reports') }}" role="button">
+                    <a class="nav-link" href="{{ route('reports.index') }}" role="button">
                         <span class="uil fs-8 me-2 uil-document-layout-right"></span>Reports
                     </a>
                 </li>

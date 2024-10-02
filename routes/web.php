@@ -5,6 +5,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\StoreOwnerClientController;
@@ -44,9 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/stores', StoreController::class);
     Route::resource('/areas', AreaController::class);
 
-    Route::get('/reports', function () {
-        return view('reports.index');
-    })->name('reports');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/download/{storeId}/{startDate}/{endDate}', [ReportController::class, 'download'])->name('reports.download');
+    Route::get('/reports/download/test/{storeId}/{startDate}/{endDate}', [ReportController::class, 'download_view'])->name('reports.view');
 
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 });
