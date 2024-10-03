@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Store;
 use App\Models\Device;
 
-class StoreOwnerDeviceController extends Controller
+class ClientDeviceController extends Controller
 {
     // List all devices for the areas in the store owned by the logged-in store owner
     public function index()

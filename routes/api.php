@@ -3,14 +3,20 @@
 use App\Http\Controllers\API\ClientDataController;
 use App\Http\Controllers\AreaDeviceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientAreaController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\FactoryController;
 use App\Http\Controllers\FactoryUserController;
+use App\Http\Controllers\FirmwareController;
+use App\Http\Controllers\FirmwareUpdateController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolloutController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreUserController;
+use App\Http\Controllers\UpdateLogController;
+use App\Http\Controllers\UpdateProgressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +70,17 @@ Route::get('/devices/{device_id}/wifi/get-state', [DeviceController::class, 'get
 // Device Event Routes
 Route::put('/devices/{device_id}/events/update', [DeviceController::class, 'updateDeviceEvent']);
 Route::get('/devices/{device_id}/events/get', [DeviceController::class, 'getDeviceEvents']);
+
+// Firmware Update Routes
+Route::get('/firmware/check-update/{deviceSerial}', [RolloutController::class, 'checkFirmwareUpdate'])->name('firmware.check-update');
+Route::get('/firmware/get-update/{deviceSerial}/{firmwareUpdateId}', [FirmwareUpdateController::class, 'getFirmwareUpdate'])->name('firmware.get-update');
+Route::get('/firmware/download/{version}/{deviceSerial}/{token}', [FirmwareController::class, 'downloadFirmware'])->name('firmware.download');
+
+// Routes for Update logs and progress
+Route::post('/firmware/update-log', [UpdateLogController::class, 'updateLog']);
+Route::post('/firmware/update-progress', [UpdateProgressController::class, 'updateProgress']);
+
+Route::post('/areas/{id}/rename', [ClientAreaController::class, 'rename']);
 
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/areas', [SiteController::class, 'fetch']);

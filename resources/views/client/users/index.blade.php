@@ -25,7 +25,7 @@
 
             <div class="col-auto">
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-primary" href="{{ route('store-clients.create') }}">
+                    <a class="btn btn-primary" href="{{ route('client.store-clients.create') }}">
                         <span class="fas fa-plus me-2"></span>
                         Add user
                     </a>
@@ -110,22 +110,7 @@
                                                   d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-end py-2" style="">
-                                        <a class="dropdown-item" href="{{ route('users.edit', $row->id) }}">Edit</a>
-                                        <a class="dropdown-item" href="javascript:void(0)"
-                                           onclick="document.querySelector(`#update-status-{{ $row->id }}`).submit();">
-                                            Change Status
-                                        </a>
-                                        <form id="update-status-{{ $row->id }}"
-                                              action="{{ route('users.status', $row->id) }}" method="POST"
-                                              style="display:none;">
-                                            @csrf
-                                            @method("PUT")
-                                            <input type="hidden" name="status" value="{{ !$row->status }}">
-                                        </form>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger" href="#!">Remove</a>
-                                    </div>
+                                    <div class="dropdown-menu dropdown-menu-end py-2" style=""></div>
                                 </div>
                             </td>
                         </tr>

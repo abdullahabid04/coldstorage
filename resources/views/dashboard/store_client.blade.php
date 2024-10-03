@@ -59,8 +59,8 @@
 
 @push('scripts')
     <script>
-            var stores = @json($stores);
-            document.addEventListener('DOMContentLoaded', async function () {
+        var stores = @json($stores);
+        document.addEventListener('DOMContentLoaded', async function () {
 
             stores.forEach(store => {
                 store.areas.forEach(async area => {
