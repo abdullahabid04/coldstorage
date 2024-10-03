@@ -44,6 +44,7 @@
 <script src="{{ asset('assets/js/phoenix.js') }}"></script>
 <script src="{{ asset('assets/vendors/echarts/echarts.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('assets/js/utils.js') }}"></script>
 <script src="{{ asset('assets/js/charts.js') }}"></script>
 
 @if(Session::has('message'))

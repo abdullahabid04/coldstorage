@@ -90,28 +90,41 @@
                 <hr class="bg-body-secondary mb-6 mt-4"/>
 
 
-                <div class="d-flex align-items-center justify-content-between mb-4 g-3">
-                    <div>
-                        <h3>Device Environmental Data</h3>
-                        <p class="text-body-tertiary lh-sm mb-0">Temperature and Humidity over different time frames</p>
+                <div class="mb-4 row g-3 align-items-md-center justify-content-between">
+                    <div class="col-12 mt-2 col-md-auto">
+                        <h3 class="text-nowrap">Device Environmental Data</h3>
+                        <p class="text-truncate text-body-tertiary lh-sm mb-0">
+                            Temperature and Humidity over different time frames
+                        </p>
                     </div>
-                    <div>
-                        <div class="btn-group" role="group" aria-label="Timeframes">
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1h">1 Hour</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1d">1 Day</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1w">1 Week</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="1m">1 Month</button>
-                            <button type="button" class="btn btn-outline-primary" data-timeframe="all">All Time</button>
+                    <div class="col-12 mt-2 col-md-auto mr-auto">
+                        <div class="btn-group w-100" role="group" aria-label="Timeframes">
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                                    data-timeframe="1h">1 Hour
+                            </button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                                    data-timeframe="1d">1 Day
+                            </button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                                    data-timeframe="1w">1 Week
+                            </button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                                    data-timeframe="1m">1 Month
+                            </button>
+                            <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                                    data-timeframe="all">All Time
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+
+                <div class="row g-4">
                     <div class="col-12 col-md-6">
-                        <div id="tempChart" style="height: 400px; width: 100%;"></div>
+                        <div id="tempChart" class="chart"></div>
                     </div>
                     <div class="col-12 col-md-6">
-                        <div id="humidChart" style="height: 400px; width: 100%;"></div>
+                        <div id="humidChart" class="chart"></div>
                     </div>
                 </div>
             </div>
@@ -120,18 +133,34 @@
 
 @endsection
 
+@push('css')
+    <style>
+        .chart {
+            height: 180px;
+            width: 100%;
+            overflow: visible;
+        }
+
+        @media (min-width: 768px) {
+            .chart {
+                height: 300px;
+            }
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <script>
         const formatTimestamp = (timestamp, timeframe) => {
             const date = new Date(timestamp);
-            const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
+            const optionsTime = {hour: 'numeric', minute: 'numeric', hour12: true};
 
             switch (timeframe) {
                 case '1h':
                     return date.toLocaleTimeString('en-GB', optionsTime);
 
                 default:
-                    return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' +
+                    return date.toLocaleDateString('en-GB', {day: 'numeric', month: 'short'}) + ', ' +
                         date.toLocaleTimeString('en-GB', optionsTime);
             }
         };
@@ -149,20 +178,24 @@
         var temperature = chartData.map(item => item.temperature);
         var humidity = chartData.map(item => item.humidity);
 
+        const MIN = -10, MAX = 60;
+
         var tChart = initChart('tempChart');
-        tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f"));
+        tChart.setOption(lineOpt(timestamps, "Temperature (°C)", temperature, "#ff401f", MIN, MAX));
 
         var hChart = initChart('humidChart');
         hChart.setOption(lineOpt(timestamps, "Humidity (%)", humidity, "#3d7fff"));
 
         document.querySelectorAll('button[data-timeframe]').forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', async function () {
                 var timeframe = this.getAttribute('data-timeframe');
-                currentTimeframe = timeframe;
-                createLineChartsWithSensorData(area.id, device.id, timeframe, tChart, hChart);
+                if (currentTimeframe !== timeframe) {
+                    currentTimeframe = timeframe;
+                    await createLineChartsWithSensorData(area.id, device.id, timeframe, tChart, hChart);
+                }
             });
         });
 
-        setInterval(async () => createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 10000);
+        setInterval(async () => await createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 10000);
     </script>
 @endpush
