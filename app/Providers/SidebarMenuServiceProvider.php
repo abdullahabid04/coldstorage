@@ -27,8 +27,7 @@ class SidebarMenuServiceProvider extends ServiceProvider
         Facades\View::composer('layouts.partial.sidebar', function (View $view)
         {
             $role = Auth::user()->role;
-//            $menus = $role->getMenusSubjectToRole();
-            $menus = Menu::all();
+            $menus = $role->getMenusSubjectToRole();
             $view->with('menus', $menus);
         });
     }
