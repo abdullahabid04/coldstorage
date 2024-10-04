@@ -4,8 +4,8 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/stores') }}">Factories</a></li>
-            <li class="breadcrumb-item active">Add Factory</li>
+            <li class="breadcrumb-item"><a href="{{ url('/stores') }}">Stores</a></li>
+            <li class="breadcrumb-item active">Add Store</li>
         </ol>
     </nav>
 
@@ -13,27 +13,27 @@
         @csrf
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
-                <h2 class="mb-2">Add a factory</h2>
+                <h2 class="mb-2">Add a store</h2>
                 <h5 class="text-body-tertiary fw-semibold">
-                    Add a factory for your clients.
+                    Add a store for your clients.
                 </h5>
             </div>
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="reset">Discard</button>
-                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add factory</button>
+                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add store</button>
             </div>
         </div>
 
         <div class="row g-5">
             <div class="col-12 col-xl-8">
                 <div class="mb-5">
-                    <h5>Factory Title</h5>
+                    <h5>Store Title</h5>
                     <input class="form-control" type="text" id="title" name="title" placeholder="Factory Title"
                            value="{{ old('title') }}" required>
                 </div>
 
                 <div class="mb-5">
-                    <h5>Factory Address</h5>
+                    <h5>Store Address</h5>
                     <input class="form-control" type="text" id="address" name="address" placeholder="Factory Address"
                            value="{{ old('address') }}" required>
                 </div>
