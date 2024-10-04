@@ -4,8 +4,8 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/areas') }}">Sites</a></li>
-            <li class="breadcrumb-item active">Edit Site</li>
+            <li class="breadcrumb-item"><a href="{{ url('/areas') }}">Areas</a></li>
+            <li class="breadcrumb-item active">Edit Area</li>
         </ol>
     </nav>
 
@@ -14,14 +14,14 @@
         @method('PUT')
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
-                <h2 class="mb-2">Edit Site</h2>
+                <h2 class="mb-2">Edit Area</h2>
                 <h5 class="text-body-tertiary fw-semibold">
-                    Update the site information for your factories.
+                    Update the area information for your stores.
                 </h5>
             </div>
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="reset">Discard</button>
-                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Update Site</button>
+                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Update Area</button>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="mb-5">
-                    <h5>Factory</h5>
+                    <h5>Store</h5>
                     <select class="form-control" id="store_id" name="store_id" required>
                         @foreach($stores as $store)
                             <option value="{{ $store->id }}" {{ $area->store_id == $store->id ? 'selected' : '' }}>

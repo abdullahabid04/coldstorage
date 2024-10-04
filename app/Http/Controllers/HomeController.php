@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Store;
 use App\Services\SensorDataService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller

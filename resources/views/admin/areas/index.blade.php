@@ -11,7 +11,7 @@
     <div class="mb-5">
         <h2 class="text-bold text-body-emphasis">Areas</h2>
         <p class="text-body-tertiary lead">
-            Manage sites in factories.
+            Manage areas in stores.
         </p>
     </div>
 
@@ -20,7 +20,7 @@
             <div class="col col-auto">
                 <div class="search-box">
                     <form class="position-relative">
-                        <input class="form-control search-input search" type="search" placeholder="Search users"
+                        <input class="form-control search-input search" type="search" placeholder="Search areas"
                                aria-label="Search"/>
                         <span class="fas fa-search search-box-icon"></span>
                     </form>

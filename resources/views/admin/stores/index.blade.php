@@ -4,14 +4,14 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item active">Factories</li>
+            <li class="breadcrumb-item active">Stores</li>
         </ol>
     </nav>
 
     <div class="mb-5">
-        <h2 class="text-bold text-body-emphasis">Factories</h2>
+        <h2 class="text-bold text-body-emphasis">Stores</h2>
         <p class="text-body-tertiary lead">
-            Manage factory registration process.
+            Manage store registration process.
         </p>
     </div>
 
@@ -21,7 +21,7 @@
             <div class="col col-auto">
                 <div class="search-box">
                     <form class="position-relative">
-                        <input class="form-control search-input search" type="search" placeholder="Search users"
+                        <input class="form-control search-input search" type="search" placeholder="Search stores"
                                aria-label="Search"/>
                         <span class="fas fa-search search-box-icon"></span>
                     </form>
@@ -32,7 +32,7 @@
                 <div class="d-flex align-items-center">
                     <a class="btn btn-primary" href="{{ route('stores.create') }}">
                         <span class="fas fa-plus me-2"></span>
-                        Add Factory
+                        Add Store
                     </a>
                 </div>
             </div>
