@@ -29,7 +29,7 @@ class MenuTableSeeder extends Seeder
             ['id' => 9, 'title' => 'Stores', 'icon' => 'grid', 'url' => NULL, 'route' => 'stores.index', 'parent_id' => 8, 'display_order' => 9, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 10, 'title' => 'Areas', 'icon' => 'grid', 'url' => NULL, 'route' => 'areas.index', 'parent_id' => 8, 'display_order' => 10, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 11, 'title' => 'Devices', 'icon' => 'grid', 'url' => NULL, 'route' => 'devices.index', 'parent_id' => 8, 'display_order' => 8, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['id' => 17, 'title' => 'Firmware Updates', 'icon' => 'upload-cloud', 'url' => NULL, 'route' => NULL, 'parent_id' => 11, 'display_order' => 1, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 17, 'title' => 'Firmware Updates', 'icon' => 'upload-cloud', 'url' => NULL, 'route' => NULL, 'parent_id' => NULL, 'display_order' => 11, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 18, 'title' => 'Firmwares', 'icon' => NULL, 'url' => NULL, 'route' => 'firmwares.index', 'parent_id' => 17, 'display_order' => 12, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 19, 'title' => 'Updates', 'icon' => NULL, 'url' => NULL, 'route' => 'firmware_updates.index', 'parent_id' => 17, 'display_order' => 13, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 20, 'title' => 'Device Groups', 'icon' => NULL, 'url' => NULL, 'route' => 'device_groups.index', 'parent_id' => 17, 'display_order' => 14, 'status' => 1, 'created_at' => $now, 'updated_at' => $now],
