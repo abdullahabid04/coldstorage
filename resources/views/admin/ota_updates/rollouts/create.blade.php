@@ -1,62 +1,79 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Create New Rollout</h2>
-        <form action="{{ route('rollouts.store') }}" method="POST" id="rolloutForm">
-            @csrf
+    <nav class="mb-3" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('rollouts.index') }}">Rollouts</a></li>
+            <li class="breadcrumb-item active">Add Rollout</li>
+        </ol>
+    </nav>
 
-            <div class="form-group">
-                <label for="firmware_update_id">Select Firmware</label>
-                <select name="firmware_update_id" class="form-control" required>
-                    @foreach ($firmwareUpdates as $firmwareUpdate)
-                        <option value="{{ $firmwareUpdate->id }}">{{ $firmwareUpdate->name }}</option>
-                    @endforeach
-                </select>
+    <form action="{{ route('rollouts.store') }}" method="POST" id="rolloutForm">
+        @csrf
+
+        <div class="row g-3 flex-between-end mb-5">
+            <div class="col-auto">
+                <h2 class="mb-2">Create Rollout</h2>
+                <h5 class="text-body-tertiary fw-semibold">
+                    Add a new rollout.
+                </h5>
             </div>
-
-            <div class="form-group">
-                <label for="device_group_id">Select Device Group</label>
-                <select name="device_group_id" class="form-control" id="deviceGroupSelect">
-                    <option value="">-- Select Device Group --</option>
-                    @foreach ($deviceGroups as $group)
-                        <option value="{{ $group->id }}">{{ $group->name }}</option>
-                    @endforeach
-                </select>
+            <div class="col-auto">
+                <a href="{{ route('rollouts.index') }}" class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0">Discard</a>
+                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Schedule Update</button>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="device_id">Select Device</label>
-                <select name="device_id" class="form-control" id="deviceSelect">
-                    <option value="">-- Select Device --</option>
-                    @foreach ($devices as $device)
-                        <option value="{{ $device->id }}">{{ $device->serial_number }}</option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="mb-3">
+            <label for="firmware_update_id">Select Firmware</label>
+            <select name="firmware_update_id" class="form-control" required>
+                @foreach ($firmwareUpdates as $firmwareUpdate)
+                    <option value="{{ $firmwareUpdate->id }}">{{ $firmwareUpdate->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="staged_rollout">Staged Rollout</label>
-                <select name="staged_rollout" class="form-control">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
+        <div class="mb-3">
+            <label for="device_group_id">Select Device Group</label>
+            <select name="device_group_id" class="form-control" id="deviceGroupSelect">
+                <option value="">-- Select Device Group --</option>
+                @foreach ($deviceGroups as $group)
+                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="rollout_percentage">Rollout Percentage</label>
-                <input type="number" name="rollout_percentage" class="form-control" min="0" max="100">
-            </div>
+        <div class="mb-3">
+            <label for="device_id">Select Device</label>
+            <select name="device_id" class="form-control" id="deviceSelect">
+                <option value="">-- Select Device --</option>
+                @foreach ($devices as $device)
+                    <option value="{{ $device->id }}">{{ $device->serial_number }}</option>
+                @endforeach
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="scheduled_at">Scheduled Time</label>
-                <input type="datetime-local" name="scheduled_at" class="form-control" required>
-            </div>
+        <div class="mb-3">
+            <label for="staged_rollout">Staged Rollout</label>
+            <select name="staged_rollout" class="form-control">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
 
-            <button type="submit" class="btn btn-primary">Schedule Update</button>
-        </form>
-    </div>
+        <div class="mb-3">
+            <label for="rollout_percentage">Rollout Percentage</label>
+            <input type="number" name="rollout_percentage" class="form-control" min="0" max="100">
+        </div>
+
+        <div class="mb-3">
+            <label for="scheduled_at">Scheduled Time</label>
+            <input type="datetime-local" name="scheduled_at" class="form-control" required>
+        </div>
+    </form>
 @endsection
+
 
 @push('scripts')
     <script>

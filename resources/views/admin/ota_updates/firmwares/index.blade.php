@@ -43,14 +43,14 @@
                     <thead>
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="id" style="width:20%; min-width:200px;">
-                            ID
+                            Id
                         </th>
                         <th class="sort align-middle" scope="col" data-sort="version"
                             style="width:20%; min-width:200px;">
-                            VERSION
+                            Version
                         </th>
                         <th class="align-middle overflow-hidden" style="width:20%; min-width:200px;">
-                            CHECKSUM
+                            Checksum
                         </th>
                         <th class="align-middle text-end" style="width:20%; min-width:200px;">
                         </th>
