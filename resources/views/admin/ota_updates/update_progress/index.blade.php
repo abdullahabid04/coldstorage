@@ -34,16 +34,18 @@
                         <th class="sort align-middle" scope="col" data-sort="id" style="width: 10%; min-width: 100px">
                             Id
                         </th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="device" style="width: 25%; min-width: 100px"
-                        >Device
+                        <th class="sort align-middle text-center" scope="col" data-sort="device" style="width: 25%; min-width: 100px">
+                            Device
                         </th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="firmware_version" style="width: 25%; min-width: 100px"
-                        >Firmware Version
+                        <th class="sort align-middle text-center" scope="col" data-sort="firmware_version" style="width: 25%; min-width: 100px">
+                            Firmware Version
                         </th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="progress" style="width: 25%; min-width: 100px"
-                        >Progress
+                        <th class="sort align-middle text-center" scope="col" data-sort="progress" style="width: 25%; min-width: 100px">
+                            Progress
                         </th>
-                        <th class="sort align-middle text-end" scope="col" data-sort="status" style="width: 15%; min-width: 100px">Status</th>
+                        <th class="sort align-middle text-end" scope="col" data-sort="status" style="width: 15%; min-width: 100px">
+                            Status
+                        </th>
                     </tr>
                     </thead>
                     <tbody class="list">

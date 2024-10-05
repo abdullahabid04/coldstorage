@@ -43,7 +43,7 @@
                     <thead>
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="id" style="width:10%; min-width:100px;">
-                            Id
+                            Serial No
                         </th>
                         <th class="sort align-middle" scope="col" data-sort="group"
                             style="width:15%; min-width:100px;">
@@ -74,10 +74,12 @@
                     </tr>
                     </thead>
                     <tbody class="list" id="firmwares-table-body">
+                    @php $counter = 0 @endphp
                     @foreach($firmwareUpdates as $update)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="id align-middle white-space-nowrap">
-                                <h6 class="mb-0 fw-semibold">{ $update->id }}</h6>
+                                @php $counter = $counter + 1 @endphp
+                                <h6 class="mb-0 fw-semibold">{{ $counter }}</h6>
                             </td>
                             <td class="group align-middle white-space-nowrap">
                                 {{ $update->name }}
@@ -112,11 +114,11 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end py-2">
-                                        <a class="dropdown-item" href="{{ route('firmware_updates.edit', $row) }}">
+                                        <a class="dropdown-item" href="{{ route('firmware_updates.edit', $update) }}">
                                             Edit
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <form action="{{ route('firmware_updates.destroy', $row) }}" method="POST"
+                                        <form action="{{ route('firmware_updates.destroy', $update) }}" method="POST"
                                               style="display:inline;">
                                             @csrf
                                             @method('DELETE')

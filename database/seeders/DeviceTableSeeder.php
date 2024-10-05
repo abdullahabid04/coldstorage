@@ -16,7 +16,7 @@ class DeviceTableSeeder extends Seeder
 
         // Loop over each store and assign devices
         foreach ($stores as $store) {
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 25; $i++) {
                 Device::create([
                     'serial_number' => 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT),
                     'description' => $faker->sentence,

@@ -4,7 +4,7 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('firmware_updatess.index') }}">Firmware Updates</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('firmware_updates.index') }}">Firmware Updates</a></li>
             <li class="breadcrumb-item active">Edit Firmware update</li>
         </ol>
     </nav>

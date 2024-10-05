@@ -43,7 +43,7 @@
                     <thead>
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="id" style="width:20%; min-width:200px;">
-                            Id
+                            Serial No
                         </th>
                         <th class="sort align-middle" scope="col" data-sort="group"
                             style="width:20%; min-width:200px;">
@@ -57,10 +57,12 @@
                     </tr>
                     </thead>
                     <tbody class="list" id="firmwares-table-body">
+                    @php $counter = 0 @endphp
                     @foreach($groups as $group)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="id align-middle white-space-nowrap">
-                                <h6 class="mb-0 fw-semibold">{{ $group->id }}</h6>
+                                @php $counter = $counter + 1 @endphp
+                                <h6 class="mb-0 fw-semibold">{{ $counter }}</h6>
                             </td>
                             <td class="group align-middle white-space-nowrap">
                                 {{ $group->name }}
@@ -83,11 +85,11 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end py-2">
-                                        <a class="dropdown-item" href="{{ route('device_groups.edit', $row) }}">
+                                        <a class="dropdown-item" href="{{ route('device_groups.edit', $group) }}">
                                             Edit
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <form action="{{ route('device_groups.destroy', $row) }}" method="POST"
+                                        <form action="{{ route('device_groups.destroy', $group) }}" method="POST"
                                               style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -127,4 +129,3 @@
         </div>
     </div>
 @endsection
-

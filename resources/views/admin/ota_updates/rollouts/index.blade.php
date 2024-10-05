@@ -44,7 +44,7 @@
                     <thead>
                     <tr>
                         <th class="sort align-middle" scope="col" data-sort="id" style="width:10%; min-width:100px;">
-                            Id
+                            Serial No
                         </th>
                         <th class="sort align-middle" scope="col" data-sort="version"
                             style="width:20%; min-width: 100px">
@@ -64,10 +64,12 @@
                     </tr>
                     </thead>
                     <tbody class="list" id=rollouts-table-body">
+                    @php $counter = 0 @endphp
                     @foreach($rollouts as $row)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="id align-middle white-space-nowrap">
-                                <h6 class="mb-0 fw-semibold">{{ $row->id }}</h6>
+                                @php $counter = $counter + 1 @endphp
+                                <h6 class="mb-0 fw-semibold">{{ $counter }}</h6>
                             </td>
                             <td class="version align-middle white-space-nowrap">
                                 {{ $row->firmwareUpdate->firmware->version }}
