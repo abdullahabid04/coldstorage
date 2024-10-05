@@ -12,7 +12,7 @@
         <h2 class="text-bold text-body-emphasis">Devices</h2>
 
         <p class="text-body-tertiary lead">
-            Manage devices for sites in factories.
+            Manage devices for areas in stores.
         </p>
     </div>
 
@@ -21,7 +21,7 @@
             <div class="col col-auto">
                 <div class="search-box">
                     <form class="position-relative">
-                        <input class="form-control search-input search" type="search" placeholder="Search users"
+                        <input class="form-control search-input search" type="search" placeholder="Search devices"
                                aria-label="Search"/>
                         <span class="fas fa-search search-box-icon"></span>
                     </form>
