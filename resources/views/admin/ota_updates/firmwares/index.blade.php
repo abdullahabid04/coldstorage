@@ -60,15 +60,13 @@
                     @foreach($firmwares as $row)
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="id align-middle white-space-nowrap">
-                                <a class="d-flex align-items-center text-body text-hover-1000 ps-2" href="#">
-                                    <h6 class="mb-0 fw-semibold">{{ $row->id }}</h6>
-                                </a>
+                                <h6 class="mb-0 fw-semibold">{{ $row->id }}</h6>
                             </td>
                             <td class="version align-middle white-space-nowrap">
                                 {{ $row->version }}
                             </td>
                             <td class="align-middle white-space-nowrap">
-{{--                                {{ $row->checksum }}--}}
+                                {{--                                {{ $row->checksum }}--}}
                             </td>
                             <td class="actions align-middle text-end white-space-nowrap text-body-tertiary">
                                 <div class="btn-reveal-trigger position-static">
