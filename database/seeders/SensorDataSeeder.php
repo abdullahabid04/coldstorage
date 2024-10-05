@@ -14,15 +14,14 @@ class SensorDataSeeder extends Seeder
         $faker = Faker::create();
         $devices = Device::all();
 
-        // Assign multiple sensor data entries for each device
         foreach ($devices as $device) {
-            for ($i = 0; $i < 100; $i++) { // 5 sensor data entries per device
+            for ($i = 0; $i < 50; $i++) {
                 SensorData::create([
-                    'area_id' => 1,
+                    'area_id' => random_int(1, 15),
                     'device_id' => $device->id,
-                    'timestamp' => $faker->dateTimeThisMonth(), // Random timestamp within the current month
-                    'temperature' => rand(20, 35), // Random temperature value
-                    'humidity' => rand(30, 60),   // Random humidity value
+                    'timestamp' => $faker->dateTimeThisMonth(),
+                    'temperature' => rand(20, 35),
+                    'humidity' => rand(30, 60),
                 ]);
             }
         }

@@ -16,7 +16,13 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             UsersTableSeeder::class,
             MenuTableSeeder::class,
+
             MenusRolesTableSeeder::class,
+            StoreSeeder::class,
+            DeviceTableSeeder::class,
+            AreasTableSeeder::class,
+            SensorDataSeeder::class,
+            StoreUserSeeder::class,
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Store;
 use Illuminate\Database\Seeder;
 use App\Models\Area; // Ensure you import the Area model
 use Illuminate\Support\Facades\DB;
@@ -13,22 +14,15 @@ class AreasTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // You can use either DB::table() or Eloquent (Area::create) to seed the data
+        $stores = Store::all();
 
-        // Option 1: Using Eloquent model
-        Area::create([
-            'title' => 'Area 1',
-            'store_id' => 1,  // Assuming store ID 1 exists in the stores table
-        ]);
-
-        Area::create([
-            'title' => 'Area 2',
-            'store_id' => 1,
-        ]);
-
-        Area::create([
-            'title' => 'Area 3',
-            'store_id' => 2,  // Assuming store ID 2 exists
-        ]);
+        foreach ($stores as $store) {
+            for ($i = 1; $i <= 3; $i++) {
+                Area::create([
+                    'title' => 'Area ' . $i . $store->id,
+                    'store_id' => $store->id,
+                ]);
+            }
+        }
     }
 }
