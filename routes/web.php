@@ -54,7 +54,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/download/{storeId}/{startDate}/{endDate}', [ReportController::class, 'download'])->name('reports.download');
-    Route::get('/reports/download/test/{storeId}/{startDate}/{endDate}', [ReportController::class, 'download_view'])->name('reports.view');
 
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
