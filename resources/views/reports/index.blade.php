@@ -2,19 +2,19 @@
 
 @section('content')
     <div class="row gy-3 mb-6 justify-content-between align-items-center">
-        <div class="col-md-4 col-auto">
-            <h2 class="mb-2 text-body-emphasis">Report</h2>
-            <h5 class="text-body-tertiary fw-semibold">Lorem ipsum dolor sit amet.</h5>
+        <div class="col-md-4 col-12">
+            <h2 class="mb-2 text-body-emphasis">Report Overview</h2>
+            <h5 class="text-body-tertiary fw-semibold">Generate and download detailed reports.</h5>
         </div>
-        <div class="col-md-8 col-auto">
+        <div class="col-md-8 col-12">
             <form action="" class="row g-3 align-items-center">
-                <div class="col-5">
+                <div class="col-md-5 col-12">
                     <select class="form-select"
                             id="storeSelect"
                             name="area"
                             data-choices="data-choices"
                             data-options='{"removeItemButton":true,"placeholder":true}'>
-                        <option value="">Select Area...</option>
+                        <option value="">Select an Area</option>
                         @foreach($stores as $store)
                             @foreach($store->areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->title }} - {{ $store->title }}</option>
@@ -22,28 +22,31 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-5">
+                <div class="col-md-5 col-12">
                     <div class="flatpickr-input-container">
                         <input class="form-control datetimepicker flatpickr-input ps-6" id="timepicker2" type="text"
-                               placeholder="d/m/y to d/m/y"
+                               placeholder="Select Date Range"
                                data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;d/m/y&quot;,&quot;disableMobile&quot;:true}"
                                readonly="readonly"
                                name="time_range">
                         <span class="uil uil-calendar-alt flatpickr-icon text-body-tertiary"></span>
                     </div>
                 </div>
-                <div class="col-2">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                <div class="col-md-2 col-12">
+                    <button class="btn btn-primary w-100 w-lg-auto" type="submit">Generate</button>
                 </div>
             </form>
         </div>
-        <hr>
+
+        <hr class="mt-4">
+
         @if($reportData)
-            <div>
+            <div id="reports"
+                 data-list='{"valueNames":["id", "timestamp", "avg_t", "avg_h"],"page":10,"pagination":true}'>
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h2 class="mb-2 text-body-emphasis">Report</h2>
-                    <a href="{{route('reports.download', [$areaId, $startDate, $endDate])}}">
-                        <button class="btn btn-success">Download</button>
+                    <h2 class="mb-2 text-body-emphasis">Generated Report</h2>
+                    <a href="{{ route('reports.download', [$areaId, $startDate, $endDate]) }}">
+                        <button class="btn btn-success">Download PDF</button>
                     </a>
                 </div>
 
@@ -52,35 +55,27 @@
                         <table class="table table-sm fs-9 mb-0">
                             <thead>
                             <tr>
-                                <th class="sort align-middle" scope="col">
-                                    #
+                                <th class="sort align-middle" scope="col" data-sort="id"
+                                    style="width:10%; min-width:200px;">#
                                 </th>
-                                <th class="sort align-middle" scope="col">
-                                    Timestamp
+                                <th class="sort align-middle" scope="col" data-sort="timestamp"
+                                    style="width:30%; min-width:200px;">Timestamp
                                 </th>
-                                <th class="sort align-middle" scope="col">
-                                    Average Temperature (°C)
+                                <th class="sort align-middle" scope="col" data-sort="avg_t"
+                                    style="width:30%; min-width:200px;">Avg. Temperature (°C)
                                 </th>
-                                <th class="sort align-middle" scope="col">
-                                    Average Humidity (%)
+                                <th class="sort align-middle" scope="col" data-sort="avg_h"
+                                    style="width:30%; min-width:200px;">Avg. Humidity (%)
                                 </th>
                             </tr>
                             </thead>
                             <tbody class="list">
                             @foreach($reportData as $idx => $data)
                                 <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                    <td class="align-middle white-space-nowrap">
-                                        {{ $idx + 1 }}
-                                    </td>
-                                    <td class="align-middle white-space-nowrap">
-                                        {{ $data->timestamp }}
-                                    </td>
-                                    <td class="align-middle white-space-nowrap">
-                                        {{ $data->average_temperature }}
-                                    </td>
-                                    <td class="align-middle white-space-nowrap">
-                                        {{ $data->average_humidity }}
-                                    </td>
+                                    <td class="id align-middle white-space-nowrap">{{ $idx + 1 }}</td>
+                                    <td class="timestamp align-middle white-space-nowrap">{{ $data->timestamp }}</td>
+                                    <td class="avg_t align-middle white-space-nowrap">{{ $data->average_temperature }}</td>
+                                    <td class="avg_h align-middle white-space-nowrap">{{ $data->average_humidity }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -93,23 +88,35 @@
 @endsection
 
 @push('css')
+    <style>
+        .choices__inner {
+            font-size: 14px !important;
+            padding: 0.5rem !important;
+        }
+
+        .choices__item:not(:first-child) {
+            font-size: 14px !important;
+            padding: 8px 12px !important;
+            color: #333 !important;
+            background-color: #fff !important;
+            border-bottom: 1px solid #ddd !important;
+        }
+
+        .choices__item--selectable.is-highlighted {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
+
+    </style>
 @endpush
 
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const storeSelect = document.getElementById('storeSelect');
-
-            // Initialize Choices.js for the store select
             const storeChoices = new Choices(storeSelect, {
                 removeItemButton: true,
                 placeholder: true
-            });
-
-            // If you want to add additional functionality when store changes, you can do that here
-            storeSelect.addEventListener('change', function (event) {
-                // You can perform any action when a store is selected
-                console.log('Store selected:', storeSelect.value);
             });
         });
     </script>
