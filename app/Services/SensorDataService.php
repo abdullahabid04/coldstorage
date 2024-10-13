@@ -92,46 +92,10 @@ class SensorDataService
         return $jsonResponse ? response()->json($avgData) : $avgData;
     }
 
-//    public function fetchDataForReport($storeId, $startDate, $endDate)
-//    {
-//        // Get relative string and the actual number of days between start and end date
-//        $lastNDays = convertToLastNDays($startDate, $endDate);
-//        $timeRange = $lastNDays['relativeString']; // Use proper key for string representation
-//        $days = $lastNDays['days'];
-//
-//        // Determine the appropriate bucket size based on the number of days
-//        if ($days === 1) {
-//            $bucketSize = 60; // hourly
-//        } elseif ($days > 1 && $days <= 30) {
-//            $bucketSize = 1440; // daily (24 hours * 60 minutes)
-//        } elseif ($days > 30 && $days <= 90) {
-//            $bucketSize = 10080; // weekly (7 days * 24 hours * 60 minutes)
-//        } elseif ($days > 90 && $days <= 365) {
-//            $bucketSize = 43800; // monthly (approx. 30.42 days * 24 hours * 60 minutes)
-//        } else {
-//            $bucketSize = 525600; // yearly (365 days * 24 hours * 60 minutes)
-//        }
-//
-//        // Query the sensor data, bucketing by the determined time interval
-//        $data = SensorData::whereHas('area', function ($query) use ($storeId) {
-//            $query->where('store_id', $storeId);
-//        })
-//            ->whereBetween('timestamp', [$startDate, $endDate])  // Cleaner date range filtering
-//            ->selectRaw("
-//        AVG(temperature) as average_temperature,
-//        AVG(humidity) as average_humidity,
-//        MIN(timestamp) as timestamp,
-//        FLOOR(UNIX_TIMESTAMP(timestamp) / ($bucketSize * 60)) as time_bucket
-//    ")
-//            ->groupBy('time_bucket')
-//            ->orderBy('timestamp', 'asc')
-//            ->get();
-//
-//        return $data;
-//    }
-
     public function fetchDataForReport($areaId, $startDate, $endDate)
     {
+        if (!isAuthArea($areaId)) return null;
+
         $lastNDays = convertToLastNDays($startDate, $endDate);
         $days = $lastNDays['days'];
 
@@ -147,7 +111,7 @@ class SensorDataService
             $groupBy = "YEAR(timestamp)";
         }
 
-        $data = SensorData::where('area_id', $areaId)
+        return SensorData::where('area_id', $areaId)
             ->whereBetween('timestamp', [$startDate, $endDate])
             ->selectRaw("
         ROUND(AVG(temperature), 2) as average_temperature,
@@ -158,9 +122,5 @@ class SensorDataService
             ->groupBy('time_bucket')
             ->orderBy('timestamp', 'asc')
             ->get();
-
-        return $data;
     }
-
-
 }

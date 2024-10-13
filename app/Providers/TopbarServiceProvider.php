@@ -24,9 +24,7 @@ class TopbarServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer('layouts.partial.topbar', function (View $view) {
-            $stores = getAuthUserStores();
-
-            $view->with('stores', $stores);
+            $view->with('stores', getAuthStores());
         });
     }
 }

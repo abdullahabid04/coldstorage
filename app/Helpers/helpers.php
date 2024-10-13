@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('mapTimeframe')) {
@@ -21,9 +22,9 @@ if (!function_exists('mapTimeframe')) {
 }
 
 if (!function_exists('convertToLastNDays')) {
-    function convertToLastNDays($startDate, $endDate)
+    function convertToLastNDays($startDate, $endDate): array
     {
-        $start = Carbon::parse($startDate); // "2024-10-01 00:00:00" its a string like this does it work
+        $start = Carbon::parse($startDate);
         $end = Carbon::parse($endDate);
 
         $differenceInDays = $start->diffInDays($end);
@@ -37,18 +38,47 @@ if (!function_exists('convertToLastNDays')) {
     }
 }
 
-if (!function_exists('getAuthUserStores')) {
-    function getAuthUserStores() {
+if (!function_exists('getAuthStores')) {
+    function getAuthStores(): Collection
+    {
         if (Auth::user()->role->id === 4) {
-            $stores = auth()->user()->stores()->with(['areas' => function ($query) {
+            $stores = auth()->user()->stores()->with(['sites' => function ($query) {
                 $query->whereHas('users', function ($query) {
                     $query->where('user_id', auth()->id());
                 });
             }])->get();
         } else {
-            $stores = auth()->user()->stores()->with('areas')->get();
+            $stores = auth()->user()->stores()->with('sites')->get();
         }
 
         return $stores;
+    }
+}
+
+if (!function_exists('getAuthAreas')){
+    function getAuthAreas(): Collection
+    {
+        $stores = getAuthStores();
+        return $stores->flatMap(function ($store) {
+            return $store->areas;
+        });
+    }
+}
+
+if (!function_exists('isAuthStore')){
+    function isAuthStore(int $storeId): bool
+    {
+        $stores = getAuthStores();
+        $store = $stores->find($storeId)->count();
+        return $store === 1;
+    }
+}
+
+if (!function_exists('isAuthArea')){
+    function isAuthArea(int $areaId): bool
+    {
+        $areas = getAuthStores();
+        $area = $areas->find($areaId)->count();
+        return $site === 1;
     }
 }
