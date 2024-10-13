@@ -82,7 +82,13 @@
 <body>
 
 <div class="header">
-    <img src="{{ asset('assets/img/icons/logo.png') }}" alt="{{ config('app.name', 'Sentron') }}" width="20"/>
+    <?php
+        $imagePath = public_path('assets/img/icons/logo.png');
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $src = 'data:image/png;base64,' . $imageData;
+    ?>
+    <img src="{{ $src }}" alt="{{ config('app.name', 'Sentron') }}" width="25"/>
+
     <h3>Sensor Data Report</h3>
     <p>{{ date('F d, Y') }}</p>
 </div>
