@@ -20,11 +20,7 @@ class ReportController extends Controller
     }
 
     public function index(Request $request) {
-        $stores = auth()->user()->stores()->with(['areas' => function ($query) {
-            $query->whereHas('users', function ($query) {
-                $query->where('user_id', auth()->id());
-            });
-        }])->get();
+        $stores = getAuthUserStores();
 
         $reportData = null;
 
