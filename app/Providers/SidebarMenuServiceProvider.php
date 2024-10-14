@@ -28,7 +28,6 @@ class SidebarMenuServiceProvider extends ServiceProvider
         {
             $role = Auth::user()->role;
             $menus = $role->getMenusSubjectToRole();
-
             $view->with('menus', $menus);
         });
     }

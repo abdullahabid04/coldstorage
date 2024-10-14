@@ -7,7 +7,7 @@ use App\Models\Device;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class StoreOwnerClientController extends Controller
+class ClientUserController extends Controller
 {
     // List all clients for the store owner
     public function index()

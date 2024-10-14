@@ -4,12 +4,12 @@
     <nav class="mb-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/users') }}">Users</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/client/store-clients') }}">Users</a></li>
             <li class="breadcrumb-item active">Add User</li>
         </ol>
     </nav>
 
-    <form class="mb-9" method="POST" action="{{ route('store-clients.store') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="POST" action="{{ route('client.store-clients.store') }}" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="row g-3 flex-between-end mb-5">
@@ -20,7 +20,7 @@
                 </h5>
             </div>
             <div class="col-auto">
-                <a href="{{ route('store-clients.index') }}" class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0">Discard</a>
+                <a href="{{ route('client.store-clients.index') }}" class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0">Discard</a>
                 <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add user</button>
             </div>
         </div>
@@ -87,7 +87,7 @@
                                         <label for="floaTingLabelMultipleSelect">Devices</label>
                                         <select class="form-select" id="floaTingLabelMultipleSelect" name="device_ids[]" multiple data-choices data-options='{"removeItemButton": true, "placeholder": true}'>
                                             @foreach($devices as $row)
-                                                <option value="{{ $row->id }}">{{ $row->serial_number }}</option>
+                                                <option value="{{ $row->id }}">{{ $row->area->first()->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>

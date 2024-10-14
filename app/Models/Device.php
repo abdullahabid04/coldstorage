@@ -16,15 +16,6 @@ class Device extends Model
 
     protected $fillable = ['serial_number', 'description', 'store_id'];
 
-//    public function getSerial(): string
-//    {
-//        do {
-//            $serial = 'MC' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
-//        } while (Device::where('serial_number', $serial)->exists());
-//
-//        return $serial;
-//    }
-
     public function getSerial(): string
     {
         // Get the last inserted serial number
@@ -57,5 +48,16 @@ class Device extends Model
     public function sensorData()
     {
         return $this->hasManyThrough(SensorData::class, Area::class, 'id', 'area_id');
+    }
+
+    public function deviceGroups()
+    {
+        return $this->belongsToMany(DeviceGroup::class, 'device_group_device', 'device_id', 'device_group_id')
+            ->withTimestamps();
+    }
+
+    public function rollouts()
+    {
+        return $this->hasMany(Rollout::class);
     }
 }

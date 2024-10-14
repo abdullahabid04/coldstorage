@@ -33,7 +33,7 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'title' => 'Store Owner',
+                'title' => 'Store Client',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],

@@ -3,13 +3,20 @@
 use App\Http\Controllers\API\ClientDataController;
 use App\Http\Controllers\AreaDeviceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientAreaController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\FactoryController;
 use App\Http\Controllers\FactoryUserController;
+use App\Http\Controllers\FirmwareController;
+use App\Http\Controllers\FirmwareUpdateController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolloutController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StoreUserController;
+use App\Http\Controllers\UpdateLogController;
+use App\Http\Controllers\UpdateProgressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +49,39 @@ Route::get('/sensor-data/temperature', [SensorDataController::class, 'fetchTempe
 Route::get('/sensor-data/{areaId}/{deviceId}', [SensorDataController::class, 'fetchData']);
 Route::get('/sensor-data/{areaId}/{deviceId}/avg', [SensorDataController::class, 'fetchData']);
 
+Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
+Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
+Route::post('/menus/update_order', [MenuController::class, 'updateOrder']);
+
+// Device Status Routes
+Route::put('/devices/{device_id}/status/set', [DeviceController::class, 'setDeviceStatus']);
+Route::get('/devices/{device_id}/status/get', [DeviceController::class, 'getDeviceStatus']);
+
+// Device Time Delay Routes
+Route::put('/devices/{device_id}/delay/set', [DeviceController::class, 'setTimeDelay']);
+Route::get('/devices/{device_id}/delay/get', [DeviceController::class, 'getTimeDelay']);
+
+// Wi-Fi Status Routes
+Route::put('/devices/{device_id}/wifi/set-credentials', [DeviceController::class, 'setWifiCredentials']);
+Route::get('/devices/{device_id}/wifi/get-credentials', [DeviceController::class, 'getWifiCredentials']);
+Route::put('/devices/{device_id}/wifi/set-state', [DeviceController::class, 'setWifiState']);
+Route::get('/devices/{device_id}/wifi/get-state', [DeviceController::class, 'getWifiState']);
+
+// Device Event Routes
+Route::put('/devices/{device_id}/events/update', [DeviceController::class, 'updateDeviceEvent']);
+Route::get('/devices/{device_id}/events/get', [DeviceController::class, 'getDeviceEvents']);
+
+// Firmware Update Routes
+Route::get('/firmware/check-update/{deviceSerial}', [RolloutController::class, 'checkFirmwareUpdate'])->name('firmware.check-update');
+Route::get('/firmware/get-update/{deviceSerial}/{firmwareUpdateId}', [FirmwareUpdateController::class, 'getFirmwareUpdate'])->name('firmware.get-update');
+Route::get('/firmware/download/{version}/{deviceSerial}/{token}', [FirmwareController::class, 'downloadFirmware'])->name('firmware.download');
+
+// Routes for Update logs and progress
+Route::post('/firmware/update-log', [UpdateLogController::class, 'updateLog']);
+Route::post('/firmware/update-progress', [UpdateProgressController::class, 'updateProgress']);
+
+Route::post('/areas/{id}/rename', [ClientAreaController::class, 'rename']);
+
 Route::get('/factories', [FactoryController::class, 'fetch']);
 Route::get('/areas', [SiteController::class, 'fetch']);
 
@@ -53,7 +93,3 @@ Route::get('factory/{factoryId}/{type}', [FactoryController::class, 'fetchData']
 Route::get('site/{siteId}/{type}', [SiteController::class, 'fetchData']);
 Route::get('sensor-data/{entityType}/{entityId}/', [SensorDataController::class, 'fetch']);
 Route::get('sensor-data/{entityType}/{entityId}/energy', [SensorDataController::class, 'fetchEnergyData']);
-
-Route::get('/roles/attach_menus/{role}', [RoleController::class, 'attachModalBody']);
-Route::get('/roles/detach_menus/{role}', [RoleController::class, 'detachModalBody']);
-Route::post('/menus/update_order', [MenuController::class, 'updateOrder']);

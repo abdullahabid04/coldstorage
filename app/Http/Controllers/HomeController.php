@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Store;
 use App\Services\SensorDataService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -39,15 +37,7 @@ class HomeController extends Controller
                 return view('dashboard.admin');
             } else {
 
-                if (Auth::user()->role->id === 4) {
-                    $stores = auth()->user()->stores()->with(['areas' => function ($query) {
-                        $query->whereHas('users', function ($query) {
-                            $query->where('user_id', auth()->id());
-                        });
-                    }])->get();
-                } else {
-                    $stores = auth()->user()->stores()->get();
-                }
+                $stores = getAuthUserStores();
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Complaints') }}</title>
+    <title>{{ config('app.name', 'Sentron') }}</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -56,6 +56,8 @@
     <link href="{{ asset('assets/vendors/leaflet/leaflet.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/leaflet.markercluster/MarkerCluster.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/leaflet.markercluster/MarkerCluster.Default.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/choices/choices.min.css') }}" rel="stylesheet">
 
     <!-- Stacking CSS -->
     @stack("css")

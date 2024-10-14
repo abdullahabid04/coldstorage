@@ -91,4 +91,36 @@ class SensorDataService
 
         return $jsonResponse ? response()->json($avgData) : $avgData;
     }
+
+    public function fetchDataForReport($areaId, $startDate, $endDate)
+    {
+        if (!isAuthArea($areaId)) return null;
+
+        $lastNDays = convertToLastNDays($startDate, $endDate);
+        $days = $lastNDays['days'];
+
+        if ($days === 1) {
+            $groupBy = "DATE_FORMAT(timestamp, '%Y-%m-%d %H:00:00')";
+        } elseif ($days > 1 && $days <= 30) {
+            $groupBy = "DATE_FORMAT(timestamp, '%Y-%m-%d')";
+        } elseif ($days > 30 && $days <= 90) {
+            $groupBy = "WEEK(timestamp)";
+        } elseif ($days > 90 && $days <= 365) {
+            $groupBy = "DATE_FORMAT(timestamp, '%Y-%m')";
+        } else {
+            $groupBy = "YEAR(timestamp)";
+        }
+
+        return SensorData::where('area_id', $areaId)
+            ->whereBetween('timestamp', [$startDate, $endDate])
+            ->selectRaw("
+        ROUND(AVG(temperature), 2) as average_temperature,
+        ROUND(AVG(humidity), 2) as average_humidity,
+        MIN(timestamp) as timestamp,
+        $groupBy as time_bucket
+    ")
+            ->groupBy('time_bucket')
+            ->orderBy('timestamp', 'asc')
+            ->get();
+    }
 }

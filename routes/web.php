@@ -1,14 +1,23 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ClientAreaController;
+use App\Http\Controllers\ClientStoreController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DeviceGroupController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FirmwareController;
+use App\Http\Controllers\FirmwareUpdateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolloutController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\StoreOwnerClientController;
-use App\Http\Controllers\StoreOwnerDeviceController;
+use App\Http\Controllers\ClientUserController;
+use App\Http\Controllers\ClientDeviceController;
+use App\Http\Controllers\UpdateLogController;
+use App\Http\Controllers\UpdateProgressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -17,12 +26,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('client')->group(function () {
-    Route::get('/create', [StoreOwnerClientController::class, 'create'])->name('store-clients.create');
-    Route::post('/', [StoreOwnerClientController::class, 'store'])->name('store-clients.store');
-    Route::get('/', [StoreOwnerClientController::class, 'index'])->name('store-clients.index');
-
-    Route::get('/devices', [StoreOwnerDeviceController::class, 'index'])->name('devices.index');
+Route::prefix('client')->as("client.")->group(function () {
+    Route::resource('store-clients', ClientUserController::class);
+    Route::resource('stores', ClientStoreController::class);
+    Route::resource('areas', ClientAreaController::class);
+    Route::resource('devices', ClientDeviceController::class);
 });
 
 Auth::routes();
@@ -44,9 +52,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/stores', StoreController::class);
     Route::resource('/areas', AreaController::class);
 
-    Route::get('/reports', function () {
-        return view('reports.index');
-    })->name('reports');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/download/{storeId}/{startDate}/{endDate}', [ReportController::class, 'download'])->name('reports.download');
 
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
+    Route::resource('firmwares', FirmwareController::class)->except(['show']);
+    Route::resource('firmware_updates', FirmwareUpdateController::class)->except(['show']);
+    Route::resource('device_groups', DeviceGroupController::class)->except(['show']);
+    Route::resource('rollouts', RolloutController::class)->except(['show']);
+    Route::resource('update_progress', UpdateProgressController::class)->only(['index']);
+    Route::resource('update_logs', UpdateLogController::class)->only(['index']);
 });
