@@ -42,7 +42,7 @@
 
         @if($reportData)
             <div id="reports"
-                 data-list='{"valueNames":["id", "timestamp", "avg_t", "avg_h"],"page":10,"pagination":true}'>
+                 data-list='{"valueNames":["id", "timestamp", "avg_t", "avg_h"]}'>
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h2 class="mb-2 text-body-emphasis">Generated Report</h2>
                     <a href="{{ route('reports.download', [$areaId, $startDate, $endDate]) }}">
