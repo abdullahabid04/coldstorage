@@ -250,44 +250,110 @@
                 <div class="text-center mt-5"><a class="btn btn-outline-primary" href="#!">See more<span
                             class="fa-solid fa-angle-right ms-2"></span></a></div>
             </div>
+
             <div class="row flex-between-center px-xl-11 mb-10 mb-md-9">
                 <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
-                    <h4 class="mb-3">Recieve the signals instantly</h4>
-                    <p class="mb-5">PowerEye allows you to receive every signal instantly and fruitfully. No need for
-                        long waits.</p><a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">Check Demo<i
-                            class="fa-solid fa-angle-right ms-2"></i></a>
+                    <h4 class="mb-3">Accurate Environmental Monitoring</h4>
+                    <p class="mb-5">
+                        Temperature Monitoring Range: From -10°C to 70°C, making it suitable for a variety of
+                        environments, including cold storage facilities.
+                    </p>
+                    <p class="mb-5">
+                        Humidity Monitoring Range: From 0% to 100%, giving full control over humidity-sensitive
+                        environments.
+                    </p>
+                    <a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">
+                        Check Demo
+                        <i class="fa-solid fa-angle-right ms-2"></i>
+                    </a>
                 </div>
-                <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
-                                                                    src="../../assets/img/spot-illustrations/34.png"
-                                                                    alt=""/><img class="w-75 w-md-100 d-light-none"
-                                                                                 src="../../assets/img/spot-illustrations/34_2.png"
-                                                                                 alt=""/></div>
+                <div class="col-md-5 mb-5 mb-md-0 text-center">
+                    <img class="w-75 w-md-100 d-dark-none"
+                         src="../../assets/img/spot-illustrations/34.png"
+                         alt=""/>
+                    <img class="w-75 w-md-100 d-light-none"
+                         src="../../assets/img/spot-illustrations/34_2.png"
+                         alt=""/>
+                </div>
             </div>
+
             <div class="row flex-between-center px-xl-11 mb-10 mb-md-9">
                 <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
-                    <h4 class="mb-3">Make everyday a joyride</h4>
-                    <p class="mb-5">PowerEye helps you show reports and data in one place and make the journey a glee
-                        trip for everyone.</p><a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">Check Demo<i
-                            class="fa-solid fa-angle-right ms-2"></i></a>
+                    <h4 class="mb-3">Real-Time Data with Cloud Connectivity</h4>
+                    <p class="mb-5">
+                        Sentron-EMS continuously monitors environmental conditions and sends data to a secure cloud
+                        server. The system refreshes data every 10 minutes, ensuring that you always have the most
+                        current information at your fingertips.
+                    </p>
+                    <a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">
+                        Check Demo
+                        <i class="fa-solid fa-angle-right ms-2"></i>
+                    </a>
                 </div>
-                <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
-                                                                    src="../../assets/img/spot-illustrations/35.png"
-                                                                    alt=""/><img class="w-75 w-md-100 d-light-none"
-                                                                                 src="../../assets/img/spot-illustrations/35_2.png"
-                                                                                 alt=""/></div>
+                <div class="col-md-5 mb-5 mb-md-0 text-center">
+                    <img class="w-75 w-md-100 d-dark-none"
+                         src="../../assets/img/spot-illustrations/35.png"
+                         alt=""/>
+                    <img class="w-75 w-md-100 d-light-none"
+                         src="../../assets/img/spot-illustrations/35_2.png"
+                         alt=""/>
+                </div>
             </div>
+
+            <div class="row flex-between-center px-xl-11 mb-10 mb-md-9">
+                <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
+                    <h4 class="mb-3">Mobile App & Remote Access</h4>
+                    <p class="mb-5">
+                        With our intuitive mobile application, you can access your system anytime and anywhere. The app
+                        includes:
+                    </p>
+                    <p class="mb-5" style="padding-left: 2em;">
+                        <strong>Admin Login:</strong> Secure access for administrators to manage the system.
+                    </p>
+                    <p class="mb-5" style="padding-left: 2em;">
+                        <strong>User Sharing and Management:</strong> Easily share access with team members or clients
+                        and manage users with the ability to add or remove them as needed.
+                    </p>
+                    <p class="mb-5" style="padding-left: 2em;">
+                        <strong>Data History:</strong> All data is stored long-term, allowing you to review historical
+                        trends for analysis and compliance purposes.
+                    </p>
+                    <a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">
+                        Check Demo
+                        <i class="fa-solid fa-angle-right ms-2"></i>
+                    </a>
+                </div>
+                <div class="col-md-5 mb-5 mb-md-0 text-center">
+                    <img class="w-75 w-md-100 d-dark-none"
+                         src="../../assets/img/spot-illustrations/36.png"
+                         alt=""/>
+                    <img class="w-75 w-md-100 d-light-none"
+                         src="../../assets/img/spot-illustrations/36_2.png"
+                         alt=""/>
+                </div>
+            </div>
+
             <div class="row flex-between-center px-xl-11 false">
                 <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
-                    <h4 class="mb-3">See Your Revenue Grow</h4>
-                    <p class="mb-5">Grow with PowerEye. We help you with everything you might need, We make it easy and
-                        keep it simple.</p><a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">Check Demo<i
-                            class="fa-solid fa-angle-right ms-2"></i></a>
+                    <h4 class="mb-3">Seamless Integration and Easy Installation</h4>
+                    <p class="mb-5">
+                        Sentron-EMS is designed for easy integration into your current system without disruption.
+                        Installation can be completed in less than 30 minutes, and our technical support team is
+                        available to assist with the process. No complex setup or prerequisites are required.
+                    </p>
+                    <a class="btn btn-link me-2 p-0 fs-9" href="#!" role="button">
+                        Check Demo
+                        <i class="fa-solid fa-angle-right ms-2"></i>
+                    </a>
                 </div>
-                <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
-                                                                    src="../../assets/img/spot-illustrations/36.png"
-                                                                    alt=""/><img class="w-75 w-md-100 d-light-none"
-                                                                                 src="../../assets/img/spot-illustrations/36_2.png"
-                                                                                 alt=""/></div>
+                <div class="col-md-5 mb-5 mb-md-0 text-center">
+                    <img class="w-75 w-md-100 d-dark-none"
+                         src="../../assets/img/spot-illustrations/35.png"
+                         alt=""/>
+                    <img class="w-75 w-md-100 d-light-none"
+                         src="../../assets/img/spot-illustrations/35_2.png"
+                         alt=""/>
+                </div>
             </div>
         </div><!-- end of .container-->
     </section><!-- <section> close ============================-->
@@ -379,56 +445,84 @@
 
     <section class="gallery">
         <div class="gallery-overlay position-absolute left-0 w-100"></div>
+
         <div class="bg-holder d-none d-xl-block"
-             style="background-image:url(../../assets/img/bg/bg-left-26.png);background-size:auto;background-position:left 65%;"></div>
+             style="background-image:url(../../assets/img/bg/bg-left-26.png);background-size:auto;background-position:left 65%;">
+        </div>
         <!--/.bg-holder-->
         <div class="bg-holder d-none d-xl-block"
-             style="background-image:url(../../assets/img/bg/bg-right-26.png);background-size:auto;background-position:right 62%;"></div>
+             style="background-image:url(../../assets/img/bg/bg-right-26.png);background-size:auto;background-position:right 62%;">
+        </div>
         <!--/.bg-holder-->
         <div class="container-small position-relative px-lg-7 px-xxl-3">
             <div class="text-center mb-7">
                 <h5 class="text-info mb-3">Gallery</h5>
                 <h2 class="mb-2">Our best works</h2>
             </div>
+
             <ul class="nav mb-6 w-max-content mx-auto" data-filter-nav="data-filter-nav">
                 <li class="nav-item"><a class="isotope-nav cursor-pointer active" data-filter="*">First</a></li>
                 <li class="nav-item"><a class="isotope-nav cursor-pointer" data-filter=".second">Second</a></li>
                 <li class="nav-item"><a class="isotope-nav cursor-pointer" data-filter=".third">Third</a></li>
                 <li class="nav-item"><a class="isotope-nav cursor-pointer" data-filter=".fourth">Fourth</a></li>
             </ul>
+
             <div class="row g-3" id="image_gallery" data-sl-isotope='{"layoutMode":"packery"}'>
-                <div class="col-6 col-md-4 px-2 isotope-item fourth"><a href="#!"
-                                                                        data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                        data-bp="../../assets/img/gallery/27.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/27.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item third"><a href="#!"
-                                                                       data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                       data-bp="../../assets/img/gallery/28.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/28.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item second"><a href="#!"
-                                                                        data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                        data-bp="../../assets/img/gallery/29.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/29.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item third"><a href="#!"
-                                                                       data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                       data-bp="../../assets/img/gallery/30.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/30.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item third"><a href="#!"
-                                                                       data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                       data-bp="../../assets/img/gallery/31.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/31.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item second"><a href="#!"
-                                                                        data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                        data-bp="../../assets/img/gallery/32.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/32.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item fourth"><a href="#!"
-                                                                        data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                        data-bp="../../assets/img/gallery/33.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/33.png" alt=""/></a></div>
-                <div class="col-6 col-md-4 px-2 isotope-item third"><a href="#!"
-                                                                       data-bigpicture='{"gallery":"#image_gallery"}'
-                                                                       data-bp="../../assets/img/gallery/34.png"><img
-                            class="rounded img-fluid w-100" src="../../assets/img/gallery/34.png" alt=""/></a></div>
+                <div class="col-6 col-md-4 px-2 isotope-item fourth">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/27.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/27.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item third">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/28.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/28.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item second">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/29.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/29.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item third">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/30.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/30.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item third">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/31.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/31.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item second">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/32.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/32.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item fourth">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/33.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/33.png" alt=""/>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-4 px-2 isotope-item third">
+                    <a href="#!" data-bigpicture='{"gallery":"#image_gallery"}'
+                       data-bp="../../assets/img/gallery/34.png">
+                        <img class="rounded img-fluid w-100" src="../../assets/img/gallery/34.png" alt=""/>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
