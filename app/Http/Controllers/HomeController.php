@@ -37,7 +37,7 @@ class HomeController extends Controller
                 return view('dashboard.admin');
             } else {
 
-                $stores = getAuthUserStores();
+                $stores = getAuthStores();
 
                 foreach ($stores as $store) {
                     foreach ($store->areas as $area) {

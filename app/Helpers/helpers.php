@@ -42,20 +42,20 @@ if (!function_exists('getAuthStores')) {
     function getAuthStores(): Collection
     {
         if (Auth::user()->role->id === 4) {
-            $stores = auth()->user()->stores()->with(['sites' => function ($query) {
+            $stores = auth()->user()->stores()->with(['areas' => function ($query) {
                 $query->whereHas('users', function ($query) {
                     $query->where('user_id', auth()->id());
                 });
             }])->get();
         } else {
-            $stores = auth()->user()->stores()->with('sites')->get();
+            $stores = auth()->user()->stores()->with('areas')->get();
         }
 
         return $stores;
     }
 }
 
-if (!function_exists('getAuthAreas')){
+if (!function_exists('getAuthAreas')) {
     function getAuthAreas(): Collection
     {
         $stores = getAuthStores();
@@ -65,7 +65,7 @@ if (!function_exists('getAuthAreas')){
     }
 }
 
-if (!function_exists('isAuthStore')){
+if (!function_exists('isAuthStore')) {
     function isAuthStore(int $storeId): bool
     {
         $stores = getAuthStores();
@@ -74,11 +74,11 @@ if (!function_exists('isAuthStore')){
     }
 }
 
-if (!function_exists('isAuthArea')){
+if (!function_exists('isAuthArea')) {
     function isAuthArea(int $areaId): bool
     {
         $areas = getAuthStores();
         $area = $areas->find($areaId)->count();
-        return $site === 1;
+        return $area === 1;
     }
 }
