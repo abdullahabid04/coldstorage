@@ -3,14 +3,14 @@
         <div class="d-flex flex-between-center dual-nav-first-layer">
             <div class="navbar-logo">
                 <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#navbarTopCollapse" aria-controls="navbarTopCollapse"
-                        aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
+                    data-bs-toggle="collapse" data-bs-target="#navbarTopCollapse" aria-controls="navbarTopCollapse"
+                    aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
                             class="toggle-line"></span></span></button>
                 <a class="navbar-brand me-1 me-sm-3" href="{{ url('/home') }}">
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center">
                             <img src="{{ asset('assets/img/icons/logo.png') }}" alt="{{ config('app.name', 'Care') }}"
-                                 width="27"/>
+                                width="27" />
                             <p class="logo-text ms-2 d-none d-sm-block">{{ config('app.name', 'Care') }}</p>
                         </div>
                     </div>
@@ -21,15 +21,15 @@
                 <li class="nav-item">
                     <div class="theme-control-toggle fa-icon-wait px-2">
                         <input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox"
-                               data-theme-control="phoenixTheme" value="dark" id="themeControlToggle"/>
+                            data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" />
                         <label class="mb-0 theme-control-toggle-label theme-control-toggle-light"
-                               for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left"
-                               data-bs-title="Switch theme" style="height:32px; width:32px;">
+                            for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left"
+                            data-bs-title="Switch theme" style="height:32px; width:32px;">
                             <span class="icon" data-feather="moon"></span>
                         </label>
                         <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark"
-                               for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left"
-                               data-bs-title="Switch theme" style="height:32px; width:32px;">
+                            for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left"
+                            data-bs-title="Switch theme" style="height:32px; width:32px;">
                             <span class="icon" data-feather="sun"></span>
                         </label>
                     </div>
@@ -37,13 +37,12 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" style="min-width: 2.25rem" role="button" data-bs-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside">
+                        aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside">
                         <span class="d-block" style="height:20px; width:20px;">
                             <span data-feather="bell" style="height:20px; width:20px;"></span>
                         </span>
                     </a>
-                    <div
-                        class="dropdown-menu dropdown-menu-end notification-dropdown-menu py-0 shadow border navbar-dropdown-caret"
+                    <div class="dropdown-menu dropdown-menu-end notification-dropdown-menu py-0 shadow border navbar-dropdown-caret"
                         id="navbarDropdownNotfication" aria-labelledby="navbarDropdownNotfication">
                         <div class="card position-relative border-0">
                             <div class="card-header p-2">
@@ -62,7 +61,7 @@
                                             <div class="d-flex">
                                                 <div class="avatar avatar-m status-online me-3"><img
                                                         class="rounded-circle" src="../assets/img/team/40x40/30.webp"
-                                                        alt=""/></div>
+                                                        alt="" /></div>
                                                 <div class="flex-1 me-sm-3">
                                                     <h4 class="fs-9 text-body-emphasis">Jessie Samson</h4>
                                                     <p class="fs-9 text-body-highlight mb-2 mb-sm-3 fw-normal"><span
@@ -70,7 +69,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10">10m</span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:41 AM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:41
+                                                            AM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -101,7 +101,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10">20m</span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:20 AM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:20
+                                                            AM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -124,7 +125,7 @@
                                             <div class="d-flex">
                                                 <div class="avatar avatar-m status-online me-3"><img
                                                         class="rounded-circle avatar-placeholder"
-                                                        src="../assets/img/team/40x40/avatar.webp" alt=""/></div>
+                                                        src="../assets/img/team/40x40/avatar.webp" alt="" /></div>
                                                 <div class="flex-1 me-sm-3">
                                                     <h4 class="fs-9 text-body-emphasis">Jessie Samson</h4>
                                                     <p class="fs-9 text-body-highlight mb-2 mb-sm-3 fw-normal"><span
@@ -132,7 +133,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10">1h</span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">9:30 AM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">9:30
+                                                            AM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -155,7 +157,7 @@
                                             <div class="d-flex">
                                                 <div class="avatar avatar-m status-online me-3"><img
                                                         class="rounded-circle" src="{{ asset('assets/img/57.webp') }}"
-                                                        alt=""/></div>
+                                                        alt="" /></div>
                                                 <div class="flex-1 me-sm-3">
                                                     <h4 class="fs-9 text-body-emphasis">Kiera Anderson</h4>
                                                     <p class="fs-9 text-body-highlight mb-2 mb-sm-3 fw-normal"><span
@@ -163,7 +165,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10"></span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">9:11 AM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">9:11
+                                                            AM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -186,7 +189,7 @@
                                             <div class="d-flex">
                                                 <div class="avatar avatar-m status-online me-3"><img
                                                         class="rounded-circle" src="../assets/img/team/40x40/59.webp"
-                                                        alt=""/></div>
+                                                        alt="" /></div>
                                                 <div class="flex-1 me-sm-3">
                                                     <h4 class="fs-9 text-body-emphasis">Herman Carter</h4>
                                                     <p class="fs-9 text-body-highlight mb-2 mb-sm-3 fw-normal"><span
@@ -194,7 +197,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10"></span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:58 PM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:58
+                                                            PM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -216,7 +220,7 @@
                                             <div class="d-flex">
                                                 <div class="avatar avatar-m status-online me-3"><img
                                                         class="rounded-circle" src="../assets/img/team/40x40/58.webp"
-                                                        alt=""/></div>
+                                                        alt="" /></div>
                                                 <div class="flex-1 me-sm-3">
                                                     <h4 class="fs-9 text-body-emphasis">Benjamin Button</h4>
                                                     <p class="fs-9 text-body-highlight mb-2 mb-sm-3 fw-normal"><span
@@ -224,7 +228,8 @@
                                                             class="ms-2 text-body-quaternary text-opacity-75 fw-bold fs-10"></span>
                                                     </p>
                                                     <p class="text-body-secondary fs-9 mb-0"><span
-                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:18 AM </span>August
+                                                            class="me-1 fas fa-clock"></span><span class="fw-bold">10:18
+                                                            AM </span>August
                                                         7,2021</p>
                                                 </div>
                                             </div>
@@ -253,25 +258,24 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button"
-                       data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true"
-                       aria-expanded="false">
+                        data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true"
+                        aria-expanded="false">
                         <div class="avatar avatar-l ">
                             @php
                                 $src = url('assets/img/users/user1.png');
-                                if(Auth::user()->photo_path)
+                                if (Auth::user()->photo_path)
                                     $src = url(Auth::user()->photo_path);
                             @endphp
-                            <img class="rounded-circle " src="{{ $src }}" alt=""/>
+                            <img class="rounded-circle " src="{{ $src }}" alt="" />
                         </div>
                     </a>
-                    <div
-                        class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border"
+                    <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border"
                         aria-labelledby="navbarDropdownUser">
                         <div class="card position-relative border-0">
                             <div class="card-body p-0">
                                 <div class="text-center pt-4 pb-3">
                                     <div class="avatar avatar-xl ">
-                                        <img class="rounded-circle " src="{{ $src }}" alt=""/>
+                                        <img class="rounded-circle " src="{{ $src }}" alt="" />
                                     </div>
                                     <h6 class="mt-2 text-body-emphasis">{{ Auth::user()->name }}</h6>
                                 </div>
@@ -283,7 +287,7 @@
                                                 class="me-2 text-body"
                                                 data-feather="user"></span><span>Profile</span></a></li>
                                     <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-body"
-                                                                                                  data-feather="pie-chart"></span>Dashboard</a>
+                                                data-feather="pie-chart"></span>Dashboard</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link px-3" href="#!"> <span
                                                 class="me-2 text-body" data-feather="lock"></span>Posts &amp;
@@ -304,7 +308,7 @@
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit"
-                                                class="btn btn-phoenix-secondary d-flex flex-center w-100">
+                                            class="btn btn-phoenix-secondary d-flex flex-center w-100">
                                             <span class="me-2" data-feather="log-out"> </span>Sign out
                                         </button>
                                     </form>
@@ -330,39 +334,37 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown"
-                       data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <span class="uil fs-8 me-2 uil-cube"></span>Stores
                     </a>
                     <ul class="dropdown-menu navbar-dropdown-caret">
-                        @foreach($stores as $row)
+                        @forelse($stores as $store)
                             <li class="dropdown">
-                                <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#"
-                                   data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                <a class="dropdown-item dropdown-toggle" id="e-commerce" href="#" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside">
                                     <div class="dropdown-item-wrapper">
                                         <span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span>
-                                        <span><span class="me-2 uil"
-                                                    data-feather="trello"></span>{{ $row->title }}</span>
+                                        <span><span class="me-2 uil" data-feather="trello"></span>{{ $store->title }}</span>
                                     </div>
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    @if($row->areas->isNotEmpty())
-                                        @foreach($row->areas as $area)
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('areas.show', $area->id) }}">
-                                                    <div class="dropdown-item-wrapper">
-                                                        <span class="me-2 uil"></span>{{ $area->title }}
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    @else
-                                        <li class="dropdown-item text-muted">No Areas to Show</li>
-                                    @endif
+                                    @forelse($store->areas as $area)
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('areas.show', $area->id) }}">
+                                                <div class="dropdown-item-wrapper">
+                                                    <span class="me-2 uil"></span>{{ $area->title }}
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li class="dropdown-item text-muted">No areas available</li>
+                                    @endforelse
                                 </ul>
 
                             </li>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </ul>
                 </li>
                 <li class="nav-item lh-1">
