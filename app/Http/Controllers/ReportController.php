@@ -20,7 +20,7 @@ class ReportController extends Controller
     }
 
     public function index(Request $request) {
-        $stores = getAuthUserStores();
+        $stores = getAuthStores();
 
         $reportData = null;
 

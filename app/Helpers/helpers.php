@@ -77,8 +77,9 @@ if (!function_exists('isAuthStore')) {
 if (!function_exists('isAuthArea')) {
     function isAuthArea(int $areaId): bool
     {
-        $areas = getAuthStores();
-        $area = $areas->find($areaId)->count();
-        return $area === 1;
+        $areas = getAuthAreas();
+//        $area = $areas->find($areaId);
+//        return $area !== null;
+        return $areas->contains('id', $areaId);
     }
 }
