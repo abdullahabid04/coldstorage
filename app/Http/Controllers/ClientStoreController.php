@@ -16,9 +16,9 @@ class ClientStoreController extends Controller
         })->get();
 
         // Check if stores are found, otherwise show a message
-        if ($stores->isEmpty()) {
-            return redirect()->route('client.dashboard')->with('error', 'No stores found for your account.');
-        }
+//        if ($stores->isEmpty()) {
+//            return redirect()->route('client.dashboard')->with('error', 'No stores found for your account.');
+//        }
 
         // Return the stores to the view
         return view('client.stores.index', compact('stores'));
