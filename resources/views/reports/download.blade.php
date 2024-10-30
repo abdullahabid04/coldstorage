@@ -1,141 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor Data Report</title>
+    <title>Sentron Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
+            font-family: sans-serif;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .page {
+            page-break-after: always;
         }
 
-        .header img {
-            width: 100px;
+        .page:last-child {
+            page-break-after: auto;
         }
 
-        .user-info, .report-details {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 5px;
+        .header::after {
+            content: "Sentron Report";
         }
 
-        h3 {
-            margin-top: 0;
-            color: #333;
+        .footer .tagline::after {
+            content: "Sentron";
         }
 
-        .report-data {
-            margin-top: 20px;
+        .footer .page-num::after {
+            content: counter(page);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 5px;
-            overflow: hidden;
+        hr {
+            border: none;
+            margin: 16px 0;
+            border-top: 1px solid #aaa
         }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        #details .item span {
+            color: #01b9bc;
         }
 
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.9em;
-            color: #777;
-        }
-
-        @media (max-width: 600px) {
-            table {
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-        }
+        .logo {}
     </style>
 </head>
+
+<?php
+$client = $type !== 'area' ? $entity->title : $entity->title . " of " . $entity->store->title;
+
+$sentronSrc = getBase64Image('assets/img/icons/logo.png');
+$caSrc = getBase64Image('assets/img/ca_logos/ca_logo_name_tagline_down_bg_removed_upscaled.png');
+?>
+
 <body>
+    <div class="page" id="page-1">
+        <div class="header"></div>
+        <div class="content">
+            <div id="brand-logos">
+                <div class="logo">
+                    <img src="<?= $caSrc ?>" alt="Cosmos Algos logo">
+                </div>
+                <div class="logo">
+                    <img src="<?= $caSrc ?>" alt="Cosmos Algos logo">
+                </div>
+            </div>
+            <hr>
+            <div id="details">
+                <div class="item">
+                    <span>Report Title:</span> Sentron Report
+                </div>
+                <div class="item">
+                    <span>Client: </span> <?= $client ?>
+                </div>
+                <div class="item">
+                    <span>Prepared By:</span> Sentron by Cosmos Algos Pvt. Ltd.
+                </div>
+                <div class="item">
+                    <span>Publication Date:</span> <?= $pubDate ?>
+                </div>
+                <div class="item">
+                    <span>Time Span: </span> <?= "$startDate to $endDate" ?>
+                </div>
+            </div>
+            <hr>
+            <div id="product-logo">
+                <img src="<?= $sentronSrc ?>" alt="Sentron logo">
+            </div>
+        </div>
+        <div class="footer">
+            <div class="tagline"></div>
+        </div>
+    </div>
 
-<div class="header">
-    <?php
-        $imagePath = public_path('assets/img/icons/logo.png');
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $src = 'data:image/png;base64,' . $imageData;
-    ?>
-    <img src="{{ $src }}" alt="{{ config('app.name', 'Sentron') }}" width="25"/>
-
-    <h3>Sensor Data Report</h3>
-    <p>{{ date('F d, Y') }}</p>
-</div>
-
-<div class="user-info">
-    <h3>User Information</h3>
-    <p><strong>Name:</strong> {{ $user->name }}</p>
-    <p><strong>Email:</strong> {{ $user->email }}</p>
-    <p><strong>Area:</strong> {{ $area->title }}</p>
-</div>
-
-<div class="report-details">
-    <h3>Report Details</h3>
-    <p><strong>Report Period:</strong> {{ $reportPeriod }}</p>
-</div>
-
-<div class="report-data">
-    @if (isset($reportData))
-        <table>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Timestamp</th>
-                <th>Average Temperature (°C)</th>
-                <th>Average Humidity (%)</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($reportData as $index => $data)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $data->timestamp }}</td>
-                    <td>{{ $data->average_temperature }}</td>
-                    <td>{{ $data->average_humidity }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    @else
-        <p>No Data to Show...</p>
-    @endif
-</div>
-
-<div class="footer">
-    <p>Contact: support@example.com</p>
-    <p>Confidentiality Statement</p>
-</div>
+    <div class="page">
+        <div class="header"></div>
+        <div class="content"></div>
+        <div class="footer">
+            <div class="tagline"></div>
+            <div class="page-num"></div>
+        </div>
+    </div>
 
 </body>
+
 </html>
