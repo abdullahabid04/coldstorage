@@ -9,24 +9,34 @@
         </ol>
     </nav>
 
-    <form method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
         @csrf
-        <div class="mb-5">
-            <h2>Add Company</h2>
-            <h5>Fill in the details below:</h5>
+        <div class="row g-3 flex-between-end mb-5">
+            <div class="col-auto">
+                <h2 class="mb-2">Add a company</h2>
+                <h5 class="text-body-tertiary fw-semibold">
+                    Add a company for your clients.
+                </h5>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="reset">Discard</button>
+                <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add Company</button>
+            </div>
         </div>
 
-        <div class="mb-5">
-            <label for="name" class="form-label">Company Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Company Name" required>
-        </div>
+        <div class="row g-5">
+            <div class="col-12 col-xl-8">
+                <div class="mb-5">
+                    <h5>Store Title</h5>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Company Name" required>
+                </div>
 
-        <div class="mb-5">
-            <label for="logo" class="form-label">Logo</label>
-            <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+                <div class="mb-5">
+                    <h5>Store Address</h5>
+                    <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+                </div>
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary">Create Company</button>
-        <a href="{{ route('companies.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 @endsection

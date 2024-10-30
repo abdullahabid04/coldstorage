@@ -5,22 +5,35 @@
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ url('/companies') }}">Companies</a></li>
-            <li class="breadcrumb-item active">Company Details</li>
+            <li class="breadcrumb-item active">{{ $company->name }}</li>
         </ol>
     </nav>
 
-    <h2>{{ $company->name }}</h2>
-    @if ($company->logo)
-        <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" width="150">
-    @endif
+    <div class="row g-3 flex-between-end mb-5">
+        <div class="col-auto">
+            <h2 class="mb-2">{{ $company->name }}</h2>
+            <h5 class="text-body-tertiary fw-semibold">
+                Company details.
+            </h5>
+        </div>
 
-    <div class="mt-3">
-        <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning">Edit</a>
-        <form action="{{ route('companies.destroy', $company) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-        <a href="{{ route('companies.index') }}" class="btn btn-secondary">Back</a>
+        <div class="col-auto">
+            <a href="{{ url('/companies') }}" class="btn btn-primary mb-2 mb-sm-0">Back</a>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-12 col-xl-8">
+            <div class="mb-5">
+                <h5>Company Logo</h5>
+                @php
+                    $src = $company->logo ? Storage::url($company->logo) : asset('images/default-logo.png');
+                @endphp
+                <div class="avatar avatar-m">
+                    <img class="rounded-circle" src="{{ $src }}" alt="Company Logo"
+                         style="width: 100px; height: 100px;">
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

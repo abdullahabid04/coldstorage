@@ -18,6 +18,7 @@
                     Add a store for your clients.
                 </h5>
             </div>
+
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="reset">Discard</button>
                 <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add store</button>
