@@ -20,10 +20,8 @@ class ReportController extends Controller
         $this->sensorDataService = $sensorDataService;
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $stores = getAuthStores();
-        $areas = getAuthAreas();
 
         $type = $request->get('type', 'store');
         $entity = $request->get('entity', null);
