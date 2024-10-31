@@ -96,8 +96,8 @@
                     <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password"
                            value="{{ old('password_confirmation') }}" required>
                 </div>
-
             </div>
+
             <div class="col-12 col-xl-4">
                 <div class="row g-2">
                     <div class="col-12 col-xl-12">
