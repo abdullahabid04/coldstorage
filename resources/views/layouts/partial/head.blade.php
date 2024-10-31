@@ -31,7 +31,8 @@
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
     <link href="{{ asset('assets/vendors/simplebar/simplebar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/line.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/theme-rtl.min.css') }}" type="text/css" rel="stylesheet" id="style-rtl">
@@ -58,12 +59,14 @@
     <link href="{{ asset('assets/vendors/leaflet.markercluster/MarkerCluster.Default.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/choices/choices.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
     <!-- Stacking CSS -->
     @stack("css")
 </head>
 
 <body>
-<!-- ===============================================-->
-<!--    Main Content-->
-<!-- ===============================================-->
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->

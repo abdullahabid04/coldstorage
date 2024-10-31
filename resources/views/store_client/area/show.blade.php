@@ -1,5 +1,21 @@
 @extends('layouts.client')
 
+@push('css')
+    <style>
+        .chart {
+            height: 180px;
+            width: 100%;
+            overflow: visible;
+        }
+
+        @media (min-width: 768px) {
+            .chart {
+                height: 300px;
+            }
+        }
+    </style>
+@endpush
+
 @section('content')
 <div class="pb-5">
     <div class="row g-4">
@@ -103,6 +119,9 @@
                             data-timeframe="1h">1 Hour
                         </button>
                         <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
+                            data-timeframe="12h">12 Hours
+                        </button>
+                        <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4 active"
                             data-timeframe="1d">1 Day
                         </button>
                         <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
@@ -110,9 +129,6 @@
                         </button>
                         <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
                             data-timeframe="1m">1 Month
-                        </button>
-                        <button type="button" class="btn btn-outline-primary col px-1 py-2 text-nowrap px-md-4"
-                            data-timeframe="all">All Time
                         </button>
                     </div>
                 </div>
@@ -133,46 +149,12 @@
 
 @endsection
 
-@push('css')
-    <style>
-        .chart {
-            height: 180px;
-            width: 100%;
-            overflow: visible;
-        }
-
-        @media (min-width: 768px) {
-            .chart {
-                height: 300px;
-            }
-        }
-    </style>
-@endpush
-
 @push('scripts')
-    <script>
-        const formatTimestamp = (timestamp, timeframe) => {
-            const date = new Date(timestamp);
-            const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
-
-            switch (timeframe) {
-                case '1h':
-                    return date.toLocaleTimeString('en-GB', optionsTime);
-
-                default:
-                    return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' +
-                        date.toLocaleTimeString('en-GB', optionsTime);
-            }
-        };
-
-    </script>
     <script>
         var area = @json($area);
         var device = area.device[0];
         var chartData = @json($chartData);
-        var timestamps = chartData.map(item => {
-            return formatTimestamp(item.timestamp, '1d')
-        });
+        var timestamps = chartData.map(item => formatTimestamp(item.timestamp, '1d'));
         var currentTimeframe = '1d';
 
         var temperature = chartData.map(item => item.temperature);
@@ -189,13 +171,22 @@
         document.querySelectorAll('button[data-timeframe]').forEach(button => {
             button.addEventListener('click', async function () {
                 var timeframe = this.getAttribute('data-timeframe');
+
                 if (currentTimeframe !== timeframe) {
                     currentTimeframe = timeframe;
+
+                    document.querySelectorAll('button[data-timeframe]').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    this.classList.add('active');
+
                     await createLineChartsWithSensorData(area.id, device.id, timeframe, tChart, hChart);
                 }
             });
         });
 
-        setInterval(async () => await createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 10000);
+        setInterval(async () => await createLineChartsWithSensorData(area.id, device.id, currentTimeframe, tChart, hChart), 30000);
     </script>
+
 @endpush

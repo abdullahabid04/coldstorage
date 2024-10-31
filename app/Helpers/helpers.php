@@ -10,6 +10,7 @@ if (!function_exists('mapTimeframe')) {
         if ($startDate && $startDate !== 'all') {
             $startDate = match ($startDate) {
                 '1h' => Carbon::now()->subHours(1),
+                '12h' => Carbon::now()->subHours(12),
                 '1d' => Carbon::now()->subDay(),
                 '1w' => Carbon::now()->subWeek(),
                 '1m' => Carbon::now()->subMonth(),
@@ -42,11 +43,13 @@ if (!function_exists('getAuthStores')) {
     function getAuthStores(): Collection
     {
         if (Auth::user()->role->id === 4) {
-            $stores = auth()->user()->stores()->with(['areas' => function ($query) {
-                $query->whereHas('users', function ($query) {
-                    $query->where('user_id', auth()->id());
-                });
-            }])->get();
+            $stores = auth()->user()->stores()->with([
+                'areas' => function ($query) {
+                    $query->whereHas('users', function ($query) {
+                        $query->where('user_id', auth()->id());
+                    });
+                }
+            ])->get();
         } else {
             $stores = auth()->user()->stores()->with('areas')->get();
         }
@@ -58,10 +61,7 @@ if (!function_exists('getAuthStores')) {
 if (!function_exists('getAuthAreas')) {
     function getAuthAreas(): Collection
     {
-        $stores = getAuthStores();
-        return $stores->flatMap(function ($store) {
-            return $store->areas;
-        });
+        return auth()->user()->areas()->with('store')->get();
     }
 }
 
@@ -82,4 +82,14 @@ if (!function_exists('isAuthArea')) {
 //        return $area !== null;
         return $areas->contains('id', $areaId);
     }
+}
+
+function getBase64Image($imagePath)
+{
+    if (file_exists($imagePath)) {
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $imageMimeType = mime_content_type($imagePath);
+        return "data:$imageMimeType;base64,$imageData";
+    }
+    return null;
 }
