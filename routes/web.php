@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ClientAreaController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientStoreController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DeviceGroupController;
@@ -64,4 +65,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('rollouts', RolloutController::class)->except(['show']);
     Route::resource('update_progress', UpdateProgressController::class)->only(['index']);
     Route::resource('update_logs', UpdateLogController::class)->only(['index']);
+
+    Route::get('/client', [ClientController::class, 'index'])->name('client.index');
 });

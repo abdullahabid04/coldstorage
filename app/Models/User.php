@@ -66,4 +66,24 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Area::class, 'area_user')->withTimestamps();
     }
+
+    public function isSuperAdmin()
+    {
+        return $this->role_id === 1;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role_id === 2;
+    }
+
+    public function isClient()
+    {
+        return $this->role_id === 3;
+    }
+
+    public function isStoreClient()
+    {
+        return $this->role_id === 4;
+    }
 }
