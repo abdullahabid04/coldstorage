@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Device;
 use App\Models\Store;
 use App\Models\User;
@@ -27,7 +28,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('admin.stores.create');
+        $companies = Company::all();
+        return view('admin.stores.create', compact('companies'));
     }
 
     /**
@@ -40,6 +42,7 @@ class StoreController extends Controller
             'address' => 'required|string',
             'owner_name' => 'required|string',
             'email' => 'required|email',
+            'company_id' => 'required|exists:companies,id',
         ]);
 
         $store = new Store();
@@ -48,6 +51,7 @@ class StoreController extends Controller
         $store->owner_name = $request->input('owner_name');
         $store->owner_cnic = $request->input('owner_cnic');
         $store->email = $request->input('email');
+        $store->company_id = $request->input('company_id');
         $store->contact_no = $request->input('contact_no');
         $store->fax = $request->input('fax');
         $store->save();
@@ -60,7 +64,8 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        return view('admin.stores.edit', compact('store'));
+        $companies = Company::all();
+        return view('admin.stores.edit', compact('store', 'companies'));
     }
 
     /**
@@ -73,6 +78,7 @@ class StoreController extends Controller
             'address' => 'required|string',
             'owner_name' => 'required|string',
             'email' => 'required|email',
+            'company_id' => 'required|exists:companies,id',
         ]);
 
         $store->title = $request->input('title');
@@ -80,6 +86,7 @@ class StoreController extends Controller
         $store->owner_name = $request->input('owner_name');
         $store->owner_cnic = $request->input('owner_cnic');
         $store->email = $request->input('email');
+        $store->company_id = $request->input('company_id');
         $store->contact_no = $request->input('contact_no');
         $store->fax = $request->input('fax');
         $store->save();

@@ -18,6 +18,7 @@
                     Add a store for your clients.
                 </h5>
             </div>
+
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="reset">Discard</button>
                 <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Add store</button>
@@ -66,6 +67,38 @@
                     <h5>Fax</h5>
                     <input class="form-control" type="text" id="fax" name="fax" placeholder="Fax"
                            value="{{ old('fax') }}">
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+                <div class="row g-2">
+                    <div class="col-12 col-xl-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Organize</h4>
+                                <div class="row gx-3">
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <div class="d-flex flex-wrap mb-2">
+                                                <h5 class="mb-0 text-body-highlight me-2">Company</h5>
+                                            </div>
+                                            <select class="form-select" aria-label="company" name="company_id" required>
+                                                <option value="">Select Company</option>
+                                                @foreach($companies as $row)
+                                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @if($errors->has('company_id'))
+                                                <div class="text-danger small">
+                                                    {{ $errors->first('company_id') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

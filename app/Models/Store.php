@@ -13,7 +13,7 @@ class Store extends Model
     use SoftDeletes;
     use Loggable;
 
-    protected $fillable = ['title', 'address', 'owner_name', 'email'];
+    protected $fillable = ['title', 'address', 'owner_name', 'email', 'company_id'];
 
     public function users()
     {
@@ -25,5 +25,10 @@ class Store extends Model
     public function areas()
     {
         return $this->hasMany(Area::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

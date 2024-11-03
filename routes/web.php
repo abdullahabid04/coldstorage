@@ -4,6 +4,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ClientAreaController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientStoreController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DeviceGroupController;
 use App\Http\Controllers\FaqController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
 
     Route::resource('/devices', DeviceController::class);
+    Route::resource('/companies', CompanyController::class);
     Route::resource('/stores', StoreController::class);
     Route::resource('/areas', AreaController::class);
 
