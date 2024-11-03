@@ -157,8 +157,8 @@
         var timestamps = chartData.map(item => formatTimestamp(item.timestamp, '1d'));
         var currentTimeframe = '1d';
 
-        var temperature = chartData.map(item => item.temperature);
-        var humidity = chartData.map(item => item.humidity);
+        var temperature = chartData.map(item => item.temperature_rolling_avg);
+        var humidity = chartData.map(item => item.humidity_rolling_avg);
 
         const MIN = -10, MAX = 60;
 
