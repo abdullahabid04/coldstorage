@@ -145,7 +145,8 @@ class SensorDataController extends Controller
         }
 
         // Filter the data based on the time range
-        $query->where('timestamp', '>=', $startTime);
+        $query->where('timestamp', '>=', $startTime)->where('timestamp', '<=', Carbon::now());
+
 
         // Apply windowing by grouping and averaging over time buckets
         $data = $query->selectRaw("
