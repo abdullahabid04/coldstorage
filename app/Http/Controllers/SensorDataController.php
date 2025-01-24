@@ -222,6 +222,69 @@ class SensorDataController extends Controller
         ], 201);
     }
 
+    public function storeSensorDataWithTimeStamps(Request $request)
+    {
+        // Define validation rules
+        $validator = Validator::make($request->all(), [
+            'serial_number' => 'required|string',
+            'data' => 'required|array',
+            'data.*.temperature' => 'required|numeric',
+            'data.*.humidity' => 'required|numeric',
+            'data.*.timestamp' => 'required|date',
+        ]);
+
+        // Return validation errors if any
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        // Get the validated data
+        $validatedData = $validator->validated();
+        $serialNumber = $validatedData['serial_number'];
+        $sensorData = $validatedData['data'];
+
+        // Find the device using serial_number
+        $device = Device::where('serial_number', $serialNumber)->first();
+
+        // If the device is not found, return an error
+        if (!$device) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Device not found with the provided serial number.'
+            ], 404);
+        }
+
+        // Find the related area through the device (assuming device is linked to one area)
+        $area = $device->area()->first();
+
+        // If no area is associated with the device, return an error
+        if (!$area) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No area found associated with the device.'
+            ], 404);
+        }
+
+        // Loop through the sensor data and store it
+        foreach ($sensorData as $dataEntry) {
+            SensorData::create([
+                'device_id' => $device->id,
+                'area_id' => $area->id,
+                'timestamp' => $dataEntry['timestamp'],
+                'temperature' => $dataEntry['temperature'],
+                'humidity' => $dataEntry['humidity'],
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sensor data has been stored successfully.',
+        ], 201);
+    }
+
     public function fetchData(int $areaId, int $deviceId, bool $jsonResponse = true, bool $latest = true, string $startDate = 'all', string $orderByCol = 'timestamp', string $orderByDirection = 'desc')
     {
         return app(SensorDataService::class)->fetchData($areaId, $deviceId, $jsonResponse, $latest, $startDate, $orderByCol, $orderByDirection);
